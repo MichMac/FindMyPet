@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">FindMyPet</string>
+    <string name="title_activity_auth">AuthActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="enter_your_password_placeholder">Enter your password</string>
+    <string name="enter_your_email_placeholder">Enter your email</string>
+    <string name="signin_button">SignIn</string>
+    <string name="signup_button">SignUp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="enter_your_name">Enter your full name</string>
+    <string name="register">Register</string>
+</resources>
