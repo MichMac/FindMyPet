@@ -1,5 +1,6 @@
 package com.example.findmypet.views;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 import com.example.findmypet.R;
 import com.example.findmypet.models.User;
 import com.example.findmypet.viewmodels.AuthActivityViewModel;
+import com.google.firebase.auth.FirebaseUser;
 
 public class AuthFragment extends Fragment {
 
@@ -34,15 +36,15 @@ public class AuthFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mAuthActivityViewModel = new ViewModelProvider(this).get(AuthActivityViewModel.class);
-        mAuthActivityViewModel.getUserMutableLiveData().observe(this, new Observer<User>() {
+        mAuthActivityViewModel.getUserMutableLiveData().observe(this, new Observer<FirebaseUser>() {
             @Override
-            public void onChanged(User user) {
-                Log.d(TAG,"User onChange : " + user.getEmail() + user.isNew() );
+            public void onChanged(FirebaseUser user) {
                 if(user != null){
+                    Log.d(TAG,"Navigating to user log window..." );
+                    Log.d(TAG,"User onChange : " + user.getEmail() + " " + user.getDisplayName() + user.getUid());
                     Navigation.findNavController(getView()).navigate(R.id.action_authFragment_to_mainActivity);
-                    //zrobic przekierowanie do main activity, ponieważ uzytkownik jest juz zalogowany
                 }
-                else if (user==null){
+                else {
                     Toast.makeText(getContext(),"User is null",Toast.LENGTH_LONG).show();
                 }
             }
@@ -54,7 +56,6 @@ public class AuthFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_auth, container, false);
-
         //mAuthActivityViewModel = new ViewModelProvider(this).get(AuthActivityViewModel.class);
 
         mSignInButton = view.findViewById(R.id.signIn);
@@ -63,12 +64,6 @@ public class AuthFragment extends Fragment {
         mPasswordTextView = view.findViewById(R.id.fragment_newuser_password);
 
         mSignUpButton.setOnClickListener(view1 -> {
-//            String email = mEmailTextView.getText().toString();
-////            String password = mPasswordTextView.getText().toString();
-////
-////            if(email.length() >= 0 && password.length() >= 0){
-////                    mAuthActivityViewModel.register(email,password);
-////            }
             Navigation.findNavController(getView()).navigate(R.id.action_authFragment_to_newUserFragment);
         });
 

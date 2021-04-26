@@ -5,12 +5,19 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.findmypet.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
@@ -29,21 +36,26 @@ public class AuthRepository {
     private CollectionReference mUserRef;
     private MutableLiveData<FirebaseUser> mFirebaseUserMutableLiveData;
     private User mUser;
+    private FirebaseUser mFirebaseUser;
     private MutableLiveData<User> mUserMutableLiveData;
     private MutableLiveData<Boolean> mLoggedOutLiveData;
 
     public AuthRepository(Application application) {
         this.application = application;
-        this.mFirebaseAuth = FirebaseAuth.getInstance();
-        this.mFirebaseUserMutableLiveData = new MutableLiveData<>();
-        this.mFirestore = FirebaseFirestore.getInstance();
-        this.mUserRef = mFirestore.collection("users");
-        this.mLoggedOutLiveData = new MutableLiveData<>();
-        this.mUser = new User();
-        this.mUserMutableLiveData = new MutableLiveData<>();
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
+        mFirebaseUserMutableLiveData = new MutableLiveData<>();
+        mFirestore = FirebaseFirestore.getInstance();
+        mUserRef = mFirestore.collection("users");
+        mLoggedOutLiveData = new MutableLiveData<>();
+        mUser = new User();
+        //mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        //mUserMutableLiveData = new MutableLiveData<>();
 
         if (mFirebaseAuth.getCurrentUser() != null) {
+            //getUserFirestore(mFirebaseAuth.getCurrentUser());
             mFirebaseUserMutableLiveData.postValue(mFirebaseAuth.getCurrentUser());
+            //mFirebaseUserMutableLiveData.postValue(mFirebaseAuth.getCurrentUser());
             mLoggedOutLiveData.postValue(false);
         }
     }
@@ -52,9 +64,11 @@ public class AuthRepository {
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(ContextCompat.getMainExecutor(application), task -> {
                     if (task.isSuccessful()) {
-                        //mFirebaseUserMutableLiveData.postValue(mFirebaseAuth.getCurrentUser());
-                        mUser = getUser(mFirebaseAuth.getCurrentUser());
-                        mUserMutableLiveData.postValue(mUser);
+//                        mFirebaseUserMutableLiveData.postValue(mFirebaseAuth.getCurrentUser());
+                        //mUser = getUserFirestore(mFirebaseAuth.getCurrentUser());
+                        //Log.d(TAG,"getting user from repo " + mFirebaseUser.getEmail());
+                        //mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                        mFirebaseUserMutableLiveData.postValue(mFirebaseAuth.getCurrentUser());
                     } else {
                         Toast.makeText(application.getApplicationContext(), "Login Failure: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
@@ -65,37 +79,52 @@ public class AuthRepository {
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(ContextCompat.getMainExecutor(application), task -> {
                     if (task.isSuccessful()) {
-                        //mFirebaseUserMutableLiveData.postValue(mFirebaseAuth.getCurrentUser());
-                        mUser = getUser(mFirebaseAuth.getCurrentUser());
-                        //mUser.setNew(true);
-                        mUserMutableLiveData.postValue(mUser);
-                        mUserRef.document(mUser.getuID()).set(mUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        //mUser = getUserFirestore(mFirebaseAuth.getCurrentUser());
+                        UserProfileChangeRequest  mUserProfileChangeRequest = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(name).build();
+                        //mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                        mFirebaseAuth.getCurrentUser().updateProfile(mUserProfileChangeRequest).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d("FirestoreAddingUser","DocumentSnapshot with user has been added");
-                                modifyUser(name,phoneNumber);
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w("FirestoreAddingUser","error adding document",e);
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful()){
+                                    mFirebaseUserMutableLiveData.postValue(mFirebaseAuth.getCurrentUser());;
+                                }
                             }
                         });
+                        mUser.setuID(mFirebaseAuth.getCurrentUser().getUid());
+                        mUser.setEmail(email);
+                        mUser.setName(name);
+                        mUser.setPhone_number(phoneNumber);
+                        addUserToFirestore(mUser);
+                        Toast.makeText(application.getApplicationContext(), "User has been created!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        FirebaseAuthException e = (FirebaseAuthException) task.getException();
+                        Toast.makeText(application,"Registration failed" + e.getMessage(), Toast.LENGTH_LONG).show();
                     }
-
                 });
+    }
+
+    private void addUserToFirestore(User mUser){
+        mUserRef.document(mUser.getuID()).set(mUser).addOnSuccessListener(aVoid -> {
+                Log.d("FirestoreAddingUser","DocumentSnapshot with user has been added");
+                modifyUser(mUser.getName(),mUser.getPhone_number());
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.w("FirestoreAddingUser","error adding document",e);
+                }
+            });
     }
 
     private void modifyUser(String name, String number){
         mUser.setName(name);
         mUser.setPhone_number(number);
-        mUserMutableLiveData.postValue(mUser);
         mUserRef.document(mUser.getuID())
                 .update("name",name,
                         "phone_number",number).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d(TAG,"DocumentSnapshot succesfully updated!");
+                Log.d(TAG,"DocumentSnapshot with user name and phone number successfully updated!");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -107,33 +136,47 @@ public class AuthRepository {
 
     public void logOut() {
         mFirebaseAuth.signOut();
-        //mLoggedOutLiveData.postValue(true);
+        mLoggedOutLiveData.postValue(true);
     }
 
-    private User getUser(FirebaseUser firebaseUser){
+/*    private User getUser(FirebaseUser firebaseUser){
         String uid = firebaseUser.getUid();
         String name = firebaseUser.getDisplayName();
         String email = firebaseUser.getEmail();
         return new User(uid,name,email);
-    }
+    }*/
 
-//    public MutableLiveData<FirebaseUser> getFirebaseUserLiveData() {
-//        return mFirebaseUserMutableLiveData;
+//    private User getUserFirestore(FirebaseUser firebaseUser){
+//        mUserRef.document(firebaseUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    if(document.exists()){
+//                        Log.d(TAG,"DocumentSnapshot Data: " + document.getData());
+//                        mUser.setuID(document.getString("uID"));
+//                        mUser.setName(document.getString("name"));
+//                        mUser.setEmail(document.getString("email"));
+//                        mUser.setPhone_number(document.getString("phone_number"));
+//                    } else {
+//                        Log.d(TAG, "No such document");
+//                    }
+//                }
+//                else{
+//                    Log.d(TAG, "get failed with", task.getException());
+//                }
+//            }
+//        });
+//        return mUser;
 //    }
 
-    public MutableLiveData<User> getUserMutableLiveData() {return mUserMutableLiveData;}
+//    public MutableLiveData<User> getUserMutableLiveData() { return mUserMutableLiveData; }
+
+    public MutableLiveData<FirebaseUser> getUserMutableLiveData() {
+        return mFirebaseUserMutableLiveData;
+    }
 
     public MutableLiveData<Boolean> getLoggedOutLiveData() {
         return mLoggedOutLiveData;
     }
 }
-
-//    @Override
-//    public void onSuccess(DocumentReference documentReference) {
-//        Log.d("FirestoreAddingUser","DocumentSnapshot with user has been added");
-//        modifyUser(name,phoneNumber);
-//    }
-//}).addOnFailureListener(new OnFailureListener() {
-//@Override
-//public void onFailure(@NonNull Exception e) {
-//        Log.w("FirestoreAddingUser","error adding document",e);

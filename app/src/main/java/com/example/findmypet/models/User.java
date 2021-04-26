@@ -5,23 +5,18 @@ public class User {
     private String uID;
     private String name;
     private String email;
-    private String password;
     private String phone_number;
 
-    private boolean isAuthenticated;
-    private boolean isNew, isCreated;
+//    private boolean isAuthenticated;
+//    private boolean isNew, isCreated;
 
     public User() {}
 
-    public User(String uID,String name,String email) {
+    public User(String uID,String name,String email,String phone_number) {
         this.uID = uID;
         this.name = name;
         this.email = email;
     }
-
-    public String getPassword() {return password;}
-
-    public void setPassword(String password) {this.password = password;}
 
     public String getuID() {
         return uID;
@@ -55,19 +50,19 @@ public class User {
         this.phone_number = phone_number;
     }
 
-    public boolean isAuthenticated() {
-        return isAuthenticated;
-    }
-
-    public void setAuthenticated(boolean authenticated) {
-        isAuthenticated = authenticated;
-    }
-
-    public boolean isNew() {
-        return isNew;
-    }
-
-    public void setNew(boolean aNew) {
-        isNew = aNew;
-    }
+//    public boolean isAuthenticated() {
+//        return isAuthenticated;
+//    }
+//
+//    public void setAuthenticated(boolean authenticated) {
+//        isAuthenticated = authenticated;
+//    }
+//
+//    public boolean isNew() {
+//        return isNew;
+//    }
+//
+//    public void setNew(boolean aNew) {
+//        isNew = aNew;
+//    }
 }

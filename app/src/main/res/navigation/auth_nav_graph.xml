@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.findmypet.views.AuthFragment"
-        android:label="AuthFragment" >
+        android:label="AuthFragment">
         <action
             android:id="@+id/action_authFragment_to_newUserFragment"
             app:destination="@id/newUserFragment" />
@@ -15,17 +15,18 @@
             android:id="@+id/action_authFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
     </fragment>
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.findmypet.views.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
     <fragment
         android:id="@+id/newUserFragment"
-        android:name="com.example.findmypet.views.NewUserFragment"
-        android:label="NewUserFragment" >
+        android:name="com.example.findmypet.views.RegisterUserFragment"
+        android:label="NewUserFragment">
         <action
             android:id="@+id/action_newUserFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.findmypet.views.MainActivity"
+        android:label="app_bar_main"
+        tools:layout="@layout/app_bar_main">
+    </activity>
 </navigation>
