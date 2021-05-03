@@ -93,42 +93,54 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="addPetProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="531" />
+                            <option name="y" value="-61" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="auth_nav_graph">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="57" />
-                            <option name="y" value="36" />
+                            <option name="x" value="-65" />
+                            <option name="y" value="-130" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="nav_gallery">
+                  <entry key="nav_missing_found">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="316" />
-                            <option name="y" value="75" />
+                            <option name="x" value="-303" />
+                            <option name="y" value="17" />
                           </Point>
                         </option>
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="nav_home">
+                  <entry key="nav_pet_profile">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-147" />
-                            <option name="y" value="135" />
+                            <option name="x" value="249" />
+                            <option name="y" value="-64" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_nav_home_to_auth_nav_graph">
+                            <entry key="action_nav_pet_profile_to_addPetProfileFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -138,16 +150,9 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="nav_slideshow">
+                  <entry key="navigate_to_auth">
                     <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="264" />
-                            <option name="y" value="444" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
+                      <LayoutPositions />
                     </value>
                   </entry>
                 </map>

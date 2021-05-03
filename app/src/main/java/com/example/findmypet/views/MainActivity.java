@@ -23,6 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -40,35 +41,39 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mMainActivityViewModel;
     private static final String TAG = "MainActivity";
 
+    private DrawerLayout drawer;
+    private View headerView;
+    NavController navController;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MainActivityViewModel mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        mMainActivityViewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
+        drawer = findViewById(R.id.drawer_layout);
 
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         //initialization of header
-        View headerView = navigationView.getHeaderView(0);
+        headerView = navigationView.getHeaderView(0);
 
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
-                .setDrawerLayout(drawer)
+                R.id.nav_missing_found, R.id.nav_pet_profile)
+                .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_main);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });;
+        navController = Navigation.findNavController(this, R.id.nav_host_main);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });;
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
@@ -99,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 if(logout){
 //                    Intent intent = new Intent(MainActivity.this, AuthFragment.class);
 //                    startActivity(intent);
-                    navController.navigate(R.id.action_nav_home_to_auth_nav_graph);
+                    navController.navigate(R.id.navigate_to_auth);
                     finish();
                 }
             }
@@ -107,11 +112,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    public void onBackPressed() {
-//        super.onBackPressed();
-//        Navigation.findNavController(MainActivity.this,R.id.nav_host_main).navigate(R.id.action_nav_home_to_auth_nav_graph);
-//    }
+        @Override
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

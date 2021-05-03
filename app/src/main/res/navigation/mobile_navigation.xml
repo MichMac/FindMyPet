@@ -3,29 +3,36 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_missing_found">
+
+
+    <include app:graph="@navigation/auth_nav_graph" />
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.example.findmypet.views.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" >
-        <action
-            android:id="@+id/action_nav_home_to_auth_nav_graph"
-            app:destination="@id/auth_nav_graph" />
+        android:id="@+id/nav_missing_found"
+        android:name="com.example.findmypet.views.MissingFoundFragment"
+        android:label="@string/missing_found"
+        tools:layout="@layout/fragment_missing_found" >
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.findmypet.views.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_pet_profile"
+        android:name="com.example.findmypet.views.PetProfileFragment"
+        android:label="@string/pet_profile"
+        tools:layout="@layout/fragment_pet_profile" >
+        <action
+            android:id="@+id/action_nav_pet_profile_to_addPetProfileFragment"
+            app:destination="@id/addPetProfileFragment" />
+    </fragment>
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.findmypet.views.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <include app:graph="@navigation/auth_nav_graph" />
+        android:id="@+id/addPetProfileFragment"
+        android:name="com.example.findmypet.views.AddPetProfileFragment"
+        android:label="Add new pet profile"
+        tools:layout="@layout/fragment_add_pet_profile" />
+
+    <action
+        android:id="@+id/navigate_to_auth"
+        app:destination="@id/auth_nav_graph" />
 
 </navigation>

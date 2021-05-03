@@ -71,8 +71,14 @@ public class AuthFragment extends Fragment {
             String email = mEmailTextView.getText().toString();
             String password = mPasswordTextView.getText().toString();
 
-            if(email.length() >= 0 && password.length() >= 0){
+            if(email.length() > 0 && password.length() > 0){
                 mAuthActivityViewModel.login(email,password);
+            }
+            else if (email.length() <= 0){
+                Toast.makeText(getContext(),"Please enter your email adress",Toast.LENGTH_LONG).show();
+            }
+            else if (password.length() <= 0){
+                Toast.makeText(getContext(),"Please enter your password",Toast.LENGTH_LONG).show();
             }
         });
         return view;

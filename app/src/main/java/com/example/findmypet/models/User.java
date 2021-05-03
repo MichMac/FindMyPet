@@ -12,11 +12,11 @@ public class User {
 
     public User() {}
 
-    public User(String uID,String name,String email,String phone_number) {
-        this.uID = uID;
-        this.name = name;
-        this.email = email;
-    }
+//    public User(String uID,String name,String email) {
+//        this.uID = uID;
+//        this.name = name;
+//        this.email = email;
+//    }
 
     public String getuID() {
         return uID;

@@ -27,7 +27,7 @@ import androidx.lifecycle.MutableLiveData;
 public class AuthRepository {
 
     private static final String TAG = "AuthRepository";
-    private static AuthRepository instance;
+    //private static AuthRepository instance;
 
     private Application application;
 
