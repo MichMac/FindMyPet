@@ -28,7 +28,6 @@ public class PetProfileRepository {
 
     private FirebaseFirestore mFirestoreDB = FirebaseFirestore.getInstance();
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-    private CollectionReference mPetProfileRef;
 
     public static PetProfileRepository getInstance(){
         if(instance == null){
@@ -45,11 +44,7 @@ public class PetProfileRepository {
 
     private void loadPetProfiles(){
 
-        if(mFirebaseAuth == null){
-            mFirebaseAuth = FirebaseAuth.getInstance();
-        }
-
-        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser() + "PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
@@ -72,17 +67,13 @@ public class PetProfileRepository {
     }
 
     public void addPetProfile(PetProfile petProfile){
-
-        if(mFirebaseAuth == null){
-            mFirebaseAuth = FirebaseAuth.getInstance();
-        }
-
+        
         mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles")
                 .add(petProfile)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
-
+                        Log.d(TAG, "Pet profile has been added");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override

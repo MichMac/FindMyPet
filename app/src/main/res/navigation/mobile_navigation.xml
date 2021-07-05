@@ -23,13 +23,20 @@
         <action
             android:id="@+id/action_nav_pet_profile_to_addPetProfileFragment"
             app:destination="@id/addPetProfileFragment" />
+        <action
+            android:id="@+id/action_nav_pet_profile_to_nav_missing_found"
+            app:destination="@id/nav_missing_found" />
     </fragment>
 
     <fragment
         android:id="@+id/addPetProfileFragment"
         android:name="com.example.findmypet.views.AddPetProfileFragment"
         android:label="Add new pet profile"
-        tools:layout="@layout/fragment_add_pet_profile" />
+        tools:layout="@layout/fragment_add_pet_profile" >
+        <action
+            android:id="@+id/action_addPetProfileFragment_to_nav_pet_profile"
+            app:destination="@id/nav_pet_profile" />
+    </fragment>
 
     <action
         android:id="@+id/navigate_to_auth"

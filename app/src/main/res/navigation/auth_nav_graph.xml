@@ -27,6 +27,5 @@
         android:id="@+id/mainActivity"
         android:name="com.example.findmypet.views.MainActivity"
         android:label="app_bar_main"
-        tools:layout="@layout/app_bar_main">
-    </activity>
+        tools:layout="@layout/app_bar_main" />
 </navigation>

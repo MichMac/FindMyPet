@@ -98,9 +98,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="531" />
-                            <option name="y" value="-61" />
+                            <option name="x" value="777" />
+                            <option name="y" value="321" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addPetProfileFragment_to_nav_pet_profile">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -122,8 +131,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-303" />
-                            <option name="y" value="17" />
+                            <option name="x" value="518" />
+                            <option name="y" value="-196" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -134,13 +143,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="249" />
-                            <option name="y" value="-64" />
+                            <option name="x" value="105" />
+                            <option name="y" value="226" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_nav_pet_profile_to_addPetProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_nav_pet_profile_to_nav_missing_found">
                               <value>
                                 <LayoutPositions />
                               </value>

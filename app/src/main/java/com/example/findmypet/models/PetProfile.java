@@ -6,10 +6,10 @@ public class PetProfile {
     private String specie;
     private String gender;
     private String breed;
-    private String age;
+    private int age;
     private String description;
     private String image_url;
-    private String microchip_number;
+    private int microchip_number;
     private String nfc_id;
     private String user_id;
 
@@ -56,11 +56,11 @@ public class PetProfile {
         this.breed = breed;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -80,11 +80,11 @@ public class PetProfile {
         this.image_url = image_url;
     }
 
-    public String getMicrochip_number() {
+    public int getMicrochip_number() {
         return microchip_number;
     }
 
-    public void setMicrochip_number(String microchip_number) { this.microchip_number = microchip_number;
+    public void setMicrochip_number(int microchip_number) { this.microchip_number = microchip_number;
     }
 
     public String getNfc_id() {

@@ -14,21 +14,21 @@
         tools:context=".views.AddPetProfileFragment">
 
 
-    <ImageView
-        android:id="@+id/imageview_petprofile"
-        android:layout_width="match_parent"
-        android:layout_height="133dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="PetPic"
-        android:src="@drawable/ic_pet_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/imageview_petprofile"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="PetPic"
+            android:src="@drawable/ic_pet_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+        <Button
         android:id="@+id/add_pet_photo_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -168,21 +168,21 @@
         app:layout_constraintBottom_toTopOf="@+id/description_edittext_petprofile"
         app:layout_constraintStart_toStartOf="parent" />
 
-        <EditText
-            android:id="@+id/description_edittext_petprofile"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="16dp"
-            android:ems="10"
-            android:hint="Enter description"
-            android:inputType="textMultiLine"
-            android:scrollbars="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/microchipnumber_edittext_petprofile" />
+    <EditText
+        android:id="@+id/description_edittext_petprofile"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:ems="10"
+        android:hint="Enter description"
+        android:inputType="textMultiLine"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/microchipnumber_edittext_petprofile" />
 
     <Button
         android:id="@+id/nfc_button_petprofile"

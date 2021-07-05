@@ -1,6 +1,9 @@
 package com.example.findmypet.views;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +18,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,6 +30,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class PetProfileFragment extends Fragment {
 
+    private static final String TAG = "PetProfileFragment";
     private PetProfileViewModel mPetProfileViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -33,6 +38,7 @@ public class PetProfileFragment extends Fragment {
         mPetProfileViewModel = new ViewModelProvider(this).get(PetProfileViewModel.class);
         View root = inflater.inflate(R.layout.fragment_pet_profile, container, false);
 
+        mPetProfileViewModel.init();
         FloatingActionButton fabAddPetProfile = root.findViewById(R.id.fab_add_pet_profile);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerview_petprofile);
@@ -48,20 +54,25 @@ public class PetProfileFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(R.id.action_nav_pet_profile_to_addPetProfileFragment);
             }
         });
-        // dummy data
-/*        List<PetProfile> petProfileList = new ArrayList<>();
-        PetProfile petProfile = new PetProfile();
-        petProfile.setImage_url("https://cdn.wamiz.pl/media/cache/upload_main-image_414w/uploads/animal/breed/dog/baby/5caf14853910b375817947.jpg");
-        petProfile.setName("Azor");
-        petProfileList.add(petProfile);*/
 
+        mPetProfileViewModel.getPetProfiles().observe(getViewLifecycleOwner(), new Observer<List<PetProfile>>() {
+            @Override
+            public void onChanged(List<PetProfile> petProfiles) {
+                if(petProfiles != null){
+                    adapter.setPetProfiles(petProfiles);
+                }
+                else{
+                    Log.d(TAG,"Live data of petprofiles is null!");
+                }
+            }
+        });
+        getActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Navigation.findNavController(getView()).navigate(R.id.action_nav_pet_profile_to_nav_missing_found);
+            }
+        });
 
-//        mPetProfileViewModel.getPetProfiles().observe(getViewLifecycleOwner(), new Observer<List<PetProfile>>() {
-//            @Override
-//            public void onChanged(List<PetProfile> petProfiles) {
-//
-//            }
-//        });
         return root;
     }
 }
