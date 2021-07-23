@@ -26,7 +26,6 @@ public class PetProfileViewModel extends ViewModel {
         mPetProfiles = new MutableLiveData<>();
         List<PetProfile> petProfileList = new ArrayList<>();
         PetProfile petProfile = new PetProfile();
-        mPetProfiles = new MutableLiveData<>();
         petProfile.setImage_url("https://cdn.wamiz.pl/media/cache/upload_main-image_414w/uploads/animal/breed/dog/baby/5caf14853910b375817947.jpg");
         petProfile.setName("Azor");
         petProfileList.add(petProfile);

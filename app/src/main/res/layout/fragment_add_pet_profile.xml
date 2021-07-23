@@ -13,7 +13,6 @@
         android:layout_height="match_parent"
         tools:context=".views.AddPetProfileFragment">
 
-
         <ImageView
             android:id="@+id/imageview_petprofile"
             android:layout_width="match_parent"
@@ -92,7 +91,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Specie"
+        android:text="Species"
         app:layout_constraintBottom_toTopOf="@+id/specie_edittext_petprofile"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -106,7 +105,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLines="1"
-        android:hint="Enter specie"
+        android:hint="Enter species"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -134,9 +133,33 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/specie_edittext_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/breed_edittext_petprofile" />
 
     <TextView
+        android:id="@+id/breed_textview_petprofile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Breed"
+        app:layout_constraintBottom_toTopOf="@+id/breed_edittext_petprofile"
+        app:layout_constraintStart_toStartOf="parent" />
+
+        <EditText
+            android:id="@+id/breed_edittext_petprofile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginEnd="16dp"
+            android:ems="10"
+            android:hint="Enter breed"
+            android:maxLines="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/specie_edittext_petprofile" />
+
+        <TextView
         android:id="@+id/microchipnumber_textview_petprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

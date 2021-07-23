@@ -32,11 +32,11 @@ public class PetProfile {
         this.user_id = user_id;
     }
 
-    public String getSpecie() {
+    public String getSpecies() {
         return specie;
     }
 
-    public void setSpecie(String specie) {
+    public void setSpecies(String specie) {
         this.specie = specie;
     }
 

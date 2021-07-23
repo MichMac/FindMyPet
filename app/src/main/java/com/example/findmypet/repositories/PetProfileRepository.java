@@ -72,8 +72,8 @@ public class PetProfileRepository {
                 .add(petProfile)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d(TAG, "Pet profile has been added");
+                    public void onSuccess(DocumentReference documentReference){
+                        Log.d(TAG , "Pet profile has been added");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
