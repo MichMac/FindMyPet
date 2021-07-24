@@ -1,4 +1,4 @@
-package com.example.findmypet.views;
+    package com.example.findmypet.views;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -35,6 +35,7 @@ import static android.app.Activity.RESULT_OK;
 public class AddPetProfileFragment extends Fragment {
 
     private static final String TAG = "AddPetProfileFragment";
+    private static int picCounter;
 
     private PetProfileViewModel mPetProfileViewModel;
     private PetProfile mPetProfile;
@@ -92,11 +93,18 @@ public class AddPetProfileFragment extends Fragment {
             }
         });
 
+        btnNfc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPetProfileViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
+            }
+        });
+
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(dataValidation()){
-                    //Log.i(TAG,"Nazwa psa: " + etPetName.getText().toString());
+                    //mPetProfile.setImage_url(selectedImageUri.toString());
                     mPetProfile.setName(etPetName.getText().toString());
                     mPetProfile.setGender(spGender.getSelectedItem().toString());
                     mPetProfile.setSpecies(etSpecie.getText().toString());
@@ -108,7 +116,9 @@ public class AddPetProfileFragment extends Fragment {
                     mPetProfile.setDescription(etDescription.getText().toString());
 
                     mPetProfileViewModel.addPetProfile(mPetProfile);
+                    //mPetProfileViewModel.addPetProfilePicture(selectedImageUri);
                 }
+                Log.i(TAG,"URL: " + selectedImageUri);
             }
         });
 
