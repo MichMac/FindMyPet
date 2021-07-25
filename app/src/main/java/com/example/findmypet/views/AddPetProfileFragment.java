@@ -35,7 +35,7 @@ import static android.app.Activity.RESULT_OK;
 public class AddPetProfileFragment extends Fragment {
 
     private static final String TAG = "AddPetProfileFragment";
-    private static int picCounter;
+    //private static int picCounter;
 
     private PetProfileViewModel mPetProfileViewModel;
     private PetProfile mPetProfile;
@@ -96,7 +96,7 @@ public class AddPetProfileFragment extends Fragment {
         btnNfc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPetProfileViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
+
             }
         });
 
@@ -116,6 +116,7 @@ public class AddPetProfileFragment extends Fragment {
                     mPetProfile.setDescription(etDescription.getText().toString());
 
                     mPetProfileViewModel.addPetProfile(mPetProfile);
+                    mPetProfileViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
                     //mPetProfileViewModel.addPetProfilePicture(selectedImageUri);
                 }
                 Log.i(TAG,"URL: " + selectedImageUri);

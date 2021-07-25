@@ -23,7 +23,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -33,8 +35,7 @@ public class PetProfileRepository {
     private static final String TAG = "PetProfileRepository";
     private static PetProfileRepository instance;
 
-    private ArrayList<PetProfile> mPetProfiles = new ArrayList<>();
-    private MutableLiveData<List<PetProfile>> petProfiles;
+    private ArrayList<PetProfile> PetProfilesDataSet = new ArrayList<>();
 
     private FirebaseFirestore mFirestoreDB = FirebaseFirestore.getInstance();
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
@@ -52,13 +53,13 @@ public class PetProfileRepository {
 
     public MutableLiveData<List<PetProfile>> getPetProfiles(){
         loadPetProfiles();
-        petProfiles.setValue(mPetProfiles);
+        MutableLiveData<List<PetProfile>> petProfiles = new MutableLiveData<>();
+        petProfiles.setValue(PetProfilesDataSet);
         return petProfiles;
     };
 
     private void loadPetProfiles(){
-
-        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
@@ -68,7 +69,7 @@ public class PetProfileRepository {
 
                     for (DocumentSnapshot documentSnapshot: list){
 
-                        mPetProfiles.add(documentSnapshot.toObject(PetProfile.class));
+                        PetProfilesDataSet.add(documentSnapshot.toObject(PetProfile.class));
                     }
                 }
             }
@@ -78,6 +79,15 @@ public class PetProfileRepository {
                 Log.d(TAG, "Getting document snapshot error: ",e);
             }
         });
+//        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                if(task.isSuccessful()){
+//
+//                }
+//            }
+//        })
+
     }
 
     public void addPetProfilePicture(Uri PetProfilePicURL, String PetName){
@@ -85,7 +95,23 @@ public class PetProfileRepository {
         petPicRef.putFile(PetProfilePicURL).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Log.i(TAG,"Pet picture successfully added");
+                petPicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(PetName)
+                                .update("image_url", uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.i(TAG,"Pet picture url successfully added to firestore");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.i(TAG,"Pet picture url hasn't been added: " + e.getMessage());
+                            }
+                        });
+                    }
+                });
             }
         });
     }
@@ -101,18 +127,17 @@ public class PetProfileRepository {
 //    }
 
     public void addPetProfile(PetProfile petProfile){
-        
-        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles")
-                .add(petProfile)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(petProfile.getName())
+                .set(petProfile)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference){
+                    public void onSuccess(Void aVoid) {
                         Log.d(TAG , "Pet profile has been added");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG,"Document hasn't been added: ",e);
+                Log.d(TAG , "Pet profile hasn't been added: " + e.getMessage());
             }
         });
     }

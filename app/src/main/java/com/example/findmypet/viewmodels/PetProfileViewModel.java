@@ -25,19 +25,20 @@ public class PetProfileViewModel extends ViewModel {
             return;
         }
         mPetProfileRepository = PetProfileRepository.getInstance();
+        mPetProfiles = mPetProfileRepository.getPetProfiles();
         //mPetProfiles = mPetProfileRepository.getPetProfiles();
 
         //Dummy data
-        mPetProfiles = new MutableLiveData<>();
-        List<PetProfile> petProfileList = new ArrayList<>();
-        PetProfile petProfile = new PetProfile();
-        petProfile.setImage_url("https://cdn.wamiz.pl/media/cache/upload_main-image_414w/uploads/animal/breed/dog/baby/5caf14853910b375817947.jpg");
-        petProfile.setName("Azor");
-        petProfileList.add(petProfile);
-        petProfileList.add(petProfile);
-        petProfileList.add(petProfile);
+//        mPetProfiles = new MutableLiveData<>();
+//        List<PetProfile> petProfileList = new ArrayList<>();
+//        PetProfile petProfile = new PetProfile();
+//        petProfile.setImage_url("https://cdn.wamiz.pl/media/cache/upload_main-image_414w/uploads/animal/breed/dog/baby/5caf14853910b375817947.jpg");
+//        petProfile.setName("Azor");
+//        petProfileList.add(petProfile);
+//        petProfileList.add(petProfile);
+//        petProfileList.add(petProfile);
 
-        mPetProfiles.postValue(petProfileList);
+        //mPetProfiles.postValue(petProfileList);
     }
 
     public LiveData<List<PetProfile>> getPetProfiles(){
