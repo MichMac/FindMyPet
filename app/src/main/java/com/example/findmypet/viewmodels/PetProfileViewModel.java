@@ -26,7 +26,6 @@ public class PetProfileViewModel extends ViewModel {
         }
         mPetProfileRepository = PetProfileRepository.getInstance();
         mPetProfiles = mPetProfileRepository.getPetProfiles();
-        //mPetProfiles = mPetProfileRepository.getPetProfiles();
 
         //Dummy data
 //        mPetProfiles = new MutableLiveData<>();

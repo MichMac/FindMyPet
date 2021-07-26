@@ -41,6 +41,16 @@ public class PetProfileListAdapter extends RecyclerView.Adapter<PetProfileListAd
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
     public int getItemCount() {
         return mPetProfiles.size();
     }

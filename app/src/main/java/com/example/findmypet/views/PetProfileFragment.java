@@ -58,7 +58,7 @@ public class PetProfileFragment extends Fragment {
         mPetProfileViewModel.getPetProfiles().observe(getViewLifecycleOwner(), new Observer<List<PetProfile>>() {
             @Override
             public void onChanged(List<PetProfile> petProfiles) {
-                if(petProfiles != null){
+                if(petProfiles.size() != 0){
                     adapter.setPetProfiles(petProfiles);
                 }
                 else{

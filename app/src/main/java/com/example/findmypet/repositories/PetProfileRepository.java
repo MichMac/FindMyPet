@@ -35,13 +35,13 @@ public class PetProfileRepository {
     private static final String TAG = "PetProfileRepository";
     private static PetProfileRepository instance;
 
-    private ArrayList<PetProfile> PetProfilesDataSet = new ArrayList<>();
-
     private FirebaseFirestore mFirestoreDB = FirebaseFirestore.getInstance();
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
     private FirebaseStorage mFirebaseStorage = FirebaseStorage.getInstance();
     private StorageReference storageRef = mFirebaseStorage.getReference();
     private StorageReference petPicRef;
+
+    MutableLiveData<List<PetProfile>> petProfiles = new MutableLiveData<>();
 
     public static PetProfileRepository getInstance(){
 
@@ -53,10 +53,16 @@ public class PetProfileRepository {
 
     public MutableLiveData<List<PetProfile>> getPetProfiles(){
         loadPetProfiles();
-        MutableLiveData<List<PetProfile>> petProfiles = new MutableLiveData<>();
-        petProfiles.setValue(PetProfilesDataSet);
+        //petProfiles.setValue(PetProfilesDataSet);
+        notifyUpdatePetProfile();
         return petProfiles;
-    };
+    }
+
+    private void notifyUpdatePetProfile() {
+        // będzie trzeba dodać snapshot listenera, który będzie nasłuchiwał nowo dodane profile zwierzaków
+    }
+
+    ;
 
     private void loadPetProfiles(){
         mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -66,10 +72,12 @@ public class PetProfileRepository {
                 if (!queryDocumentSnapshots.isEmpty()){
 
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    ArrayList<PetProfile> PetProfilesDataSet = new ArrayList<>();
 
                     for (DocumentSnapshot documentSnapshot: list){
 
                         PetProfilesDataSet.add(documentSnapshot.toObject(PetProfile.class));
+                        petProfiles.setValue(PetProfilesDataSet);
                     }
                 }
             }
@@ -87,7 +95,6 @@ public class PetProfileRepository {
 //                }
 //            }
 //        })
-
     }
 
     public void addPetProfilePicture(Uri PetProfilePicURL, String PetName){
