@@ -232,6 +232,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nfc_button_petprofile" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar_adding_petprofile"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_button_petprofile">
+    </ProgressBar>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

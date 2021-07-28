@@ -8,7 +8,9 @@ import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -16,10 +18,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -39,6 +43,7 @@ public class AddPetProfileFragment extends Fragment {
 
     private PetProfileViewModel mPetProfileViewModel;
     private PetProfile mPetProfile;
+    private ProgressBar mProgressBar;
     private Spinner spGender;
     private ImageView ivPhoto;
     private Button btnAddPhoto;
@@ -76,6 +81,7 @@ public class AddPetProfileFragment extends Fragment {
         etDescription = view.findViewById(R.id.description_edittext_petprofile);
         etSpecie = view.findViewById(R.id.specie_edittext_petprofile);
         etBreed = view.findViewById(R.id.breed_edittext_petprofile);
+        mProgressBar = view.findViewById(R.id.progress_bar_adding_petprofile);
 
         btnConfirm = view.findViewById(R.id.confirm_button_petprofile);
         btnNfc = view.findViewById(R.id.nfc_button_petprofile);
@@ -85,6 +91,9 @@ public class AddPetProfileFragment extends Fragment {
         spGender.setAdapter(adapter);
 
         mPetProfileViewModel.init();
+
+        //deleting left arrrow from action bar
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         btnAddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +106,20 @@ public class AddPetProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+
+        mPetProfileViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+                if(aBoolean){
+                    mProgressBar.setVisibility(View.VISIBLE);
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }else{
+                    mProgressBar.setVisibility(View.INVISIBLE);
+                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
             }
         });
 

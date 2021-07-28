@@ -14,9 +14,12 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -28,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 public class PetProfileRepository {
@@ -41,7 +45,9 @@ public class PetProfileRepository {
     private StorageReference storageRef = mFirebaseStorage.getReference();
     private StorageReference petPicRef;
 
+    private ArrayList<PetProfile> PetProfilesDataSet = new ArrayList<>();
     MutableLiveData<List<PetProfile>> petProfiles = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
     public static PetProfileRepository getInstance(){
 
@@ -54,15 +60,40 @@ public class PetProfileRepository {
     public MutableLiveData<List<PetProfile>> getPetProfiles(){
         loadPetProfiles();
         //petProfiles.setValue(PetProfilesDataSet);
-        notifyUpdatePetProfile();
         return petProfiles;
     }
 
-    private void notifyUpdatePetProfile() {
-        // będzie trzeba dodać snapshot listenera, który będzie nasłuchiwał nowo dodane profile zwierzaków
+    public MutableLiveData<Boolean> getIsLoading(){
+        return isLoading;
     }
 
-    ;
+    //na ten moment nie potrzebne, ponieważ livedata obsługuje dodawanie nowych profili
+    private void notifyUpdatePetProfile() {
+
+        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+
+                if (error != null) {
+                    System.err.println("Listen failed:" + error);
+                    return;
+                }
+
+                PetProfilesDataSet.clear();
+
+                for (DocumentSnapshot doc : snapshot){
+                    Log.d(TAG, "Current data: " + doc.getData());
+                    PetProfilesDataSet.add(doc.toObject(PetProfile.class));
+                    petProfiles.setValue(PetProfilesDataSet);
+                }
+
+//                for (DocumentChange doc : snapshot.getDocumentChanges()){
+//                    PetProfilesDataSet.add(doc.getDocument().toObject(PetProfile.class));
+//                    petProfiles.setValue(PetProfilesDataSet);
+//                }
+            }
+        });
+    }
 
     private void loadPetProfiles(){
         mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -72,7 +103,7 @@ public class PetProfileRepository {
                 if (!queryDocumentSnapshots.isEmpty()){
 
                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                    ArrayList<PetProfile> PetProfilesDataSet = new ArrayList<>();
+                    PetProfilesDataSet.clear();
 
                     for (DocumentSnapshot documentSnapshot: list){
 
@@ -98,6 +129,7 @@ public class PetProfileRepository {
     }
 
     public void addPetProfilePicture(Uri PetProfilePicURL, String PetName){
+        isLoading.setValue(true);
         petPicRef = storageRef.child(mFirebaseAuth.getUid() + "/" + PetName +".jpg");
         petPicRef.putFile(PetProfilePicURL).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -110,6 +142,7 @@ public class PetProfileRepository {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.i(TAG,"Pet picture url successfully added to firestore");
+                                isLoading.setValue(false);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -139,6 +172,9 @@ public class PetProfileRepository {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        //notifyUpdatePetProfile();
+                        //PetProfilesDataSet.add(petProfile);
+                        //petProfiles.setValue(PetProfilesDataSet);
                         Log.d(TAG , "Pet profile has been added");
                     }
                 }).addOnFailureListener(new OnFailureListener() {

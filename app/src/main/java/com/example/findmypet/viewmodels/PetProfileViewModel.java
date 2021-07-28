@@ -52,4 +52,9 @@ public class PetProfileViewModel extends ViewModel {
         mPetProfileRepository.addPetProfilePicture(PetProfilePicURL,PetName);
     }
 
+    public LiveData<Boolean> getIsLoading(){
+        LiveData<Boolean> isLoading=mPetProfileRepository.getIsLoading();
+        return isLoading;
+    }
+
 }
