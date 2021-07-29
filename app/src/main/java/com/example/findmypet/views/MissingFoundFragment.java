@@ -25,7 +25,7 @@ public class MissingFoundFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         mMissingFoundViewModel =
                 new ViewModelProvider(this).get(MissingFoundViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_missing_found, container, false);
+        View root = inflater.inflate(R.layout.missing_found_fragment, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
         FloatingActionButton fab = root.findViewById(R.id.fab2);
         fab.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,5 @@
 package com.example.findmypet.views;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -17,7 +16,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.findmypet.R;
-import com.example.findmypet.models.User;
 import com.example.findmypet.viewmodels.AuthActivityViewModel;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -55,7 +53,7 @@ public class AuthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_auth, container, false);
+        View view = inflater.inflate(R.layout.auth_fragment, container, false);
         //mAuthActivityViewModel = new ViewModelProvider(this).get(AuthActivityViewModel.class);
 
         mSignInButton = view.findViewById(R.id.signIn);

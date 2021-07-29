@@ -1,7 +1,6 @@
 package com.example.findmypet.views;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,15 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.findmypet.R;
-import com.example.findmypet.models.User;
 import com.example.findmypet.viewmodels.RegisterUserFragmentViewModel;
-import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
@@ -45,7 +40,7 @@ public class RegisterUserFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_newuser,container,false);
+        View view = inflater.inflate(R.layout.newuser_fragment,container,false);
 
         mRegister = view.findViewById(R.id.fragment_newuser_register_button);
         mEmail = view.findViewById(R.id.fragment_newuser_email);

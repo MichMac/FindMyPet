@@ -1,21 +1,12 @@
 package com.example.findmypet.repositories;
 
-import android.app.Application;
-import android.app.ProgressDialog;
 import android.net.Uri;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import com.example.findmypet.models.PetProfile;
-import com.google.android.gms.auth.api.signin.internal.Storage;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -26,9 +17,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,7 +35,9 @@ public class PetProfileRepository {
     private StorageReference petPicRef;
 
     private ArrayList<PetProfile> PetProfilesDataSet = new ArrayList<>();
-    MutableLiveData<List<PetProfile>> petProfiles = new MutableLiveData<>();
+    private PetProfile petProfile = new PetProfile();
+    MutableLiveData<PetProfile> mPetProfile = new MutableLiveData<>();
+    MutableLiveData<List<PetProfile>> mPetProfiles = new MutableLiveData<>();
     private final MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
 
     public static PetProfileRepository getInstance(){
@@ -60,7 +51,7 @@ public class PetProfileRepository {
     public MutableLiveData<List<PetProfile>> getPetProfiles(){
         loadPetProfiles();
         //petProfiles.setValue(PetProfilesDataSet);
-        return petProfiles;
+        return mPetProfiles;
     }
 
     public MutableLiveData<Boolean> getIsLoading(){
@@ -69,7 +60,6 @@ public class PetProfileRepository {
 
     //na ten moment nie potrzebne, ponieważ livedata obsługuje dodawanie nowych profili
     private void notifyUpdatePetProfile() {
-
         mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
@@ -84,7 +74,7 @@ public class PetProfileRepository {
                 for (DocumentSnapshot doc : snapshot){
                     Log.d(TAG, "Current data: " + doc.getData());
                     PetProfilesDataSet.add(doc.toObject(PetProfile.class));
-                    petProfiles.setValue(PetProfilesDataSet);
+                    mPetProfiles.setValue(PetProfilesDataSet);
                 }
 
 //                for (DocumentChange doc : snapshot.getDocumentChanges()){
@@ -96,6 +86,7 @@ public class PetProfileRepository {
     }
 
     private void loadPetProfiles(){
+        isLoading.setValue(true);
         mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -108,9 +99,10 @@ public class PetProfileRepository {
                     for (DocumentSnapshot documentSnapshot: list){
 
                         PetProfilesDataSet.add(documentSnapshot.toObject(PetProfile.class));
-                        petProfiles.setValue(PetProfilesDataSet);
+                        mPetProfiles.setValue(PetProfilesDataSet);
                     }
                 }
+                isLoading.setValue(false);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -126,6 +118,25 @@ public class PetProfileRepository {
 //                }
 //            }
 //        })
+    }
+
+    public void loadPetProfile(String petName){
+        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles/" + petName).document().get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                petProfile = documentSnapshot.toObject(PetProfile.class);
+                mPetProfile.setValue(petProfile);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Getting document snapshot error: ",e);
+            }
+        });
+    }
+
+    private MutableLiveData<PetProfile> getPetProfile(){
+        return mPetProfile;
     }
 
     public void addPetProfilePicture(Uri PetProfilePicURL, String PetName){

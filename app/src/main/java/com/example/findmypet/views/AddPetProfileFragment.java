@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -18,20 +17,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.findmypet.R;
 import com.example.findmypet.models.PetProfile;
-import com.example.findmypet.viewmodels.PetProfileViewModel;
+import com.example.findmypet.viewmodels.PetProfileListViewModel;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -41,7 +37,7 @@ public class AddPetProfileFragment extends Fragment {
     private static final String TAG = "AddPetProfileFragment";
     //private static int picCounter;
 
-    private PetProfileViewModel mPetProfileViewModel;
+    private PetProfileListViewModel mPetProfileListViewModel;
     private PetProfile mPetProfile;
     private ProgressBar mProgressBar;
     private Spinner spGender;
@@ -68,9 +64,9 @@ public class AddPetProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_add_pet_profile, container, false);
+        View view = inflater.inflate(R.layout.add_pet_profile_fragment, container, false);
 
-        mPetProfileViewModel = new ViewModelProvider(this).get(PetProfileViewModel.class);
+        mPetProfileListViewModel = new ViewModelProvider(this).get(PetProfileListViewModel.class);
         mPetProfile = new PetProfile();
         spGender = view.findViewById(R.id.gender_spinner_petprofile);
         ivPhoto = view.findViewById(R.id.imageview_petprofile);
@@ -83,14 +79,14 @@ public class AddPetProfileFragment extends Fragment {
         etBreed = view.findViewById(R.id.breed_edittext_petprofile);
         mProgressBar = view.findViewById(R.id.progress_bar_adding_petprofile);
 
-        btnConfirm = view.findViewById(R.id.confirm_button_petprofile);
-        btnNfc = view.findViewById(R.id.nfc_button_petprofile);
+        btnConfirm = view.findViewById(R.id.confirm_button_addpetprofile);
+        btnNfc = view.findViewById(R.id.nfc_button_addpetprofile);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spGender.setAdapter(adapter);
 
-        mPetProfileViewModel.init();
+        mPetProfileListViewModel.init();
 
         //deleting left arrrow from action bar
         ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -109,16 +105,16 @@ public class AddPetProfileFragment extends Fragment {
             }
         });
 
-        mPetProfileViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        mPetProfileListViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if(aBoolean){
                     mProgressBar.setVisibility(View.VISIBLE);
-                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+//                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }else{
                     mProgressBar.setVisibility(View.INVISIBLE);
-                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                    getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
         });
@@ -138,8 +134,8 @@ public class AddPetProfileFragment extends Fragment {
                     }
                     mPetProfile.setDescription(etDescription.getText().toString());
 
-                    mPetProfileViewModel.addPetProfile(mPetProfile);
-                    mPetProfileViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
+                    mPetProfileListViewModel.addPetProfile(mPetProfile);
+                    mPetProfileListViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
                     //mPetProfileViewModel.addPetProfilePicture(selectedImageUri);
                 }
                 Log.i(TAG,"URL: " + selectedImageUri);
@@ -164,7 +160,6 @@ public class AddPetProfileFragment extends Fragment {
                 alertDialog.show();
             }
         });
-
         return view;
     }
 
