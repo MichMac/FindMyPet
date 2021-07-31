@@ -135,7 +135,26 @@ public class PetProfileRepository {
         });
     }
 
-    private MutableLiveData<PetProfile> getPetProfile(){
+    public void deletePetProfile(PetProfile petProfile){
+        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles/")
+                .document(petProfile.getName())
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        //mPetProfiles.setValue();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
+    public MutableLiveData<PetProfile> getPetProfile(){
         return mPetProfile;
     }
 

@@ -143,8 +143,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="105" />
-                            <option name="y" value="226" />
+                            <option name="x" value="154" />
+                            <option name="y" value="182" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -159,6 +159,11 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_nav_pet_profile_to_petProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -167,6 +172,18 @@
                   <entry key="navigate_to_auth">
                     <value>
                       <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="petProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="759" />
+                            <option name="y" value="-59" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
                     </value>
                   </entry>
                 </map>

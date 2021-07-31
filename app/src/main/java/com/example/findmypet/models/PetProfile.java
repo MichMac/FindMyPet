@@ -1,6 +1,10 @@
 package com.example.findmypet.models;
 
-public class PetProfile {
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
+public class PetProfile implements Serializable {
 
     private String name;
     private String specie;

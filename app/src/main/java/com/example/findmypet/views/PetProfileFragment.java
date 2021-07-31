@@ -1,5 +1,6 @@
 package com.example.findmypet.views;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.media.Image;
@@ -39,9 +40,10 @@ public class PetProfileFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.pet_profile_fragment, container, false);
 
+        ivPetPic = root.findViewById(R.id.image_petprofile);
         tvPetName = root.findViewById(R.id.name_textview_petprofile);
         tvPetAge = root.findViewById(R.id.age_textview_petprofile);
-
+        tvGender = root.findViewById(R.id.gender_textview_petprofile);
         tvMnNumber = root.findViewById(R.id.microchipnumber_textview_petprofile);
         tvDescription = root.findViewById(R.id.description_textview_petprofile);
         tvSpecies = root.findViewById(R.id.species_textview_petprofile);
@@ -49,7 +51,16 @@ public class PetProfileFragment extends Fragment {
 
         mPetProfileViewModel = new ViewModelProvider(this).get(PetProfileViewModel.class);
 
+        PetProfile petProfile = (PetProfile) getArguments().getSerializable("petprofile");
+        setPetProfileData(petProfile);
 
+        // null object referenceeeee
+//        mPetProfileViewModel.getPetProfile().observe(getViewLifecycleOwner(), new Observer<PetProfile>() {
+//            @Override
+//            public void onChanged(PetProfile petProfile) {
+//                setPetProfileData(petProfile);
+//            }
+//        });
 
         return root;
     }
@@ -72,9 +83,9 @@ public class PetProfileFragment extends Fragment {
                     .into(ivPetPic);
 
             tvPetName.setText(petProfile.getName());
-            tvPetAge.setText(petProfile.getAge());
+            tvPetAge.setText(Integer.toString(petProfile.getAge()));
             tvGender.setText(petProfile.getGender());
-            tvMnNumber.setText(petProfile.getMicrochip_number());
+            tvMnNumber.setText(Integer.toString(petProfile.getMicrochip_number()));
             tvSpecies.setText(petProfile.getSpecies());
             tvBreed.setText(petProfile.getBreed());
             tvDescription.setText(petProfile.getDescription());

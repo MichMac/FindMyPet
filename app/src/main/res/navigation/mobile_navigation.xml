@@ -12,8 +12,7 @@
         android:id="@+id/nav_missing_found"
         android:name="com.example.findmypet.views.MissingFoundFragment"
         android:label="@string/missing_found"
-        tools:layout="@layout/missing_found_fragment" >
-    </fragment>
+        tools:layout="@layout/missing_found_fragment" />
 
     <fragment
         android:id="@+id/nav_pet_profile"
@@ -26,6 +25,9 @@
         <action
             android:id="@+id/action_nav_pet_profile_to_nav_missing_found"
             app:destination="@id/nav_missing_found" />
+        <action
+            android:id="@+id/petProfileFragmentAction"
+            app:destination="@id/petProfileFragment" />
     </fragment>
 
     <fragment
@@ -36,6 +38,16 @@
         <action
             android:id="@+id/action_addPetProfileFragment_to_nav_pet_profile"
             app:destination="@id/nav_pet_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/petProfileFragment"
+        android:name="com.example.findmypet.views.PetProfileFragment"
+        android:label="Pet Profile"
+        tools:layout="@layout/pet_profile_fragment" >
+        <argument
+            android:name="petprofile"
+            app:argType="com.example.findmypet.models.PetProfile" />
     </fragment>
 
     <action

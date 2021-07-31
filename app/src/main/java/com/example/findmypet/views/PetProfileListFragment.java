@@ -1,6 +1,9 @@
 package com.example.findmypet.views;
 
+import android.content.ClipData;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.findmypet.R;
+import com.example.findmypet.adapters.OnPetProfileListener;
 import com.example.findmypet.adapters.PetProfileListAdapter;
 import com.example.findmypet.models.PetProfile;
 import com.example.findmypet.viewmodels.PetProfileListViewModel;
@@ -21,13 +25,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class PetProfileListFragment extends Fragment {
+public class PetProfileListFragment extends Fragment implements OnPetProfileListener {
 
     private static final String TAG = "PetProfileFragment";
     private PetProfileListViewModel mPetProfileListViewModel;
+    PetProfileListAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +48,8 @@ public class PetProfileListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
-        PetProfileListAdapter adapter = new PetProfileListAdapter();
+        adapter = new PetProfileListAdapter(this);
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
 
         fabAddPetProfile.setOnClickListener(new View.OnClickListener() {
@@ -80,7 +87,30 @@ public class PetProfileListFragment extends Fragment {
                 Navigation.findNavController(getView()).navigate(R.id.action_nav_pet_profile_to_nav_missing_found);
             }
         });
-
         return root;
     }
+
+    @Override
+    public void OnPetProfileClick(int position) {
+        Bundle bundle = new Bundle();
+        PetProfile petProfile = adapter.getSelectedPetProfile(position);
+        bundle.putSerializable("petprofile",petProfile);
+        Navigation.findNavController(getView()).navigate(R.id.petProfileFragmentAction, bundle);
+    }
+
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            int position = viewHolder.getAdapterPosition();
+            adapter.deletePetProfile(position);
+            PetProfile petProfile = adapter.getPetProfileAt(position);
+            mPetProfileListViewModel.deletePetProfile(petProfile);
+        }
+    };
+
 }
