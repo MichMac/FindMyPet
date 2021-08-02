@@ -1,4 +1,4 @@
-    package com.example.findmypet.views;
+package com.example.findmypet.views;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -81,10 +82,10 @@ public class AddPetProfileFragment extends Fragment {
 
         btnConfirm = view.findViewById(R.id.confirm_button_addpetprofile);
         btnNfc = view.findViewById(R.id.nfc_button_addpetprofile);
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spGender.setAdapter(adapter);
+        
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spGender.setAdapter(genderAdapter);
 
         mPetProfileListViewModel.init();
 
@@ -136,7 +137,6 @@ public class AddPetProfileFragment extends Fragment {
 
                     mPetProfileListViewModel.addPetProfile(mPetProfile);
                     mPetProfileListViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
-                    //mPetProfileViewModel.addPetProfilePicture(selectedImageUri);
                 }
                 Log.i(TAG,"URL: " + selectedImageUri);
             }
@@ -195,6 +195,7 @@ public class AddPetProfileFragment extends Fragment {
             }
             if (etDescription.length() == 0) {
                 etDescription.setError("This field is required");
+                return false;
             }
             return true;
     }

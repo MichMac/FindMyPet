@@ -107,9 +107,9 @@ public class PetProfileListFragment extends Fragment implements OnPetProfileList
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
-            adapter.deletePetProfile(position);
-            PetProfile petProfile = adapter.getPetProfileAt(position);
+            PetProfile petProfile = adapter.getSelectedPetProfile(position);
             mPetProfileListViewModel.deletePetProfile(petProfile);
+            adapter.deletePetProfile(position);
         }
     };
 

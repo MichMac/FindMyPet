@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(Boolean logout) {
                 if(logout){
-//                    Intent intent = new Intent(MainActivity.this, AuthFragment.class);
-//                    startActivity(intent);
                     navController.navigate(R.id.navigate_to_auth);
                     finish();
                 }
@@ -126,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+        
     }
+
 
     @Override
     public boolean onSupportNavigateUp() {

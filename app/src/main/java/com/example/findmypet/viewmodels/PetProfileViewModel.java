@@ -18,12 +18,14 @@ public class PetProfileViewModel extends ViewModel {
             return;
         }
         mPetProfileRepository = PetProfileRepository.getInstance();
-        mPetProfile = mPetProfileRepository.getPetProfile();
+       // mPetProfile = mPetProfileRepository.getPetProfile();
     }
 
     public MutableLiveData<PetProfile> getPetProfile(){
         return mPetProfile;
     }
+
+    public void updatePetProfile(PetProfile petProfile){ mPetProfileRepository.updatePetProfile(petProfile); }
 
     public void loadPetProfile(String petName){
         mPetProfileRepository.loadPetProfile(petName);

@@ -55,10 +55,6 @@ public class PetProfileListAdapter extends RecyclerView.Adapter<PetProfileListAd
         return null;
     }
 
-    public PetProfile getPetProfileAt(int position) {
-        return mPetProfiles.get(position);
-    }
-
     public void deletePetProfile(int position){
         mPetProfiles.remove(position);
         notifyDataSetChanged();

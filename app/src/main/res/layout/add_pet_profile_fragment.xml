@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".views.AddPetProfileFragment">
 
         <ImageView
@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/add_pet_photo_button" />
 
     <TextView
-        android:id="@+id/gender_textview_petprofile"
+        android:id="@+id/gender_edittext_petprofile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"

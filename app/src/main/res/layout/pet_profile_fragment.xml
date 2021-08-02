@@ -8,9 +8,7 @@
     android:layout_height="match_parent"
     android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".views.PetProfileFragment">
@@ -33,9 +31,13 @@
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
             android:text="Pet Name"
+            android:hint="@string/enter_pet_name"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textSize="30sp"
+            android:maxLines="1"
+            android:lines="1"
+            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_petprofile" />
@@ -63,12 +65,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/information" />
 
-        <TextView
-            android:id="@+id/age_textview_petprofile"
+        <EditText
+            android:id="@+id/age_edittext_petprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:lines="1"
+            android:maxLines="1"
             android:text="@string/age"
+            android:inputType="number"
+            android:hint="@string/enter_pet_age"
+            android:background="@null"
             app:layout_constraintStart_toEndOf="@+id/age_defaulttextview_petprofile"
             app:layout_constraintTop_toBottomOf="@+id/information" />
 
@@ -82,15 +89,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/age_defaulttextview_petprofile" />
 
-        <TextView
-            android:id="@+id/gender_textview_petprofile"
+        <Spinner
+            android:id="@+id/gender_edittext_petprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="18dp"
+            android:background="@null"
+            android:hint="@string/enter_pet_gender"
             android:text="@string/gender"
             app:layout_constraintStart_toEndOf="@+id/gender_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/age_textview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/age_edittext_petprofile" />
 
         <TextView
             android:id="@+id/species_defaulttextview_petprofile"
@@ -98,19 +107,21 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:text="Specie:"
+            android:text="Species:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gender_defaulttextview_petprofile" />
 
-        <TextView
-            android:id="@+id/species_textview_petprofile"
+        <EditText
+            android:id="@+id/species_edittext_petprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="18dp"
             android:text="@string/species"
+            android:hint="@string/enter_pet_species"
+            android:background="@null"
             app:layout_constraintStart_toEndOf="@+id/species_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/gender_textview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/gender_edittext_petprofile" />
 
         <TextView
             android:id="@+id/breed_defaulttextview_petprofile"
@@ -122,15 +133,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/species_defaulttextview_petprofile" />
 
-        <TextView
-            android:id="@+id/breed_textview_petprofile"
+        <EditText
+            android:id="@+id/breed_edittext_petprofile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="18dp"
             android:text="@string/breed"
+            android:hint="@string/enter_pet_breed"
+            android:background="@null"
             app:layout_constraintStart_toEndOf="@+id/breed_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/species_textview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/species_edittext_petprofile" />
 
         <TextView
             android:id="@+id/microchipnumber_defaulttextview_petprofile"
@@ -142,15 +155,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/breed_defaulttextview_petprofile" />
 
-        <TextView
-            android:id="@+id/microchipnumber_textview_petprofile"
-            android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/microchipnumber_edittext_petprofile"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="18dp"
             android:text="Brak"
+            android:inputType="number"
+            android:hint="@string/enter_pet_microchip_number"
+            android:background="@null"
             app:layout_constraintStart_toEndOf="@+id/microchipnumber_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/breed_textview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/breed_edittext_petprofile" />
 
         <TextView
             android:id="@+id/description_defaulttextview_petprofile"
@@ -162,8 +178,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/microchipnumber_defaulttextview_petprofile" />
 
-        <TextView
-            android:id="@+id/description_textview_petprofile"
+        <EditText
+            android:id="@+id/description_edittext_petprofile"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginStart="16dp"
@@ -171,6 +187,9 @@
             android:layout_marginBottom="4dp"
             android:ems="10"
             android:scrollbars="vertical"
+            android:inputType="textMultiLine"
+            android:background="@null"
+            android:hint="@string/enter_pet_description"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"

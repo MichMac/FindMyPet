@@ -1,9 +1,8 @@
 package com.example.findmypet.views;
 
-import androidx.lifecycle.Observer;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,10 +10,15 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -25,34 +29,43 @@ import com.example.findmypet.viewmodels.PetProfileViewModel;
 public class PetProfileFragment extends Fragment {
 
     private PetProfileViewModel mPetProfileViewModel;
+    private PetProfile mPetProfile;
 
     private ImageView ivPetPic;
     private TextView tvPetName;
-    private TextView tvPetAge;
-    private TextView tvGender;
-    private TextView tvMnNumber;
-    private TextView tvDescription;
-    private TextView tvSpecies;
-    private TextView tvBreed;
+    private TextView etPetAge;
+    private Spinner spGender;
+    private TextView etMnNumber;
+    private TextView etDescription;
+    private TextView etSpecies;
+    private TextView etBreed;
+
+    ArrayAdapter<CharSequence> genderAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.pet_profile_fragment, container, false);
+        mPetProfileViewModel = new ViewModelProvider(this).get(PetProfileViewModel.class);
+        mPetProfileViewModel.init();
+        setHasOptionsMenu(true);
 
         ivPetPic = root.findViewById(R.id.image_petprofile);
         tvPetName = root.findViewById(R.id.name_textview_petprofile);
-        tvPetAge = root.findViewById(R.id.age_textview_petprofile);
-        tvGender = root.findViewById(R.id.gender_textview_petprofile);
-        tvMnNumber = root.findViewById(R.id.microchipnumber_textview_petprofile);
-        tvDescription = root.findViewById(R.id.description_textview_petprofile);
-        tvSpecies = root.findViewById(R.id.species_textview_petprofile);
-        tvBreed = root.findViewById(R.id.breed_textview_petprofile);
+        etPetAge = root.findViewById(R.id.age_edittext_petprofile);
+        spGender = root.findViewById(R.id.gender_edittext_petprofile);
+        genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spGender.setAdapter(genderAdapter);
+        etMnNumber = root.findViewById(R.id.microchipnumber_edittext_petprofile);
+        etDescription = root.findViewById(R.id.description_edittext_petprofile);
+        etSpecies = root.findViewById(R.id.species_edittext_petprofile);
+        etBreed = root.findViewById(R.id.breed_edittext_petprofile);
 
-        mPetProfileViewModel = new ViewModelProvider(this).get(PetProfileViewModel.class);
+        mPetProfile = (PetProfile) getArguments().getSerializable("petprofile");
+        setPetProfileData(mPetProfile);
 
-        PetProfile petProfile = (PetProfile) getArguments().getSerializable("petprofile");
-        setPetProfileData(petProfile);
+
 
         // null object referenceeeee
 //        mPetProfileViewModel.getPetProfile().observe(getViewLifecycleOwner(), new Observer<PetProfile>() {
@@ -83,13 +96,35 @@ public class PetProfileFragment extends Fragment {
                     .into(ivPetPic);
 
             tvPetName.setText(petProfile.getName());
-            tvPetAge.setText(Integer.toString(petProfile.getAge()));
-            tvGender.setText(petProfile.getGender());
-            tvMnNumber.setText(Integer.toString(petProfile.getMicrochip_number()));
-            tvSpecies.setText(petProfile.getSpecies());
-            tvBreed.setText(petProfile.getBreed());
-            tvDescription.setText(petProfile.getDescription());
+            etPetAge.setText(Integer.toString(petProfile.getAge()));
+            spGender.setSelection(genderAdapter.getPosition(petProfile.getGender()));
+            etMnNumber.setText(Integer.toString(petProfile.getMicrochip_number()));
+            etSpecies.setText(petProfile.getSpecies());
+            etBreed.setText(petProfile.getBreed());
+            etDescription.setText(petProfile.getDescription());
         }
-
     }
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+        MenuItem item=menu.findItem(R.id.save_action);
+        if(item!=null)
+            item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                mPetProfile.setName(tvPetName.getText().toString());
+                mPetProfile.setAge(Integer.parseInt(etPetAge.getText().toString()));
+                mPetProfile.setGender(spGender.getSelectedItem().toString());
+                mPetProfile.setMicrochip_number(Integer.parseInt(etMnNumber.getText().toString()));
+                mPetProfile.setSpecies(etSpecies.getText().toString());
+                mPetProfile.setBreed(etBreed.getText().toString());
+                mPetProfile.setDescription(etDescription.getText().toString());
+                mPetProfileViewModel.updatePetProfile(mPetProfile);
+                Toast.makeText(getContext(),"Profile successfully updated!",Toast.LENGTH_LONG).show();
+                return true;
+            }
+        });
+    }
+
 }

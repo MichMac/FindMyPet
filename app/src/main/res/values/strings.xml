@@ -39,6 +39,13 @@
     <string name="description">Description</string>
     <string name="gender">Gender</string>
     <string name="species">Species</string>
+    <string name="enter_pet_age">Enter pet age</string>
+    <string name="enter_pet_gender">Enter pet gender</string>
+    <string name="enter_pet_species">Enter pet species</string>
+    <string name="enter_pet_breed">Enter pet breed</string>
+    <string name="enter_pet_microchip_number">Enter pet microchip number</string>
+    <string name="enter_pet_description">Enter pet description</string>
+    <string name="save_button">Save button</string>
 
     <string-array name="gender_array">
         <item>Male</item>

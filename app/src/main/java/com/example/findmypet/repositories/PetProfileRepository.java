@@ -54,36 +54,36 @@ public class PetProfileRepository {
         return mPetProfiles;
     }
 
+    public MutableLiveData<PetProfile> getPetProfile(){
+        return mPetProfile;
+    }
+
     public MutableLiveData<Boolean> getIsLoading(){
         return isLoading;
     }
 
     //na ten moment nie potrzebne, ponieważ livedata obsługuje dodawanie nowych profili
-    private void notifyUpdatePetProfile() {
-        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
-
-                if (error != null) {
-                    System.err.println("Listen failed:" + error);
-                    return;
-                }
-
-                PetProfilesDataSet.clear();
-
-                for (DocumentSnapshot doc : snapshot){
-                    Log.d(TAG, "Current data: " + doc.getData());
-                    PetProfilesDataSet.add(doc.toObject(PetProfile.class));
-                    mPetProfiles.setValue(PetProfilesDataSet);
-                }
-
-//                for (DocumentChange doc : snapshot.getDocumentChanges()){
-//                    PetProfilesDataSet.add(doc.getDocument().toObject(PetProfile.class));
-//                    petProfiles.setValue(PetProfilesDataSet);
+//    private void notifyUpdatePetProfile() {
+//        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable QuerySnapshot snapshot, @Nullable FirebaseFirestoreException error) {
+//
+//                if (error != null) {
+//                    System.err.println("Listen failed:" + error);
+//                    return;
 //                }
-            }
-        });
-    }
+//
+//                PetProfilesDataSet.clear();
+//
+//                for (DocumentSnapshot doc : snapshot){
+//                    Log.d(TAG, "Current data: " + doc.getData());
+//                    PetProfilesDataSet.add(doc.toObject(PetProfile.class));
+//                    mPetProfiles.setValue(PetProfilesDataSet);
+//                }
+//
+//            }
+//        });
+//    }
 
     private void loadPetProfiles(){
         isLoading.setValue(true);
@@ -135,27 +135,23 @@ public class PetProfileRepository {
         });
     }
 
-    public void deletePetProfile(PetProfile petProfile){
-        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles/")
-                .document(petProfile.getName())
-                .delete()
+    public void addPetProfile(PetProfile petProfile){
+        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(petProfile.getName())
+                .set(petProfile)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        //mPetProfiles.setValue();
+                        //notifyUpdatePetProfile();
+                        //PetProfilesDataSet.add(petProfile);
+                        //petProfiles.setValue(PetProfilesDataSet);
+                        Log.d(TAG , "Pet profile has been added");
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
-    }
-
-    public MutableLiveData<PetProfile> getPetProfile(){
-        return mPetProfile;
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG , "Pet profile hasn't been added: " + e.getMessage());
+            }
+        });
     }
 
     public void addPetProfilePicture(Uri PetProfilePicURL, String PetName){
@@ -186,6 +182,46 @@ public class PetProfileRepository {
         });
     }
 
+    public void deletePetProfile(PetProfile petProfile){
+        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles/")
+                .document(petProfile.getName())
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        //mPetProfiles.setValue();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
+    public void updatePetProfile(PetProfile petProfile){
+        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles/")
+                .document(petProfile.getName())
+                .update("age",petProfile.getAge(),
+                        "breed",petProfile.getBreed(),
+                        "description",petProfile.getDescription(),
+                        "gender",petProfile.getGender(),
+                        "microchip_number",petProfile.getMicrochip_number(),
+                        "species",petProfile.getSpecies()).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully updated!");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Error updating document", e);
+            }
+        });
+    }
+
 //    public Uri getPetProfilePicture(String PetName){
 //        petPicRef = storageRef.child(mFirebaseAuth.getUid() + "/" + PetName +".jpg");
 //        petPicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -195,23 +231,4 @@ public class PetProfileRepository {
 //            }
 //        });
 //    }
-
-    public void addPetProfile(PetProfile petProfile){
-        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(petProfile.getName())
-                .set(petProfile)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        //notifyUpdatePetProfile();
-                        //PetProfilesDataSet.add(petProfile);
-                        //petProfiles.setValue(PetProfilesDataSet);
-                        Log.d(TAG , "Pet profile has been added");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG , "Pet profile hasn't been added: " + e.getMessage());
-            }
-        });
-    }
 }
