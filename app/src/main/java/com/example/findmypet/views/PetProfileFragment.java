@@ -66,7 +66,6 @@ public class PetProfileFragment extends Fragment {
         setPetProfileData(mPetProfile);
 
 
-
         // null object referenceeeee
 //        mPetProfileViewModel.getPetProfile().observe(getViewLifecycleOwner(), new Observer<PetProfile>() {
 //            @Override
@@ -108,6 +107,7 @@ public class PetProfileFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
         MenuItem item=menu.findItem(R.id.save_action);
+        item.setVisible(true);
         if(item!=null)
             item.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
