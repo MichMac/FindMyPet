@@ -12,7 +12,14 @@
         android:id="@+id/nav_missing_found"
         android:name="com.example.findmypet.views.MissingFoundFragment"
         android:label="@string/missing_found"
-        tools:layout="@layout/missing_found_fragment" />
+        tools:layout="@layout/missing_found_fragment" >
+        <action
+            android:id="@+id/action_nav_missing_lost_to_addAnnouncementLocation"
+            app:destination="@id/addFoundAnnouncementLocation" />
+        <argument
+            android:name="isFoundAnn"
+            app:argType="boolean" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_pet_profile"
@@ -53,5 +60,42 @@
     <action
         android:id="@+id/navigate_to_auth"
         app:destination="@id/auth_nav_graph" />
+    <fragment
+        android:id="@+id/addFoundAnnouncementLocation"
+        android:name="com.example.findmypet.views.AddAnnouncementLocation"
+        android:label="Last Pet Location"
+        tools:layout="@layout/add_announcement_location_fragment" >
+        <action
+            android:id="@+id/action_addAnnouncementLocation_to_addFoundAnnouncementPet"
+            app:destination="@id/addFoundAnnouncementPet" />
+        <action
+            android:id="@+id/action_addFoundAnnouncementLocation_to_addLostAnnouncementPet"
+            app:destination="@id/addLostAnnouncementPet" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFoundAnnouncementPet"
+        android:name="com.example.findmypet.views.AddFoundAnnouncementPet"
+        android:label="Pet Informations"
+        tools:layout="@layout/add_found_announcement_pet_fragment" >
+        <action
+            android:id="@+id/action_addFoundAnnouncementPet_to_addAnnouncementContact"
+            app:destination="@id/addFoundAnnouncementContact" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFoundAnnouncementContact"
+        android:name="com.example.findmypet.views.AddAnnouncementContact"
+        android:label="Contact" >
+        <action
+            android:id="@+id/action_addFoundAnnouncementContact_to_nav_missing_found"
+            app:destination="@id/nav_missing_found" />
+    </fragment>
+    <fragment
+        android:id="@+id/addLostAnnouncementPet"
+        android:name="com.example.findmypet.views.AddLostAnnouncementPet"
+        android:label="AddLostAnnouncementPet" >
+        <action
+            android:id="@+id/action_addLostAnnouncementPet_to_addFoundAnnouncementContact"
+            app:destination="@id/addFoundAnnouncementContact" />
+    </fragment>
 
 </navigation>

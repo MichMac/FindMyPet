@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/name_textview_petprofile" />
 
         <TextView
-            android:id="@+id/age_defaulttextview_petprofile"
+            android:id="@+id/contact_add_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -66,7 +66,7 @@
             app:layout_constraintTop_toBottomOf="@+id/information" />
 
         <EditText
-            android:id="@+id/age_edittext_petprofile"
+            android:id="@+id/phone_number_edittext_add_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -76,21 +76,21 @@
             android:inputType="number"
             android:hint="@string/enter_pet_age"
             android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/age_defaulttextview_petprofile"
+            app:layout_constraintStart_toEndOf="@+id/contact_add_ann"
             app:layout_constraintTop_toBottomOf="@+id/information" />
 
         <TextView
-            android:id="@+id/gender_defaulttextview_petprofile"
+            android:id="@+id/country_loc_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Gender:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/age_defaulttextview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/contact_add_ann" />
 
         <Spinner
-            android:id="@+id/gender_edittext_petprofile"
+            android:id="@+id/gender_edittext_add_ann_found_pet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -98,21 +98,21 @@
             android:background="@null"
             android:hint="@string/enter_pet_gender"
             android:text="@string/gender"
-            app:layout_constraintStart_toEndOf="@+id/gender_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/age_edittext_petprofile" />
+            app:layout_constraintStart_toEndOf="@+id/country_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/phone_number_edittext_add_ann" />
 
         <TextView
-            android:id="@+id/species_defaulttextview_petprofile"
+            android:id="@+id/province_loc_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Species:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/gender_defaulttextview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/country_loc_ann" />
 
         <EditText
-            android:id="@+id/species_edittext_petprofile"
+            android:id="@+id/province_edittext_loc_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -120,21 +120,21 @@
             android:text="@string/species"
             android:hint="@string/enter_pet_species"
             android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/species_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/gender_edittext_petprofile" />
+            app:layout_constraintStart_toEndOf="@+id/province_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/gender_edittext_add_ann_found_pet" />
 
         <TextView
-            android:id="@+id/breed_defaulttextview_petprofile"
+            android:id="@+id/city_loc_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Breed:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/species_defaulttextview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/province_loc_ann" />
 
         <EditText
-            android:id="@+id/breed_edittext_petprofile"
+            android:id="@+id/city_edittext_add_ann_pet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -142,21 +142,21 @@
             android:text="@string/breed"
             android:hint="@string/enter_pet_breed"
             android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/breed_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/species_edittext_petprofile" />
+            app:layout_constraintStart_toEndOf="@+id/city_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/province_edittext_loc_ann" />
 
         <TextView
-            android:id="@+id/microchipnumber_defaulttextview_petprofile"
+            android:id="@+id/street_loc_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Microchip nr:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/breed_defaulttextview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/city_loc_ann" />
 
         <EditText
-            android:id="@+id/microchipnumber_edittext_petprofile"
+            android:id="@+id/street_edittext_add_ann_pet"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -165,8 +165,8 @@
             android:inputType="number"
             android:hint="@string/enter_pet_microchip_number"
             android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/microchipnumber_defaulttextview_petprofile"
-            app:layout_constraintTop_toBottomOf="@+id/breed_edittext_petprofile" />
+            app:layout_constraintStart_toEndOf="@+id/street_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/city_edittext_add_ann_pet" />
 
         <TextView
             android:id="@+id/description_defaulttextview_petprofile"
@@ -176,10 +176,10 @@
             android:layout_marginTop="24dp"
             android:text="Description:"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/microchipnumber_defaulttextview_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/street_loc_ann" />
 
         <EditText
-            android:id="@+id/description_edittext_petprofile"
+            android:id="@+id/description_edittext_add_ann_found_pet"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginStart="16dp"

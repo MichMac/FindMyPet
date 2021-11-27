@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -69,15 +68,15 @@ public class AddPetProfileFragment extends Fragment {
 
         mPetProfileListViewModel = new ViewModelProvider(this).get(PetProfileListViewModel.class);
         mPetProfile = new PetProfile();
-        spGender = view.findViewById(R.id.gender_spinner_petprofile);
-        ivPhoto = view.findViewById(R.id.imageview_petprofile);
-        btnAddPhoto = view.findViewById(R.id.add_pet_photo_button);
-        etPetName = view.findViewById(R.id.petname_editname_petprofile);
-        etPetAge = view.findViewById(R.id.age_edittext_petprofile);
-        etMnNumber = view.findViewById(R.id.microchipnumber_edittext_petprofile);
-        etDescription = view.findViewById(R.id.description_edittext_petprofile);
-        etSpecie = view.findViewById(R.id.specie_edittext_petprofile);
-        etBreed = view.findViewById(R.id.breed_edittext_petprofile);
+        spGender = view.findViewById(R.id.gender_spinner_add_ann_found_pet);
+        ivPhoto = view.findViewById(R.id.add_ann_found_pet_imageview);
+        btnAddPhoto = view.findViewById(R.id.add_ann_found_pet_photo_button);
+        etPetName = view.findViewById(R.id.petname_editname_add_ann_found_pet);
+        etPetAge = view.findViewById(R.id.phone_number_edittext_add_ann);
+        etMnNumber = view.findViewById(R.id.street_edittext_add_ann_pet);
+        etDescription = view.findViewById(R.id.description_edittext_add_ann_found_pet);
+        etSpecie = view.findViewById(R.id.specie_edittext_add_ann_found_pet);
+        etBreed = view.findViewById(R.id.city_edittext_add_ann_pet);
         mProgressBar = view.findViewById(R.id.progress_bar_adding_petprofile);
 
         btnConfirm = view.findViewById(R.id.confirm_button_addpetprofile);
@@ -131,7 +130,7 @@ public class AddPetProfileFragment extends Fragment {
                     mPetProfile.setBreed(etBreed.getText().toString());
                     mPetProfile.setAge(Integer.parseInt(etPetAge.getText().toString()));
                     if(etMnNumber.length() != 0){
-                        mPetProfile.setMicrochip_number(Integer.parseInt(etMnNumber.getText().toString()));
+                        mPetProfile.setMicrochipNumber(Integer.parseInt(etMnNumber.getText().toString()));
                     }
                     mPetProfile.setDescription(etDescription.getText().toString());
 

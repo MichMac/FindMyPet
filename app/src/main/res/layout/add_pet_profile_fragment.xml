@@ -14,7 +14,7 @@
         tools:context=".views.AddPetProfileFragment">
 
         <ImageView
-            android:id="@+id/imageview_petprofile"
+            android:id="@+id/add_ann_found_pet_imageview"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_marginStart="16dp"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-        android:id="@+id/add_pet_photo_button"
+        android:id="@+id/add_ann_found_pet_photo_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -38,19 +38,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageview_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/add_ann_found_pet_imageview" />
 
     <TextView
-        android:id="@+id/petname_textview"
+        android:id="@+id/add_ann_found_pet_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/name"
-        app:layout_constraintBottom_toTopOf="@+id/petname_editname_petprofile"
+        app:layout_constraintBottom_toTopOf="@+id/petname_editname_add_ann_found_pet"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/petname_editname_petprofile"
+        android:id="@+id/petname_editname_add_ann_found_pet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -60,22 +60,23 @@
         android:hint="@string/enter_pet_name"
         android:importantForAutofill="no"
         android:maxLines="1"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add_pet_photo_button" />
+        app:layout_constraintTop_toBottomOf="@+id/add_ann_found_pet_photo_button" />
 
     <TextView
-        android:id="@+id/gender_edittext_petprofile"
+        android:id="@+id/gender_edittext_add_ann_found_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/gender"
-        app:layout_constraintBottom_toTopOf="@+id/gender_spinner_petprofile"
+        app:layout_constraintBottom_toTopOf="@+id/gender_spinner_add_ann_found_pet"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/gender_spinner_petprofile"
+        android:id="@+id/gender_spinner_add_ann_found_pet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -84,19 +85,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/petname_editname_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/petname_editname_add_ann_found_pet" />
 
     <TextView
-        android:id="@+id/specie_textview_petprofile"
+        android:id="@+id/specie_textview_add_ann_found_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/species"
-        app:layout_constraintBottom_toTopOf="@+id/specie_edittext_petprofile"
+        app:layout_constraintBottom_toTopOf="@+id/specie_edittext_add_ann_found_pet"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/specie_edittext_petprofile"
+        android:id="@+id/specie_edittext_add_ann_found_pet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -105,23 +106,24 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:maxLines="1"
+        android:singleLine="true"
         android:hint="Enter species"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender_spinner_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/gender_spinner_add_ann_found_pet" />
 
     <TextView
-        android:id="@+id/age_textview_addpetprofile"
+        android:id="@+id/age_textview_add_ann_found_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/age"
-        app:layout_constraintBottom_toTopOf="@+id/age_edittext_petprofile"
+        app:layout_constraintBottom_toTopOf="@+id/phone_number_edittext_add_ann"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/age_edittext_petprofile"
+        android:id="@+id/phone_number_edittext_add_ann"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -130,22 +132,23 @@
         android:ems="10"
         android:hint="Enter age"
         android:maxLines="1"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/breed_edittext_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/city_edittext_add_ann_pet" />
 
     <TextView
-        android:id="@+id/breed_textview_addpetprofile"
+        android:id="@+id/breed_textview_add_ann_found_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="@string/breed"
-        app:layout_constraintBottom_toTopOf="@+id/breed_edittext_petprofile"
+        app:layout_constraintBottom_toTopOf="@+id/city_edittext_add_ann_pet"
         app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/breed_edittext_petprofile"
+            android:id="@+id/city_edittext_add_ann_pet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -154,22 +157,23 @@
             android:ems="10"
             android:hint="Enter breed"
             android:maxLines="1"
+            android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/specie_edittext_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/specie_edittext_add_ann_found_pet" />
 
         <TextView
-        android:id="@+id/microchipnumber_textview_addpetprofile"
+        android:id="@+id/microchipnumber_textview_add_ann_found_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Microchip number (optional)"
-        app:layout_constraintBottom_toTopOf="@+id/microchipnumber_edittext_petprofile"
+        app:layout_constraintBottom_toTopOf="@+id/street_edittext_add_ann_pet"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/microchipnumber_edittext_petprofile"
+        android:id="@+id/street_edittext_add_ann_pet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -178,21 +182,22 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Enter microchip number"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_edittext_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/phone_number_edittext_add_ann" />
 
     <TextView
-        android:id="@+id/description_textview_addpetprofile"
+        android:id="@+id/description_textview_add_ann_found_pet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:hint="@string/description"
-        app:layout_constraintBottom_toTopOf="@+id/description_edittext_petprofile"
+        app:layout_constraintBottom_toTopOf="@+id/description_edittext_add_ann_found_pet"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/description_edittext_petprofile"
+        android:id="@+id/description_edittext_add_ann_found_pet"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="16dp"
@@ -202,10 +207,11 @@
         android:hint="Enter description"
         android:inputType="textMultiLine"
         android:scrollbars="vertical"
+        android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/microchipnumber_edittext_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/street_edittext_add_ann_pet" />
 
     <Button
         android:id="@+id/nfc_button_addpetprofile"
@@ -217,7 +223,7 @@
         android:text="NFC"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description_edittext_petprofile" />
+        app:layout_constraintTop_toBottomOf="@+id/description_edittext_add_ann_found_pet" />
 
     <Button
         android:id="@+id/confirm_button_addpetprofile"

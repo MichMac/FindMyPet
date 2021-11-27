@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PetProfileListAdapter extends RecyclerView.Adapter<PetProfileListAdapter.PetProfileHolder> {
@@ -40,7 +39,7 @@ public class PetProfileListAdapter extends RecyclerView.Adapter<PetProfileListAd
     public void onBindViewHolder(@NonNull PetProfileHolder holder, int position) {
         PetProfile currentPetProfile = mPetProfiles.get(position);
         Glide.with(mContext)
-                .load(currentPetProfile.getImage_url())
+                .load(currentPetProfile.getPetImageUrl())
                 .into(holder.imageViewPetPic);
         holder.textViewName.setText(currentPetProfile.getName());
 

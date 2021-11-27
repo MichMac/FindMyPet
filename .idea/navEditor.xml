@@ -3,11 +3,66 @@
   <component name="navEditor-manualLayoutAlgorithm2">
     <option name="myPositions">
       <map>
+        <entry key="announcements_navigation.xml">
+          <value>
+            <LayoutPositions>
+              <option name="myPositions">
+                <map>
+                  <entry key="addAnnouncementLocation2">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="131" />
+                            <option name="y" value="48" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="missingFoundFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-207" />
+                            <option name="y" value="48" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_missingFoundFragment_to_addAnnouncementLocation2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </LayoutPositions>
+          </value>
+        </entry>
         <entry key="auth_nav_graph.xml">
           <value>
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="addAnnouncementLocation">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-19" />
+                            <option name="y" value="132" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="authFragment">
                     <value>
                       <LayoutPositions>
@@ -19,6 +74,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_authFragment_to_mainActivity">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_authFragment_to_newUserFragment">
                               <value>
                                 <LayoutPositions />
@@ -34,29 +94,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-138" />
-                            <option name="y" value="105" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_mainActivity_to_newUserFragmentm">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="mobile_navigation">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-407" />
-                            <option name="y" value="-268" />
+                            <option name="x" value="-252" />
+                            <option name="y" value="124" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -67,13 +106,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-207" />
-                            <option name="y" value="-257" />
+                            <option name="x" value="-284" />
+                            <option name="y" value="-335" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_newUserFragment_to_mobile_navigation">
+                            <entry key="action_newUserFragment_to_mainActivity">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -93,13 +132,102 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="addFoundAnnouncementContact">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1226" />
+                            <option name="y" value="-904" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addFoundAnnouncementContact_to_addFoundAnnouncementLocation">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="addFoundAnnouncementLocation">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="386" />
+                            <option name="y" value="-458" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addAnnouncementLocation_to_addFoundAnnouncementPet">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_addFoundAnnouncementLocation_to_addLostAnnouncementPet">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="addFoundAnnouncementPet">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="682" />
+                            <option name="y" value="-448" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addFoundAnnouncementPet_to_addAnnouncementContact">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="addLostAnnouncementPet">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="683" />
+                            <option name="y" value="-99" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addLostAnnouncementPet_to_addFoundAnnouncementContact">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="addPetProfileFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="777" />
-                            <option name="y" value="321" />
+                            <option name="x" value="-206" />
+                            <option name="y" value="256" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -119,8 +247,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-65" />
-                            <option name="y" value="-130" />
+                            <option name="x" value="-198" />
+                            <option name="y" value="-203" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -131,9 +259,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="518" />
-                            <option name="y" value="-196" />
+                            <option name="x" value="54" />
+                            <option name="y" value="-288" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_nav_missing_lost_to_addAnnouncementLocation">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -143,8 +280,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="154" />
-                            <option name="y" value="182" />
+                            <option name="x" value="159" />
+                            <option name="y" value="273" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -159,7 +296,7 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="action_nav_pet_profile_to_petProfileFragment">
+                            <entry key="petProfileFragmentAction">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -179,8 +316,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="759" />
-                            <option name="y" value="-59" />
+                            <option name="x" value="488" />
+                            <option name="y" value="243" />
                           </Point>
                         </option>
                       </LayoutPositions>

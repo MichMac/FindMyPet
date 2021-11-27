@@ -52,6 +52,7 @@ public class PetProfileListFragment extends Fragment implements OnPetProfileList
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
 
+
         fabAddPetProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

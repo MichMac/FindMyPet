@@ -8,9 +8,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -20,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.MutableLiveData;
 
 public class PetProfileRepository {
@@ -164,7 +161,7 @@ public class PetProfileRepository {
                     @Override
                     public void onSuccess(Uri uri) {
                         mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(PetName)
-                                .update("image_url", uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                .update("petImageUrl", uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Log.i(TAG,"Pet picture url successfully added to firestore");
@@ -208,7 +205,7 @@ public class PetProfileRepository {
                         "breed",petProfile.getBreed(),
                         "description",petProfile.getDescription(),
                         "gender",petProfile.getGender(),
-                        "microchip_number",petProfile.getMicrochip_number(),
+                        "microchip_number",petProfile.getMicrochipNumber(),
                         "species",petProfile.getSpecies()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

@@ -1,6 +1,5 @@
 package com.example.findmypet.views;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.os.Bundle;
@@ -52,15 +51,15 @@ public class PetProfileFragment extends Fragment {
 
         ivPetPic = root.findViewById(R.id.image_petprofile);
         tvPetName = root.findViewById(R.id.name_textview_petprofile);
-        etPetAge = root.findViewById(R.id.age_edittext_petprofile);
-        spGender = root.findViewById(R.id.gender_edittext_petprofile);
+        etPetAge = root.findViewById(R.id.phone_number_edittext_add_ann);
+        spGender = root.findViewById(R.id.gender_edittext_add_ann_found_pet);
         genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spGender.setAdapter(genderAdapter);
-        etMnNumber = root.findViewById(R.id.microchipnumber_edittext_petprofile);
-        etDescription = root.findViewById(R.id.description_edittext_petprofile);
-        etSpecies = root.findViewById(R.id.species_edittext_petprofile);
-        etBreed = root.findViewById(R.id.breed_edittext_petprofile);
+        etMnNumber = root.findViewById(R.id.street_edittext_add_ann_pet);
+        etDescription = root.findViewById(R.id.description_edittext_add_ann_found_pet);
+        etSpecies = root.findViewById(R.id.province_edittext_loc_ann);
+        etBreed = root.findViewById(R.id.city_edittext_add_ann_pet);
 
         mPetProfile = (PetProfile) getArguments().getSerializable("petprofile");
         setPetProfileData(mPetProfile);
@@ -77,12 +76,6 @@ public class PetProfileFragment extends Fragment {
         return root;
     }
 
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        mPetProfileViewModel = new ViewModelProvider(this).get(PetProfileViewModel.class);
-//        // TODO: Use the ViewModel
-//    }
     public void setPetProfileData(PetProfile petProfile){
 
         if(petProfile != null){
@@ -91,13 +84,13 @@ public class PetProfileFragment extends Fragment {
 
             Glide.with(this)
                     .setDefaultRequestOptions(requestOptions)
-                    .load(petProfile.getImage_url())
+                    .load(petProfile.getPetImageUrl())
                     .into(ivPetPic);
 
             tvPetName.setText(petProfile.getName());
             etPetAge.setText(Integer.toString(petProfile.getAge()));
             spGender.setSelection(genderAdapter.getPosition(petProfile.getGender()));
-            etMnNumber.setText(Integer.toString(petProfile.getMicrochip_number()));
+            etMnNumber.setText(Integer.toString(petProfile.getMicrochipNumber()));
             etSpecies.setText(petProfile.getSpecies());
             etBreed.setText(petProfile.getBreed());
             etDescription.setText(petProfile.getDescription());
@@ -116,7 +109,7 @@ public class PetProfileFragment extends Fragment {
                 mPetProfile.setName(tvPetName.getText().toString());
                 mPetProfile.setAge(Integer.parseInt(etPetAge.getText().toString()));
                 mPetProfile.setGender(spGender.getSelectedItem().toString());
-                mPetProfile.setMicrochip_number(Integer.parseInt(etMnNumber.getText().toString()));
+                mPetProfile.setMicrochipNumber(Integer.parseInt(etMnNumber.getText().toString()));
                 mPetProfile.setSpecies(etSpecies.getText().toString());
                 mPetProfile.setBreed(etBreed.getText().toString());
                 mPetProfile.setDescription(etDescription.getText().toString());

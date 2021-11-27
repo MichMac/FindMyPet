@@ -5,7 +5,7 @@ public class User {
     private String uID;
     private String name;
     private String email;
-    private String phone_number;
+    private String phoneNumber;
 
 //    private boolean isAuthenticated;
 //    private boolean isNew, isCreated;
@@ -42,12 +42,12 @@ public class User {
         this.email = email;
     }
 
-    public String getPhone_number() {
-        return phone_number;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
 //    public boolean isAuthenticated() {

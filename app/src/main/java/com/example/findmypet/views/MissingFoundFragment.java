@@ -5,13 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.findmypet.R;
 import com.example.findmypet.viewmodels.MissingFoundViewModel;
@@ -22,17 +20,16 @@ public class MissingFoundFragment extends Fragment {
     private MissingFoundViewModel mMissingFoundViewModel;
 
     FloatingActionButton mAddAnnFab, mAddLostPetAnnFab, mAddFoundPetAnnFab;
-
     TextView addLostPetAnnText, addFoundPetAnnText;
-
     Boolean isAllFabsVisible;
+    Boolean isFoundAnn;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         mMissingFoundViewModel =
                 new ViewModelProvider(this).get(MissingFoundViewModel.class);
         View root = inflater.inflate(R.layout.missing_found_fragment, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
 
         mAddAnnFab = root.findViewById(R.id.add_ann_fab);
         mAddFoundPetAnnFab = root.findViewById(R.id.add_found_pet_ann_fab);
@@ -84,12 +81,33 @@ public class MissingFoundFragment extends Fragment {
                     }
                 });
 
-        mMissingFoundViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        mAddFoundPetAnnFab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public void onClick(View view) {
+                isFoundAnn = true;
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isFoundAnn",isFoundAnn);
+                Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_lost_to_addAnnouncementLocation,bundle);
             }
         });
+
+        mAddLostPetAnnFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isFoundAnn = false;
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isFoundAnn",isFoundAnn);
+                Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_lost_to_addAnnouncementLocation,bundle);
+            }
+        });
+
+
+//        mMissingFoundViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+//            @Override
+//            public void onChanged(@Nullable String s) {
+//                textView.setText(s);
+//            }
+//        });
         
         return root;
     }

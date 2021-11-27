@@ -9,15 +9,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
@@ -94,7 +90,7 @@ public class AuthRepository {
                         mUser.setuID(mFirebaseAuth.getCurrentUser().getUid());
                         mUser.setEmail(email);
                         mUser.setName(name);
-                        mUser.setPhone_number(phoneNumber);
+                        mUser.setPhoneNumber(phoneNumber);
                         addUserToFirestore(mUser);
                         Toast.makeText(application.getApplicationContext(), "User has been created!", Toast.LENGTH_SHORT).show();
                     } else {
@@ -107,7 +103,7 @@ public class AuthRepository {
     private void addUserToFirestore(User mUser){
         mUserRef.document(mUser.getuID()).set(mUser).addOnSuccessListener(aVoid -> {
                 Log.d("FirestoreAddingUser","DocumentSnapshot with user has been added");
-                modifyUser(mUser.getName(),mUser.getPhone_number());
+                modifyUser(mUser.getName(),mUser.getPhoneNumber());
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
@@ -118,7 +114,7 @@ public class AuthRepository {
 
     private void modifyUser(String name, String number){
         mUser.setName(name);
-        mUser.setPhone_number(number);
+        mUser.setPhoneNumber(number);
         mUserRef.document(mUser.getuID())
                 .update("name",name,
                         "phone_number",number).addOnSuccessListener(new OnSuccessListener<Void>() {
