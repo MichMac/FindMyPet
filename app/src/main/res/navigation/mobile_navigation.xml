@@ -10,9 +10,9 @@
 
     <fragment
         android:id="@+id/nav_missing_found"
-        android:name="com.example.findmypet.views.MissingFoundFragment"
+        android:name="com.example.findmypet.views.AnnouncementsListFragment"
         android:label="@string/missing_found"
-        tools:layout="@layout/missing_found_fragment" >
+        tools:layout="@layout/announcements_list_fragment" >
         <action
             android:id="@+id/action_nav_missing_lost_to_addAnnouncementLocation"
             app:destination="@id/addFoundAnnouncementLocation" />

@@ -4,11 +4,14 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.findmypet.models.Announcement;
+import com.example.findmypet.models.PetProfile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -61,6 +64,11 @@ public class AnnouncementRepository {
         return isAdded;
     }
 
+    public MutableLiveData<List<Announcement>> getAnnouncements() {
+        loadAnnouncements();
+        return mAnnouncements;
+    }
+
     public void addFoundPetAnnouncement(Announcement announcement){
         String userID = mFirebaseAuth.getUid();
         announcement.setUserID(userID);
@@ -107,6 +115,32 @@ public class AnnouncementRepository {
                         });
                     }
                 });
+            }
+        });
+    }
+    private void loadAnnouncements(){
+        isLoading.setValue(true);
+        mFirestoreDB.collection("announcements").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                if (!queryDocumentSnapshots.isEmpty()){
+
+                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                    announcementsDataSet.clear();
+
+                    for (DocumentSnapshot documentSnapshot: list){
+
+                        announcementsDataSet.add(documentSnapshot.toObject(Announcement.class));
+                        mAnnouncements.setValue(announcementsDataSet);
+                    }
+                }
+                isLoading.setValue(false);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Getting document snapshot error: ",e);
             }
         });
     }

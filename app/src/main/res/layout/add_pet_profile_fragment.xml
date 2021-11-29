@@ -182,6 +182,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Enter microchip number"
+        android:maxLength="15"
         android:singleLine="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

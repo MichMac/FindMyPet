@@ -92,13 +92,13 @@ public class AddFoundAnnouncementPet extends Fragment {
             public void onClick(View view) {
                 if(dataValidation()){
                     Announcement announcement = sharedViewModel.getAnnouncementInfo().getValue();
-                    announcement.setStatus("found");
+                    announcement.setStatus("Zaginiony");
                     announcement.setPetImageUrl(selectedImageUri.toString());
                     announcement.setPetGender(spGender.getSelectedItem().toString());
                     announcement.setPetSpecie(etSpecie.getText().toString());
                     announcement.setPetBreed(etBreed.getText().toString());
                     if(etMnNumber != null)
-                        announcement.setPetMicrochipNumber(parseInt(etMnNumber.getText().toString()));
+                        announcement.setPetMicrochipNumber( Long.parseLong(etMnNumber.getText().toString()));
                     announcement.setPetDescription(etDescription.getText().toString());
                     Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementPet_to_addAnnouncementContact);
                 }
@@ -120,6 +120,13 @@ public class AddFoundAnnouncementPet extends Fragment {
         if(selectedImageUri == null){
             Toast.makeText(getContext(),"Please select picture of the pet",Toast.LENGTH_SHORT).show();
             return false;
+        }
+
+        if(etMnNumber != null){
+            if(etMnNumber.length() != 15) {
+                etMnNumber.setError("Microchip number must have 15 digits");
+                return false;
+            }
         }
 
         if (etSpecie.length() == 0) {

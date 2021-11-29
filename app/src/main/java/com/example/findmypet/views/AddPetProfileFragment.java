@@ -129,8 +129,8 @@ public class AddPetProfileFragment extends Fragment {
                     mPetProfile.setSpecies(etSpecie.getText().toString());
                     mPetProfile.setBreed(etBreed.getText().toString());
                     mPetProfile.setAge(Integer.parseInt(etPetAge.getText().toString()));
-                    if(etMnNumber.length() != 0){
-                        mPetProfile.setMicrochipNumber(Integer.parseInt(etMnNumber.getText().toString()));
+                    if(etMnNumber != null){
+                        mPetProfile.setMicrochipNumber(Long.parseLong(etMnNumber.getText().toString()));
                     }
                     mPetProfile.setDescription(etDescription.getText().toString());
 
@@ -187,6 +187,12 @@ public class AddPetProfileFragment extends Fragment {
             if (etSpecie.length() == 0) {
                 etSpecie.setError("This field is required");
                 return false;
+            }
+            if(etMnNumber != null){
+                if(etMnNumber.length() != 15) {
+                    etMnNumber.setError("Microchip number must have 15 digits");
+                    return false;
+                }
             }
             if (etBreed.length() == 0) {
                 etBreed.setError("This field is required");

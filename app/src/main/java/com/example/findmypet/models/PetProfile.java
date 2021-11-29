@@ -11,7 +11,7 @@ public class PetProfile implements Serializable {
     private int age;
     private String description;
     private String petImageUrl;
-    private int microchipNumber;
+    private Long microchipNumber;
     private String nfcID;
     private String userID;
 
@@ -82,11 +82,11 @@ public class PetProfile implements Serializable {
         this.petImageUrl = petImageUrl;
     }
 
-    public int getMicrochipNumber() {
+    public long getMicrochipNumber() {
         return microchipNumber;
     }
 
-    public void setMicrochipNumber(int microchipNumber) { this.microchipNumber = microchipNumber;
+    public void setMicrochipNumber(long microchipNumber) { this.microchipNumber = microchipNumber;
     }
 
     public String getNfcID() {

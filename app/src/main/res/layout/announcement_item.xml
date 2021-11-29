@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="0dp"
+    card_view:cardBackgroundColor="#80d0d0d0"
+    card_view:cardCornerRadius="30dp"
+    card_view:cardElevation="0dp"
+    card_view:cardUseCompatPadding="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/image_pet_announcement"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.065"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_bias="0.089"
+            card_view:srcCompat="@drawable/test" />
+
+        <ImageView
+            android:id="@+id/location_announcement_imageview"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/image_pet_announcement"
+            card_view:layout_constraintTop_toBottomOf="@+id/breed_pet_announcement_textview"
+            card_view:layout_constraintVertical_bias="0.261"
+            card_view:srcCompat="@drawable/ic_baseline_location_on_24" />
+
+        <TextView
+            android:id="@+id/specie_pet_announcement_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Pies"
+            android:textSize="6pt"
+            card_view:layout_constraintStart_toEndOf="@+id/image_pet_announcement"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/status_announcement_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Zaginiony"
+            android:textAllCaps="true"
+            android:textSize="6pt"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.859"
+            card_view:layout_constraintStart_toEndOf="@+id/specie_pet_announcement_textview"
+            card_view:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/date_announcement_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="21/09/2021"
+            android:textSize="4pt"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.832"
+            card_view:layout_constraintStart_toEndOf="@+id/breed_pet_announcement_textview"
+            card_view:layout_constraintTop_toBottomOf="@+id/status_announcement_textview" />
+
+        <TextView
+            android:id="@+id/breed_pet_announcement_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Kundel"
+            android:textSize="4pt"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0"
+            card_view:layout_constraintStart_toEndOf="@+id/image_pet_announcement"
+            card_view:layout_constraintTop_toBottomOf="@+id/specie_pet_announcement_textview" />
+
+        <TextView
+            android:id="@+id/province_announcement_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Dolnośląskie"
+            android:textSize="4pt"
+            card_view:layout_constraintBottom_toTopOf="@+id/street_announcement_textview"
+            card_view:layout_constraintStart_toEndOf="@+id/location_announcement_imageview"
+            card_view:layout_constraintTop_toBottomOf="@+id/country_city_announcement_textview" />
+
+        <TextView
+            android:id="@+id/country_city_announcement_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="24dp"
+            android:text="Polska,Wrocław"
+            android:textSize="4pt"
+            card_view:layout_constraintBottom_toTopOf="@+id/province_announcement_textview"
+            card_view:layout_constraintStart_toEndOf="@+id/location_announcement_imageview"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:layout_constraintVertical_chainStyle="packed" />
+
+        <TextView
+            android:id="@+id/street_announcement_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="Świętego Antoniego"
+            android:textSize="4pt"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            card_view:layout_constraintStart_toEndOf="@+id/location_announcement_imageview"
+            card_view:layout_constraintTop_toBottomOf="@+id/province_announcement_textview" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -32,12 +32,12 @@ public class PetProfileFragment extends Fragment {
 
     private ImageView ivPetPic;
     private TextView tvPetName;
-    private TextView etPetAge;
+    private TextView tvPetAge;
     private Spinner spGender;
-    private TextView etMnNumber;
-    private TextView etDescription;
-    private TextView etSpecies;
-    private TextView etBreed;
+    private TextView tvMnNumber;
+    private TextView tvDescription;
+    private TextView tvSpecies;
+    private TextView tvBreed;
 
     ArrayAdapter<CharSequence> genderAdapter;
 
@@ -51,15 +51,15 @@ public class PetProfileFragment extends Fragment {
 
         ivPetPic = root.findViewById(R.id.image_petprofile);
         tvPetName = root.findViewById(R.id.name_textview_petprofile);
-        etPetAge = root.findViewById(R.id.phone_number_edittext_add_ann);
+        tvPetAge = root.findViewById(R.id.phone_number_edittext_add_ann);
         spGender = root.findViewById(R.id.gender_edittext_add_ann_found_pet);
         genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spGender.setAdapter(genderAdapter);
-        etMnNumber = root.findViewById(R.id.street_edittext_add_ann_pet);
-        etDescription = root.findViewById(R.id.description_edittext_add_ann_found_pet);
-        etSpecies = root.findViewById(R.id.province_edittext_loc_ann);
-        etBreed = root.findViewById(R.id.city_edittext_add_ann_pet);
+        tvMnNumber = root.findViewById(R.id.street_edittext_add_ann_pet);
+        tvDescription = root.findViewById(R.id.description_edittext_add_ann_found_pet);
+        tvSpecies = root.findViewById(R.id.province_edittext_loc_ann);
+        tvBreed = root.findViewById(R.id.city_edittext_add_ann_pet);
 
         mPetProfile = (PetProfile) getArguments().getSerializable("petprofile");
         setPetProfileData(mPetProfile);
@@ -88,12 +88,12 @@ public class PetProfileFragment extends Fragment {
                     .into(ivPetPic);
 
             tvPetName.setText(petProfile.getName());
-            etPetAge.setText(Integer.toString(petProfile.getAge()));
+            tvPetAge.setText(Integer.toString(petProfile.getAge()));
             spGender.setSelection(genderAdapter.getPosition(petProfile.getGender()));
-            etMnNumber.setText(Integer.toString(petProfile.getMicrochipNumber()));
-            etSpecies.setText(petProfile.getSpecies());
-            etBreed.setText(petProfile.getBreed());
-            etDescription.setText(petProfile.getDescription());
+            tvMnNumber.setText(Long.toString(petProfile.getMicrochipNumber()));
+            tvSpecies.setText(petProfile.getSpecies());
+            tvBreed.setText(petProfile.getBreed());
+            tvDescription.setText(petProfile.getDescription());
         }
     }
     @Override
@@ -107,12 +107,12 @@ public class PetProfileFragment extends Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 mPetProfile.setName(tvPetName.getText().toString());
-                mPetProfile.setAge(Integer.parseInt(etPetAge.getText().toString()));
+                mPetProfile.setAge(Integer.parseInt(tvPetAge.getText().toString()));
                 mPetProfile.setGender(spGender.getSelectedItem().toString());
-                mPetProfile.setMicrochipNumber(Integer.parseInt(etMnNumber.getText().toString()));
-                mPetProfile.setSpecies(etSpecies.getText().toString());
-                mPetProfile.setBreed(etBreed.getText().toString());
-                mPetProfile.setDescription(etDescription.getText().toString());
+                mPetProfile.setMicrochipNumber(Integer.parseInt(tvMnNumber.getText().toString()));
+                mPetProfile.setSpecies(tvSpecies.getText().toString());
+                mPetProfile.setBreed(tvBreed.getText().toString());
+                mPetProfile.setDescription(tvDescription.getText().toString());
                 mPetProfileViewModel.updatePetProfile(mPetProfile);
                 Toast.makeText(getContext(),"Profile successfully updated!",Toast.LENGTH_LONG).show();
                 return true;

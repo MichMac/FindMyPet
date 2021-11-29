@@ -15,7 +15,7 @@ public class Announcement {
     private String petSpecie;
     private String petBreed;
     private String petGender;
-    private int petMicrochipNumber;
+    private Long petMicrochipNumber;
     private String nfcID;
     private String petDescription;
 
@@ -115,11 +115,11 @@ public class Announcement {
         this.petGender = petGender;
     }
 
-    public int getPetMicrochipNumber() {
+    public long getPetMicrochipNumber() {
         return petMicrochipNumber;
     }
 
-    public void setPetMicrochipNumber(int petMicrochipNumber) {
+    public void setPetMicrochipNumber(long petMicrochipNumber) {
         this.petMicrochipNumber = petMicrochipNumber;
     }
 
