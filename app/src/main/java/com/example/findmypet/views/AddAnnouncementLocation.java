@@ -45,7 +45,7 @@ public class AddAnnouncementLocation extends Fragment {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(AddAnnouncementSharedViewModel.class);
         sharedViewModel.init();
 
-        btnNext = root.findViewById(R.id.done_button_ann);
+        btnNext = root.findViewById(R.id.next_button_location_ann);
         etDate = root.findViewById(R.id.phone_number_edittext_add_ann);
         etCountry =  root.findViewById(R.id.country_edittext_loc_ann);
         etProvince = root.findViewById(R.id.province_edittext_loc_ann);

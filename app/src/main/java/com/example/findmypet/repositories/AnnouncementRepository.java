@@ -35,7 +35,6 @@ public class AnnouncementRepository {
     private StorageReference petPicRef;
 
     private ArrayList<Announcement> announcementsDataSet = new ArrayList<>();
-    private Announcement announcement = new Announcement();
     MutableLiveData<Announcement> mAnnouncement = new MutableLiveData<>();
     MutableLiveData<List<Announcement>> mAnnouncements = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
@@ -67,6 +66,28 @@ public class AnnouncementRepository {
     public MutableLiveData<List<Announcement>> getAnnouncements() {
         loadAnnouncements();
         return mAnnouncements;
+    }
+
+    public void addLostPetAnnouncement(Announcement announcement){
+        isLoading.setValue(true);
+        isAdded.setValue(false);
+        String userID = mFirebaseAuth.getUid();
+        announcement.setUserID(userID);
+        mFirestoreDB.collection("announcements")
+                .add(announcement)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "Announcement has been added");
+                        isLoading.setValue(false);
+                        isAdded.setValue(true);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG,"Announcement hasn't been added: " + e.getMessage());
+            }
+        });
     }
 
     public void addFoundPetAnnouncement(Announcement announcement){

@@ -86,8 +86,7 @@ public class PetProfile implements Serializable {
         return microchipNumber;
     }
 
-    public void setMicrochipNumber(long microchipNumber) { this.microchipNumber = microchipNumber;
-    }
+    public void setMicrochipNumber(long microchipNumber) { this.microchipNumber = microchipNumber; }
 
     public String getNfcID() {
         return nfcID;
@@ -95,5 +94,10 @@ public class PetProfile implements Serializable {
 
     public void setNfcID(String nfcID) {
         this.nfcID = nfcID;
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }

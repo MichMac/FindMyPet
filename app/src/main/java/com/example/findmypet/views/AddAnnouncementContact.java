@@ -7,11 +7,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneNumberUtils;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +45,7 @@ public class AddAnnouncementContact extends Fragment {
         sharedViewModel = new ViewModelProvider(requireActivity()).get(AddAnnouncementSharedViewModel.class);
         sharedViewModel.init();
 
-        btnDone = root.findViewById(R.id.done_button_ann);
+        btnDone = root.findViewById(R.id.next_button_location_ann);
         etPhoneNumber = root.findViewById(R.id.phone_number_edittext_add_ann);
         mProgressBar = root.findViewById(R.id.progress_bar_adding_announcement);
 
@@ -72,7 +67,7 @@ public class AddAnnouncementContact extends Fragment {
                 {
                     Announcement announcement = sharedViewModel.getAnnouncementInfo().getValue();
                     announcement.setPhoneNumber(etPhoneNumber.getText().toString());
-                    sharedViewModel.addAnnouncementToFirestore(announcement);
+                    sharedViewModel.addLostAnnouncementToFirestore(announcement);
                 }
             }
         });

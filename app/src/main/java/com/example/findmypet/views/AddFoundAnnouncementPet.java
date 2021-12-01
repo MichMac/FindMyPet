@@ -100,6 +100,7 @@ public class AddFoundAnnouncementPet extends Fragment {
                     if(etMnNumber != null)
                         announcement.setPetMicrochipNumber( Long.parseLong(etMnNumber.getText().toString()));
                     announcement.setPetDescription(etDescription.getText().toString());
+                    sharedViewModel.setAnnouncementInfo(announcement);
                     Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementPet_to_addAnnouncementContact);
                 }
             }
@@ -122,7 +123,7 @@ public class AddFoundAnnouncementPet extends Fragment {
             return false;
         }
 
-        if(etMnNumber != null){
+        if(etMnNumber.length() > 2){
             if(etMnNumber.length() != 15) {
                 etMnNumber.setError("Microchip number must have 15 digits");
                 return false;

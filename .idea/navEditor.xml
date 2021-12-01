@@ -137,13 +137,13 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1226" />
-                            <option name="y" value="-904" />
+                            <option name="x" value="1103" />
+                            <option name="y" value="-259" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_addFoundAnnouncementContact_to_addFoundAnnouncementLocation">
+                            <entry key="action_addFoundAnnouncementContact_to_nav_missing_found">
                               <value>
                                 <LayoutPositions />
                               </value>
