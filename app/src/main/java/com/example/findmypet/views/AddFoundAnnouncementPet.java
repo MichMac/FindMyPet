@@ -97,8 +97,12 @@ public class AddFoundAnnouncementPet extends Fragment {
                     announcement.setPetGender(spGender.getSelectedItem().toString());
                     announcement.setPetSpecie(etSpecie.getText().toString());
                     announcement.setPetBreed(etBreed.getText().toString());
-                    if(etMnNumber != null)
-                        announcement.setPetMicrochipNumber( Long.parseLong(etMnNumber.getText().toString()));
+                    if(!etMnNumber.getText().toString().equals("")){
+                        announcement.setPetMicrochipNumber(Long.parseLong(etMnNumber.getText().toString()));
+                    }
+                    else{
+                        announcement.setPetMicrochipNumber(0);
+                    }
                     announcement.setPetDescription(etDescription.getText().toString());
                     sharedViewModel.setAnnouncementInfo(announcement);
                     Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementPet_to_addAnnouncementContact);

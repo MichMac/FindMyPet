@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,6 @@ public class AuthRepository {
     private CollectionReference mUserRef;
     private MutableLiveData<FirebaseUser> mFirebaseUserMutableLiveData;
     private User mUser;
-    private FirebaseUser mFirebaseUser;
     private MutableLiveData<User> mUserMutableLiveData;
     private MutableLiveData<Boolean> mLoggedOutLiveData;
 
@@ -103,7 +103,7 @@ public class AuthRepository {
     private void addUserToFirestore(User mUser){
         mUserRef.document(mUser.getuID()).set(mUser).addOnSuccessListener(aVoid -> {
                 Log.d("FirestoreAddingUser","DocumentSnapshot with user has been added");
-                modifyUser(mUser.getName(),mUser.getPhoneNumber());
+                //modifyUser(mUser.getName(),mUser.getPhoneNumber());
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
@@ -112,23 +112,23 @@ public class AuthRepository {
             });
     }
 
-    private void modifyUser(String name, String number){
-        mUser.setName(name);
-        mUser.setPhoneNumber(number);
-        mUserRef.document(mUser.getuID())
-                .update("name",name,
-                        "phone_number",number).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG,"DocumentSnapshot with user name and phone number successfully updated!");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG,"Error updating document",e);
-            }
-        });
-    }
+//    private void modifyUser(String name, String number){
+//        mUser.setName(name);
+//        mUser.setPhoneNumber(number);
+//        mUserRef.document(mUser.getuID())
+//                .update("name",name,
+//                        "phone_number",number).addOnSuccessListener(new OnSuccessListener<Void>() {
+//            @Override
+//            public void onSuccess(Void aVoid) {
+//                Log.d(TAG,"DocumentSnapshot with user name and phone number successfully updated!");
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.w(TAG,"Error updating document",e);
+//            }
+//        });
+//    }
 
     public void logOut() {
         mFirebaseAuth.signOut();
@@ -142,29 +142,29 @@ public class AuthRepository {
         return new User(uid,name,email);
     }*/
 
-//    private User getUserFirestore(FirebaseUser firebaseUser){
-//        mUserRef.document(firebaseUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-//                if (task.isSuccessful()){
-//                    DocumentSnapshot document = task.getResult();
-//                    if(document.exists()){
-//                        Log.d(TAG,"DocumentSnapshot Data: " + document.getData());
-//                        mUser.setuID(document.getString("uID"));
-//                        mUser.setName(document.getString("name"));
-//                        mUser.setEmail(document.getString("email"));
-//                        mUser.setPhone_number(document.getString("phone_number"));
-//                    } else {
-//                        Log.d(TAG, "No such document");
-//                    }
-//                }
-//                else{
-//                    Log.d(TAG, "get failed with", task.getException());
-//                }
-//            }
-//        });
-//        return mUser;
-//    }
+    private User getUserFirestore(FirebaseUser firebaseUser){
+        mUserRef.document(firebaseUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        Log.d(TAG,"DocumentSnapshot Data: " + document.getData());
+                        mUser.setuID(document.getString("uID"));
+                        mUser.setName(document.getString("name"));
+                        mUser.setEmail(document.getString("email"));
+                        mUser.setPhoneNumber(document.getString("phoneNumber"));
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                }
+                else{
+                    Log.d(TAG, "get failed with", task.getException());
+                }
+            }
+        });
+        return mUser;
+    }
 
 //    public MutableLiveData<User> getUserMutableLiveData() { return mUserMutableLiveData; }
 

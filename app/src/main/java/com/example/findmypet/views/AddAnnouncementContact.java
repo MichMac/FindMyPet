@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import com.example.findmypet.R;
 import com.example.findmypet.models.Announcement;
 import com.example.findmypet.viewmodels.AddAnnouncementSharedViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AddAnnouncementContact extends Fragment {
 
@@ -48,6 +49,7 @@ public class AddAnnouncementContact extends Fragment {
         btnDone = root.findViewById(R.id.next_button_location_ann);
         etPhoneNumber = root.findViewById(R.id.phone_number_edittext_add_ann);
         mProgressBar = root.findViewById(R.id.progress_bar_adding_announcement);
+
 
         sharedViewModel.isAnnouncementAdded().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override

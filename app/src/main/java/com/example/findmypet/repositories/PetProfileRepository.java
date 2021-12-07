@@ -24,6 +24,7 @@ public class PetProfileRepository {
 
     private static final String TAG = "PetProfileRepository";
     private static PetProfileRepository instance;
+    //private AuthRepository mAuthRepository;
 
     private FirebaseFirestore mFirestoreDB = FirebaseFirestore.getInstance();
     private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
