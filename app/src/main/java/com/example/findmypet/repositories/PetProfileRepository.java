@@ -7,6 +7,7 @@ import com.example.findmypet.models.PetProfile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -133,35 +134,45 @@ public class PetProfileRepository {
         });
     }
 
-    public void addPetProfile(PetProfile petProfile){
-        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(petProfile.getName())
-                .set(petProfile)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
+    public void addPetProfile(PetProfile petProfile, Uri PetProfilePicURL){
+        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid())
+                .collection("PetProfiles")
+                .add(petProfile).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                mFirestoreDB.collection("users").document(mFirebaseAuth.getUid())
+                        .collection("PetProfiles")
+                        .document(documentReference.getId())
+                        .update("petProfileID",documentReference.getId()).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        //notifyUpdatePetProfile();
-                        //PetProfilesDataSet.add(petProfile);
-                        //petProfiles.setValue(PetProfilesDataSet);
-                        Log.d(TAG , "Pet profile has been added");
+                        addPetProfilePicture(documentReference.getId(),PetProfilePicURL);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG,"Pet profile is not updated: " + e.getMessage());
+                    }
+                });
+            }
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG , "Pet profile hasn't been added: " + e.getMessage());
+                Log.d(TAG,"Pet profile successfully added: " + e.getMessage());
             }
         });
     }
 
-    public void addPetProfilePicture(Uri PetProfilePicURL, String PetName){
+    private void addPetProfilePicture(String PetProfileID, Uri PetProfilePicURL){
         isLoading.setValue(true);
-        petPicRef = storageRef.child(mFirebaseAuth.getUid() + "/" + PetName +".jpg");
+        petPicRef = storageRef.child(mFirebaseAuth.getUid() + "/" + PetProfileID +".jpg");
         petPicRef.putFile(PetProfilePicURL).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 petPicRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(PetName)
+                        mFirestoreDB.collection("users").document(mFirebaseAuth.getUid()).collection("PetProfiles").document(PetProfileID)
                                 .update("petImageUrl", uri.toString()).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
@@ -182,7 +193,7 @@ public class PetProfileRepository {
 
     public void deletePetProfile(PetProfile petProfile){
         mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles/")
-                .document(petProfile.getName())
+                .document(petProfile.getPetProfileID())
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -206,7 +217,7 @@ public class PetProfileRepository {
                         "breed",petProfile.getBreed(),
                         "description",petProfile.getDescription(),
                         "gender",petProfile.getGender(),
-                        "microchip_number",petProfile.getMicrochipNumber(),
+                        "microchipNumber",petProfile.getMicrochipNumber(),
                         "species",petProfile.getSpecies()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {

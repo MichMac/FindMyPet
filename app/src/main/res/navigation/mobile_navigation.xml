@@ -62,7 +62,7 @@
         app:destination="@id/auth_nav_graph" />
     <fragment
         android:id="@+id/addFoundAnnouncementLocation"
-        android:name="com.example.findmypet.views.AddAnnouncementLocation"
+        android:name="com.example.findmypet.views.AddAnnouncementLocationFragment"
         android:label="Last Pet Location"
         tools:layout="@layout/add_announcement_location_fragment" >
         <action
@@ -74,7 +74,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFoundAnnouncementPet"
-        android:name="com.example.findmypet.views.AddFoundAnnouncementPet"
+        android:name="com.example.findmypet.views.AddFoundAnnouncementPetFragment"
         android:label="Pet Informations"
         tools:layout="@layout/add_found_announcement_pet_fragment" >
         <action
@@ -83,7 +83,7 @@
     </fragment>
     <fragment
         android:id="@+id/addFoundAnnouncementContact"
-        android:name="com.example.findmypet.views.AddAnnouncementContact"
+        android:name="com.example.findmypet.views.AddAnnouncementContactFragment"
         android:label="Contact" >
         <action
             android:id="@+id/action_addFoundAnnouncementContact_to_nav_missing_found"
@@ -91,7 +91,7 @@
     </fragment>
     <fragment
         android:id="@+id/addLostAnnouncementPet"
-        android:name="com.example.findmypet.views.AddLostAnnouncementPet"
+        android:name="com.example.findmypet.views.AddLostAnnouncementPetFragment"
         android:label="AddLostAnnouncementPet" >
         <action
             android:id="@+id/action_addLostAnnouncementPet_to_addFoundAnnouncementContact"

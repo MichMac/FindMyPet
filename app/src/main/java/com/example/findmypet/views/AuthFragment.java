@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.findmypet.R;
 import com.example.findmypet.viewmodels.AuthActivityViewModel;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseUser;
 
 public class AuthFragment extends Fragment {
@@ -58,8 +59,8 @@ public class AuthFragment extends Fragment {
 
         mSignInButton = view.findViewById(R.id.signIn);
         mSignUpButton = view.findViewById(R.id.signUp);
-        mEmailTextView = view.findViewById(R.id.fragment_newuser_email);
-        mPasswordTextView = view.findViewById(R.id.fragment_newuser_password);
+        mEmailTextView = view.findViewById(R.id.newuser_email_fragment);
+        mPasswordTextView = view.findViewById(R.id.newuser_password_fragment);
 
         mSignUpButton.setOnClickListener(view1 -> {
             Navigation.findNavController(getView()).navigate(R.id.action_authFragment_to_newUserFragment);

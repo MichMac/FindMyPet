@@ -67,7 +67,7 @@ public class AnnouncementsListAdapter extends RecyclerView.Adapter<Announcements
 
         public AnnouncementHolder(@NonNull View itemView) {
             super(itemView);
-            ivPetPic = itemView.findViewById(R.id.image_pet_announcement);
+            ivPetPic = itemView.findViewById(R.id.image_pet_item_announcement);
             tvSpecie = itemView.findViewById(R.id.specie_pet_announcement_textview);
             tvBreed = itemView.findViewById(R.id.breed_pet_announcement_textview);
             tvCountryCity = itemView.findViewById(R.id.country_city_announcement_textview);

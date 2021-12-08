@@ -16,7 +16,7 @@
         android:padding="8dp">
 
         <ImageView
-            android:id="@+id/image_pet_announcement"
+            android:id="@+id/image_pet_item_announcement"
             android:layout_width="150dp"
             android:layout_height="130dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/image_pet_announcement"
+            card_view:layout_constraintStart_toEndOf="@+id/image_pet_item_announcement"
             card_view:layout_constraintTop_toBottomOf="@+id/breed_pet_announcement_textview"
             card_view:layout_constraintVertical_bias="0.261"
             card_view:srcCompat="@drawable/ic_baseline_location_on_24" />
@@ -47,7 +47,7 @@
             android:layout_marginTop="8dp"
             android:text="Pies"
             android:textSize="6pt"
-            card_view:layout_constraintStart_toEndOf="@+id/image_pet_announcement"
+            card_view:layout_constraintStart_toEndOf="@+id/image_pet_item_announcement"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -85,7 +85,7 @@
             android:textSize="4pt"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.0"
-            card_view:layout_constraintStart_toEndOf="@+id/image_pet_announcement"
+            card_view:layout_constraintStart_toEndOf="@+id/image_pet_item_announcement"
             card_view:layout_constraintTop_toBottomOf="@+id/specie_pet_announcement_textview" />
 
         <TextView

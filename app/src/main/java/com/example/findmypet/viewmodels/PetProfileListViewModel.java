@@ -32,13 +32,10 @@ public class PetProfileListViewModel extends ViewModel {
         return mPetProfiles;
     }
 
-    public void addPetProfile(PetProfile petProfile){
-        mPetProfileRepository.addPetProfile(petProfile);
+    public void addPetProfile(PetProfile petProfile, Uri petProfileUri){
+        mPetProfileRepository.addPetProfile(petProfile,petProfileUri);
     }
 
-    public void addPetProfilePicture(Uri PetProfilePicURL, String PetName){
-        mPetProfileRepository.addPetProfilePicture(PetProfilePicURL,PetName);
-    }
 
     public void deletePetProfile(PetProfile petProfile){
         mPetProfileRepository.deletePetProfile(petProfile);

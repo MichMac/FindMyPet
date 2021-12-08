@@ -109,7 +109,7 @@ public class PetProfileFragment extends Fragment {
                 mPetProfile.setName(tvPetName.getText().toString());
                 mPetProfile.setAge(Integer.parseInt(tvPetAge.getText().toString()));
                 mPetProfile.setGender(spGender.getSelectedItem().toString());
-                mPetProfile.setMicrochipNumber(Integer.parseInt(tvMnNumber.getText().toString()));
+                mPetProfile.setMicrochipNumber(Long.parseLong(tvMnNumber.getText().toString()));
                 mPetProfile.setSpecies(tvSpecies.getText().toString());
                 mPetProfile.setBreed(tvBreed.getText().toString());
                 mPetProfile.setDescription(tvDescription.getText().toString());

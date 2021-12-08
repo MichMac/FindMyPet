@@ -12,7 +12,7 @@ public class PetProfile implements Serializable {
     private String description;
     private String petImageUrl;
     private Long microchipNumber;
-    private String nfcID;
+    private String petProfileID;
     private String userID;
 
     public PetProfile(){
@@ -88,13 +88,9 @@ public class PetProfile implements Serializable {
 
     public void setMicrochipNumber(long microchipNumber) { this.microchipNumber = microchipNumber; }
 
-    public String getNfcID() {
-        return nfcID;
-    }
+    public String getPetProfileID() { return petProfileID; }
 
-    public void setNfcID(String nfcID) {
-        this.nfcID = nfcID;
-    }
+    public void setPetProfileID(String petProfileID) { this.petProfileID = petProfileID; }
 
     @Override
     public String toString(){

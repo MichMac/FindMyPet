@@ -40,13 +40,13 @@ public class RegisterUserFragment extends Fragment {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.newuser_fragment,container,false);
+        View view = inflater.inflate(R.layout.newuser_register_fragment,container,false);
 
         mRegister = view.findViewById(R.id.fragment_newuser_register_button);
-        mEmail = view.findViewById(R.id.fragment_newuser_email);
-        mPassword = view.findViewById(R.id.fragment_newuser_password);
-        mName = view.findViewById(R.id.fragment_newuser_name_edittext);
-        mPhoneNumber = view.findViewById(R.id.fragment_newuser_phonenumber_edittext);
+        mEmail = view.findViewById(R.id.newuser_email_fragment);
+        mPassword = view.findViewById(R.id.newuser_password_fragment);
+        mName = view.findViewById(R.id.newuser_name_fragment);
+        mPhoneNumber = view.findViewById(R.id.newuser_phone_fragment);
 
         mRegister.setOnClickListener(view1 -> {
             String email = mEmail.getText().toString();

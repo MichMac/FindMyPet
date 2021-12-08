@@ -137,8 +137,8 @@ public class AddPetProfileFragment extends Fragment {
                     }
                     mPetProfile.setDescription(etDescription.getText().toString());
 
-                    mPetProfileListViewModel.addPetProfile(mPetProfile);
-                    mPetProfileListViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
+                    mPetProfileListViewModel.addPetProfile(mPetProfile,selectedImageUri);
+                    //mPetProfileListViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
                 }
                 Log.i(TAG,"URL: " + selectedImageUri);
             }

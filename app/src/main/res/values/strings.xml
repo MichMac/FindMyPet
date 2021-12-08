@@ -48,6 +48,8 @@
     <string name="enter_the_last_location_of_the_pet">Enter the last location of the pet</string>
     <string name="enter_pet_information">Enter pet informations</string>
     <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="choose_pet_profile">Choose pet profile</string>
+    <string name="last_known_location">Last known location</string>
 
     <string-array name="gender_array">
         <item>Male</item>
