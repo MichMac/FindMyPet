@@ -119,21 +119,6 @@ public class PetProfileRepository {
 //        })
     }
 
-    public void loadPetProfile(String petName){
-        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles/" + petName).document().get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                petProfile = documentSnapshot.toObject(PetProfile.class);
-                mPetProfile.setValue(petProfile);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Getting document snapshot error: ",e);
-            }
-        });
-    }
-
     public void addPetProfile(PetProfile petProfile, Uri PetProfilePicURL){
         mFirestoreDB.collection("users").document(mFirebaseAuth.getUid())
                 .collection("PetProfiles")

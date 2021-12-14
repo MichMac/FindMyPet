@@ -22,9 +22,11 @@ import com.example.findmypet.adapters.AnnouncementsListAdapter;
 import com.example.findmypet.adapters.OnAnnouncementListener;
 import com.example.findmypet.adapters.PetProfileListAdapter;
 import com.example.findmypet.models.Announcement;
+import com.example.findmypet.models.PetProfile;
 import com.example.findmypet.viewmodels.AnnouncementsListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class AnnouncementsListFragment extends Fragment implements OnAnnouncementListener {
@@ -128,7 +130,6 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
             }
         });
 
-
         mAnnouncementsListViewModel.getAnnouncements().observe(getViewLifecycleOwner(), new Observer<List<Announcement>>() {
             @Override
             public void onChanged(List<Announcement> announcements) {
@@ -146,7 +147,10 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
 
     @Override
     public void OnAnnouncementClick(int position) {
-
+        Bundle bundle = new Bundle();
+        Announcement announcementInfo = adapter.getSelectedAnnouncement(position);
+        bundle.putSerializable("announcement", announcementInfo);
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_found_to_announcementFragment, bundle);
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

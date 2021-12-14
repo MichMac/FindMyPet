@@ -19,6 +19,9 @@
         <argument
             android:name="isFoundAnn"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_nav_missing_found_to_announcementFragment"
+            app:destination="@id/announcementFragment" />
     </fragment>
 
     <fragment
@@ -97,5 +100,9 @@
             android:id="@+id/action_addLostAnnouncementPet_to_addFoundAnnouncementContact"
             app:destination="@id/addFoundAnnouncementContact" />
     </fragment>
+    <fragment
+        android:id="@+id/announcementFragment"
+        android:name="com.example.findmypet.views.AnnouncementFragment"
+        android:label="AnnouncementFragment" />
 
 </navigation>

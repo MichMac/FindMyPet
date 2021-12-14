@@ -35,8 +35,9 @@ public class AnnouncementRepository {
     private StorageReference petPicRef;
 
     private ArrayList<Announcement> announcementsDataSet = new ArrayList<>();
-    MutableLiveData<Announcement> mAnnouncement = new MutableLiveData<>();
-    MutableLiveData<List<Announcement>> mAnnouncements = new MutableLiveData<>();
+    private MutableLiveData<Announcement> mAnnouncement = new MutableLiveData<>();
+    private MutableLiveData<List<Announcement>> mAnnouncements = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isUserLoggedInAnnouncement = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> isAdded= new MutableLiveData<>();
 
@@ -58,6 +59,8 @@ public class AnnouncementRepository {
     public MutableLiveData<Boolean> getIsLoading(){
         return isLoading;
     }
+
+    public MutableLiveData<Boolean> getIsUserLoggedInAnnouncement() {return isUserLoggedInAnnouncement;}
 
     public MutableLiveData<Boolean> isAnnouncementAdded(){
         return isAdded;

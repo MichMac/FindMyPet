@@ -50,6 +50,9 @@
     <string name="enter_your_phone_number">Enter your phone number</string>
     <string name="choose_pet_profile">Choose pet profile</string>
     <string name="last_known_location">Last known location</string>
+    <string name="pet_description">Pet description</string>
+    <string name="show_on_map">Show on map</string>
+    <string name="phone_number">Phone number</string>
 
     <string-array name="gender_array">
         <item>Male</item>
