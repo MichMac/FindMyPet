@@ -5,8 +5,13 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_missing_found">
 
-
     <include app:graph="@navigation/auth_nav_graph" />
+
+    <action
+        android:id="@+id/action_NFCReadFragment_to_announcementFragment"
+        app:destination="@id/announcementFragment"
+        app:popUpTo="@+id/announcementFragment"
+        app:popUpToInclusive="true" />
 
     <fragment
         android:id="@+id/nav_missing_found"
@@ -21,6 +26,9 @@
             app:argType="boolean" />
         <action
             android:id="@+id/action_nav_missing_found_to_announcementFragment"
+            app:destination="@id/announcementFragment" />
+        <action
+            android:id="@+id/action_NFCReadFragment_to_announcementFragment"
             app:destination="@id/announcementFragment" />
     </fragment>
 
@@ -104,5 +112,13 @@
         android:id="@+id/announcementFragment"
         android:name="com.example.findmypet.views.AnnouncementFragment"
         android:label="AnnouncementFragment" />
+<!--    <dialog-->
+<!--        android:id="@+id/NFCReadFragment"-->
+<!--        android:name="com.example.findmypet.views.NFCReadFragment"-->
+<!--        android:label="NFCReadFragment" >-->
+<!--        <action-->
+<!--            android:id="@+id/action_NFCReadFragment_to_announcementFragment"-->
+<!--            app:destination="@id/announcementFragment" />-->
+<!--    </dialog>-->
 
 </navigation>

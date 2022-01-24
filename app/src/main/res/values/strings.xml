@@ -53,6 +53,16 @@
     <string name="pet_description">Pet description</string>
     <string name="show_on_map">Show on map</string>
     <string name="phone_number">Phone number</string>
+    <string name="write_to_nfc_tag">Write to NFC Tag</string>
+    <string name="message_tap_tag">Tap the NFC Tag to your device</string>
+    <string name="message_tag_detected">Tag detected!</string>
+    <string name="message_read_success">Announcement found!</string>
+    <string name="message_read_error">Announcement not found</string>
+    <string name="message_write_progress">Writing to nfc tag…</string>
+    <string name="message_write_success">Successfully written to Tag!</string>
+    <string name="message_write_error">Error Writing Tag !</string>
+    <string name="message_read_tag">Read from NFC tag</string>
+    <string name="reading_nfc_tag">Reading NFC Tag</string>
 
     <string-array name="gender_array">
         <item>Male</item>

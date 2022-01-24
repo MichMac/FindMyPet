@@ -1,7 +1,9 @@
 package com.example.findmypet.views;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,7 +25,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.findmypet.R;
 import com.example.findmypet.models.PetProfile;
+import com.example.findmypet.repositories.NFC;
 import com.example.findmypet.viewmodels.PetProfileViewModel;
+
+import java.util.Observable;
 
 public class PetProfileFragment extends Fragment {
 
@@ -38,6 +43,7 @@ public class PetProfileFragment extends Fragment {
     private TextView tvDescription;
     private TextView tvSpecies;
     private TextView tvBreed;
+    private NFC mNFC;
 
     ArrayAdapter<CharSequence> genderAdapter;
 
@@ -63,8 +69,22 @@ public class PetProfileFragment extends Fragment {
         tvSpecies = root.findViewById(R.id.province_edittext_loc_ann);
         tvBreed = root.findViewById(R.id.city_edittext_add_ann_pet);
 
-        mPetProfile = (PetProfile) getArguments().getSerializable("petprofile");
-        setPetProfileData(mPetProfile);
+        //mPetProfile = (PetProfile) getArguments().getSerializable("petprofile");
+
+        mPetProfileViewModel.getPetProfile().observe(getViewLifecycleOwner(), new Observer<PetProfile>() {
+            @Override
+            public void onChanged(PetProfile petProfile) {
+                setPetProfileData(petProfile);
+                mPetProfile = petProfile;
+            }
+        });
+
+
+        //setPetProfileData(mPetProfile);
+//        mNFC = new NFC(getContext());
+//        Intent intent = getActivity().getIntent();
+//        String msg = mNFC.getNFCMessage(intent);
+//        Toast.makeText(getContext(),msg,Toast.LENGTH_LONG).show();
 
 
         // null object referenceeeee
@@ -98,6 +118,7 @@ public class PetProfileFragment extends Fragment {
             tvDescription.setText(petProfile.getDescription());
         }
     }
+
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
@@ -108,18 +129,23 @@ public class PetProfileFragment extends Fragment {
         item.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                mPetProfile.setName(tvPetName.getText().toString());
-                mPetProfile.setAge(Integer.parseInt(tvPetAge.getText().toString()));
-                mPetProfile.setGender(spGender.getSelectedItem().toString());
-                mPetProfile.setMicrochipNumber(Long.parseLong(tvMnNumber.getText().toString()));
-                mPetProfile.setSpecies(tvSpecies.getText().toString());
-                mPetProfile.setBreed(tvBreed.getText().toString());
-                mPetProfile.setDescription(tvDescription.getText().toString());
+                mPetProfile = setEditedPetProfile();
                 mPetProfileViewModel.updatePetProfile(mPetProfile);
                 Toast.makeText(getContext(),"Profile successfully updated!",Toast.LENGTH_LONG).show();
                 return true;
             }
         });
+    }
+
+    private PetProfile setEditedPetProfile(){
+        mPetProfile.setName(tvPetName.getText().toString());
+        mPetProfile.setAge(Integer.parseInt(tvPetAge.getText().toString()));
+        mPetProfile.setGender(spGender.getSelectedItem().toString());
+        mPetProfile.setMicrochipNumber(Long.parseLong(tvMnNumber.getText().toString()));
+        mPetProfile.setSpecies(tvSpecies.getText().toString());
+        mPetProfile.setBreed(tvBreed.getText().toString());
+        mPetProfile.setDescription(tvDescription.getText().toString());
+        return mPetProfile;
     }
 
 }

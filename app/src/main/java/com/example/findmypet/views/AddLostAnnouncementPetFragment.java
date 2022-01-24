@@ -48,6 +48,7 @@ public class AddLostAnnouncementPetFragment extends Fragment {
     private EditText etBreed;
 
     private String selectedImageUri;
+    private String petProfileID;
 
     public AddLostAnnouncementPetFragment() {
         // Required empty public constructor
@@ -114,6 +115,7 @@ public class AddLostAnnouncementPetFragment extends Fragment {
                     if(etMnNumber != null)
                         announcement.setPetMicrochipNumber( Long.parseLong(etMnNumber.getText().toString()));
                     announcement.setPetDescription(etDescription.getText().toString());
+                    announcement.setPetProfileID(petProfileID);
                     sharedViewModel.setAnnouncementInfo(announcement);
                     Navigation.findNavController(getView()).navigate(R.id.action_addLostAnnouncementPet_to_addFoundAnnouncementContact);
                 }
@@ -125,6 +127,7 @@ public class AddLostAnnouncementPetFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 PetProfile petProfile = (PetProfile) adapterView.getSelectedItem();
                 selectedImageUri = ((PetProfile) adapterView.getSelectedItem()).getPetImageUrl();
+                petProfileID = ((PetProfile) adapterView.getSelectedItem()).getPetProfileID();
                 displayPetProfileInfo(petProfile);
             }
 

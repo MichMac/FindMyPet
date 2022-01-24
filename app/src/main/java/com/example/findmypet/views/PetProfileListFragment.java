@@ -33,6 +33,7 @@ public class PetProfileListFragment extends Fragment implements OnPetProfileList
 
     private static final String TAG = "PetProfileFragment";
     private PetProfileListViewModel mPetProfileListViewModel;
+    private RecyclerView recyclerView;
     PetProfileListAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -44,7 +45,7 @@ public class PetProfileListFragment extends Fragment implements OnPetProfileList
         FloatingActionButton fabAddPetProfile = root.findViewById(R.id.fab_add_pet_profile);
         ProgressBar mProgressBar = root.findViewById(R.id.progress_bar_petprofiles);
 
-        RecyclerView recyclerView = root.findViewById(R.id.recyclerview_petprofile);
+        recyclerView = root.findViewById(R.id.recyclerview_petprofile);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
 
@@ -95,6 +96,7 @@ public class PetProfileListFragment extends Fragment implements OnPetProfileList
     public void OnPetProfileClick(int position) {
         Bundle bundle = new Bundle();
         PetProfile petProfile = adapter.getSelectedPetProfile(position);
+        mPetProfileListViewModel.setPetProfile(petProfile);
         bundle.putSerializable("petprofile",petProfile);
         Navigation.findNavController(getView()).navigate(R.id.petProfileFragmentAction, bundle);
     }

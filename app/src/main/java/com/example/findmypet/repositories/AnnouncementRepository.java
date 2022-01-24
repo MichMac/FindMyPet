@@ -4,13 +4,15 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.findmypet.models.Announcement;
-import com.example.findmypet.models.PetProfile;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -40,6 +42,7 @@ public class AnnouncementRepository {
     private MutableLiveData<Boolean> isUserLoggedInAnnouncement = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
     private MutableLiveData<Boolean> isAdded= new MutableLiveData<>();
+    private MutableLiveData<Boolean> isAnnouncementFound = new MutableLiveData<>();
 
     public static AnnouncementRepository getInstance(){
         if(instance == null){
@@ -55,6 +58,8 @@ public class AnnouncementRepository {
     public LiveData<Announcement> getAnnouncement() {
         return mAnnouncement;
     }
+
+    public MutableLiveData<Boolean> isAnnouncementFound() { return isAnnouncementFound; }
 
     public MutableLiveData<Boolean> getIsLoading(){
         return isLoading;
@@ -168,4 +173,33 @@ public class AnnouncementRepository {
             }
         });
     }
+
+    public void findAnnouncementByPetProfileID(String petProfileID){
+        mFirestoreDB.collection("announcements")
+                .whereEqualTo("petProfileID", petProfileID)
+                .limit(1)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> list =  queryDocumentSnapshots.getDocuments();
+                        if(list.isEmpty())
+                            isAnnouncementFound.setValue(false);
+                        else
+                            isAnnouncementFound.setValue(true);
+                        for (DocumentSnapshot documentSnapshot: list){
+                            setAnnouncement(documentSnapshot.toObject(Announcement.class));
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Error getting documents: ", e);
+                //isAnnouncementFound.postValue(false);
+            }
+        });
+        isAnnouncementFound.setValue(false);
+    }
 }
+
+

@@ -12,13 +12,13 @@ public class Announcement implements Serializable {
     private String province;
     private String city;
     private String street;
+    private String petProfileID;
     private String petImageUrl;
     private String petName;
     private String petSpecie;
     private String petBreed;
     private String petGender;
     private Long petMicrochipNumber;
-    private String nfcID;
     private String petDescription;
 
 
@@ -125,14 +125,10 @@ public class Announcement implements Serializable {
         this.petMicrochipNumber = petMicrochipNumber;
     }
 
-    public String getNfcID() {
-        return nfcID;
-    }
+    public String getPetProfileID() {return petProfileID; }
 
-    public void setNfcID(String nfcID) {
-        this.nfcID = nfcID;
-    }
-
+    public void setPetProfileID(String petProfileID) { this.petProfileID = petProfileID; }
+    
     public String getPetDescription() {
         return petDescription;
     }

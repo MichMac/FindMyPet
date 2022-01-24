@@ -147,10 +147,10 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
 
     @Override
     public void OnAnnouncementClick(int position) {
-        Bundle bundle = new Bundle();
+
         Announcement announcementInfo = adapter.getSelectedAnnouncement(position);
-        bundle.putSerializable("announcement", announcementInfo);
-        Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_found_to_announcementFragment, bundle);
+        mAnnouncementsListViewModel.setAnnouncement(announcementInfo);
+        Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_found_to_announcementFragment);
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {

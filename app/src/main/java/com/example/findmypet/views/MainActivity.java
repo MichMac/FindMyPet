@@ -1,8 +1,12 @@
 package com.example.findmypet.views;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.ClipData;
 import android.content.Intent;
+import android.nfc.FormatException;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -12,7 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.findmypet.R;
+import com.example.findmypet.adapters.NfcDialogListener;
 import com.example.findmypet.models.User;
+import com.example.findmypet.repositories.NFC;
 import com.example.findmypet.viewmodels.MainActivityViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,9 +28,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
+import java.util.List;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -36,15 +47,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NfcDialogListener {
 
     private AppBarConfiguration mAppBarConfiguration;
     private MainActivityViewModel mMainActivityViewModel;
     private static final String TAG = "MainActivity";
-
     private DrawerLayout drawer;
     private View headerView;
-    NavController navController;
+    private NFC mNFC;
+    private PendingIntent mPendingIntent;
+    private NavController navController;
+    private boolean isDialogDisplayed = false;
+    private boolean isWrite = true;
+    private NFCWriteFragment mNFCWriteFragment;
+    private NFCReadFragment mNFCReadFragment;
 
 
     @Override
@@ -79,39 +95,131 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
 
         navigationView.getMenu().findItem(R.id.logout_button_main).setOnMenuItemClickListener(menuItem -> {
-           mMainActivityViewModel.logOut();
-           return false;
+            mMainActivityViewModel.logOut();
+            finish();
+            return false;
+        });
+
+        navigationView.getMenu().findItem(R.id.nfc_read_button_main).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                drawer.close();
+                showReadFragment();
+                return false;
+            }
         });
 
         mMainActivityViewModel.getUserMutableLiveData().observe(this, user -> {
-            if(user != null){
-                Log.d(TAG,"Navigating to main activity log window..." );
-                Log.d(TAG,"User onChange : " + user.getEmail() + user.getDisplayName());
+            if (user != null) {
+                Log.d(TAG, "Navigating to main activity log window...");
+                Log.d(TAG, "User onChange : " + user.getEmail() + user.getDisplayName());
 
                 TextView emailBar = headerView.findViewById(R.id.email_main_bar);
                 TextView nameBar = headerView.findViewById(R.id.name_main_bar);
 
                 emailBar.setText(user.getEmail());
                 nameBar.setText(user.getDisplayName());
-            }
-            else {
-                Toast.makeText(getApplicationContext(),"User is null",Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "User is null", Toast.LENGTH_LONG).show();
             }
         });
 
         mMainActivityViewModel.getLoggedOutLiveData().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean logout) {
-                if(logout){
+                if (logout) {
                     navController.navigate(R.id.navigate_to_auth);
                     finish();
                 }
             }
         });
 
+        mNFC = new NFC(getApplicationContext());
+        mNFC.isNfcAdapterNotNull();
+
+        // create an intent with tag data and deliver to this activity
+        mPendingIntent = PendingIntent.getActivity(this, 0,
+                new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+
+
     }
 
-        @Override
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+
+        String msg = mNFC.getNFCMessage(intent);
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+        //mMainActivityViewModel.setNewIntent(intent);
+        //mNFCReadFragment.onNfcDetected(intent,mNFC);
+//        if (tag != null) {
+//            Toast.makeText(this, getString(R.string.message_tag_detected), Toast.LENGTH_SHORT).show();
+//
+              if (isDialogDisplayed) {
+//
+                  mMainActivityViewModel.setNewIntent(intent);
+
+                  if(isWrite) {
+                      mMainActivityViewModel.setNewIntent(intent);
+                      Toast.makeText(this, mNFC.getNFCMessage(intent), Toast.LENGTH_LONG).show();
+                  }
+                  else
+                      //mMainActivityViewModel.setNewIntent(intent);
+                      mNFCReadFragment.onNfcDetected(intent,mNFC);
+
+//                String messageToWrite = mEtMessage.getText().toString();
+//                mNFCWriteFragment = (NFCWriteFragment) getChildFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction()
+//                        .replace(R.id.fragment_container_view_tag, NFCWriteFragment.class, null, NFCWriteFragment.TAG)
+//                        .setReorderingAllowed(true)
+//                        .addToBackStack(null)
+//                        .commit();
+//
+//                mNFCWriteFragment = (NFCWriteFragment) getSupportFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
+//
+//                if (mNFCWriteFragment == null) {
+//                    mNFCWriteFragment = NFCWriteFragment.newInstance();
+//                }
+//                getSupportFragmentManager()
+//                        .beginTransaction()
+//                        .replace(R.id.nfc_write_container, NFCWriteFragment.class, null, NFCWriteFragment.TAG)
+//                        .commit();
+//                if (mNFCWriteFragment == null) {
+//                    mNFCWriteFragment = NFCWriteFragment.newInstance();
+//                }
+                //                mNFCWr``iteFragment = (NFCWriteFragment) getSupportFragmentManager().findFragmentByTag(NFCWriteFragment.TAG);
+//                List<Fragment> fragments = getSupportFragmentManager().getFragments();
+//                mNFCWriteFragment.onNfcDetected(intent, mNFC);
+//
+//
+//                    mNfcReadFragment = (NFCReadFragment)getFragmentManager().findFragmentByTag(NFCReadFragment.TAG);
+//                    mNfcReadFragment.onNfcDetected(ndef);
+//
+            }
+              else
+              if(msg != null || !msg.equals("")){
+                  showReadFragment();
+              }
+//        }
+
+    }
+
+    private void showReadFragment() {
+
+        mNFCReadFragment = (NFCReadFragment) getSupportFragmentManager().findFragmentByTag(NFCReadFragment.TAG);
+
+        if (mNFCReadFragment == null) {
+
+            mNFCReadFragment = NFCReadFragment.newInstance();
+        }
+        mNFCReadFragment.show(getSupportFragmentManager(), NFCReadFragment.TAG);
+
+    }
+
+    @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
@@ -124,19 +232,45 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        MenuItem item=menu.findItem(R.id.save_action);
+        MenuItem item = menu.findItem(R.id.save_action);
         item.setVisible(false);
         return true;
 
     }
-
-
 
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_main);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (mNFC.getNfcAdapter() != null)
+            mNFC.getNfcAdapter().enableForegroundDispatch(this, mPendingIntent, mNFC.getIntentFilters(), mNFC.getNFCTechLists());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        if (mNFC.getNfcAdapter() != null)
+            mNFC.getNfcAdapter().disableForegroundDispatch(this);
+    }
+
+    @Override
+    public void onDialogDisplayed(boolean isWrite) {
+        isDialogDisplayed = true;
+        this.isWrite = isWrite;
+    }
+
+    @Override
+    public void onDialogDismissed() {
+        isDialogDisplayed = false;
+        isWrite = false;
     }
 
 }

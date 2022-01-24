@@ -3,6 +3,8 @@ package com.example.findmypet.views;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.findmypet.R;
 import com.example.findmypet.models.Announcement;
-import com.example.findmypet.models.PetProfile;
+import com.example.findmypet.viewmodels.AnnouncementViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -21,6 +23,7 @@ import com.google.android.material.textview.MaterialTextView;
 public class AnnouncementFragment extends Fragment {
 
     private Announcement mAnnouncement;
+    private AnnouncementViewModel mAnnouncementViewModel;
 
     private ImageView ivPetPic;
     private MaterialButton btnShowOnMap;
@@ -39,7 +42,6 @@ public class AnnouncementFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,9 @@ public class AnnouncementFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.announcement_fragment, container, false);
+
+        mAnnouncementViewModel = new ViewModelProvider(this).get(AnnouncementViewModel.class);
+        mAnnouncementViewModel.init();
 
         ivPetPic = root.findViewById(R.id.image_pet_item_announcement);
         btnShowOnMap = root.findViewById(R.id.show_on_map_announcement_info);
@@ -64,9 +69,13 @@ public class AnnouncementFragment extends Fragment {
         tvMicroshipNumber = root.findViewById(R.id.microchip_number_announcement_info_textview);
         tvPhoneNumber = root.findViewById(R.id.phone_number_announcement_info_textview);
 
-        mAnnouncement = (Announcement) getArguments().getSerializable("announcement");
-        setAnnouncementInfo(mAnnouncement);
-
+        mAnnouncementViewModel.init();
+        mAnnouncementViewModel.getAnnouncement().observe(getViewLifecycleOwner(), new Observer<Announcement>() {
+            @Override
+            public void onChanged(Announcement announcement) {
+                setAnnouncementInfo(announcement);
+            }
+        });
 
         return root;
     }

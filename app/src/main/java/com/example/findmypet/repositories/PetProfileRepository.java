@@ -4,9 +4,12 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.findmypet.models.PetProfile;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,6 +60,8 @@ public class PetProfileRepository {
         return mPetProfile;
     }
 
+    public void setPetProfile(PetProfile petProfile){ mPetProfile.setValue(petProfile); }
+
     public MutableLiveData<Boolean> getIsLoading(){
         return isLoading;
     }
@@ -86,37 +91,26 @@ public class PetProfileRepository {
 
     private void loadPetProfiles(){
         isLoading.setValue(true);
+        PetProfilesDataSet.clear();
+        mPetProfiles.setValue(PetProfilesDataSet);
         mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
-                if (!queryDocumentSnapshots.isEmpty()){
+                for (DocumentSnapshot documentSnapshot: list) {
 
-                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                    PetProfilesDataSet.clear();
-
-                    for (DocumentSnapshot documentSnapshot: list){
-
-                        PetProfilesDataSet.add(documentSnapshot.toObject(PetProfile.class));
-                        mPetProfiles.setValue(PetProfilesDataSet);
-                    }
+                    PetProfilesDataSet.add(documentSnapshot.toObject(PetProfile.class));
+                    mPetProfiles.setValue(PetProfilesDataSet);
                 }
-                isLoading.setValue(false);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Getting document snapshot error: ",e);
+                Log.d(TAG,"Getting documents error" + e.getMessage());
             }
         });
-//        mFirestoreDB.collection("users/" + mFirebaseAuth.getCurrentUser().getUid() + "/PetProfiles").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if(task.isSuccessful()){
-//
-//                }
-//            }
-//        })
+        isLoading.setValue(false);
     }
 
     public void addPetProfile(PetProfile petProfile, Uri PetProfilePicURL){
@@ -132,6 +126,8 @@ public class PetProfileRepository {
                     @Override
                     public void onSuccess(Void aVoid) {
                         addPetProfilePicture(documentReference.getId(),PetProfilePicURL);
+                        petProfile.setPetProfileID(documentReference.getId());
+                        mPetProfile.postValue(petProfile);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -226,3 +222,4 @@ public class PetProfileRepository {
 //        });
 //    }
 }
+

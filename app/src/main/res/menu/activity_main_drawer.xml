@@ -13,9 +13,16 @@
             android:id="@+id/nav_pet_profile"
             android:icon="@drawable/ic_pet_profile"
             android:title="@string/pet_profile" />
+
+        <item
+            android:id="@+id/nfc_read_button_main"
+            android:icon="@drawable/ic_nfc"
+            android:title="@string/reading_nfc_tag" />
+
         <item
             android:id="@+id/logout_button_main"
             android:icon="@drawable/common_google_signin_btn_icon_light"
             android:title="@string/logout" />
+
     </group>
 </menu>

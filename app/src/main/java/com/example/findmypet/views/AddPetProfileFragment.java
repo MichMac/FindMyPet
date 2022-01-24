@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.findmypet.R;
@@ -67,7 +69,6 @@ public class AddPetProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.add_pet_profile_fragment, container, false);
 
         mPetProfileListViewModel = new ViewModelProvider(this).get(PetProfileListViewModel.class);
-        mPetProfile = new PetProfile();
         spGender = view.findViewById(R.id.gender_spinner_add_ann_found_pet);
         ivPhoto = view.findViewById(R.id.add_ann_found_pet_imageview);
         btnAddPhoto = view.findViewById(R.id.add_ann_found_pet_photo_button);
@@ -86,6 +87,8 @@ public class AddPetProfileFragment extends Fragment {
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spGender.setAdapter(genderAdapter);
 
+        Bundle args = new Bundle();
+
         mPetProfileListViewModel.init();
 
         //deleting left arrrow from action bar
@@ -95,13 +98,6 @@ public class AddPetProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 imageChooser();
-            }
-        });
-
-        btnNfc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
             }
         });
 
@@ -119,11 +115,20 @@ public class AddPetProfileFragment extends Fragment {
             }
         });
 
+        mPetProfileListViewModel.getPetProfile().observe(getViewLifecycleOwner(), new Observer<PetProfile>() {
+            @Override
+            public void onChanged(PetProfile petProfile) {
+                //Log.e(TAG,petProfile.getPetProfileID());
+                args.putString("petProfileID",petProfile.getPetProfileID());
+            }
+        });
+
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(dataValidation()){
                     //mPetProfile.setImage_url(selectedImageUri.toString());
+                    mPetProfile = new PetProfile();
                     mPetProfile.setName(etPetName.getText().toString());
                     mPetProfile.setGender(spGender.getSelectedItem().toString());
                     mPetProfile.setSpecies(etSpecie.getText().toString());
@@ -141,6 +146,18 @@ public class AddPetProfileFragment extends Fragment {
                     //mPetProfileListViewModel.addPetProfilePicture(selectedImageUri,etPetName.getText().toString());
                 }
                 Log.i(TAG,"URL: " + selectedImageUri);
+            }
+        });
+
+        btnNfc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( mPetProfile != null) {
+                    DialogFragment mNFCWriteFragment = new NFCWriteFragment();
+                    mNFCWriteFragment.show(getChildFragmentManager(), NFCWriteFragment.TAG);
+                }
+                else
+                    Toast.makeText(getContext(),"Please confirm creating new pet profile", Toast.LENGTH_LONG).show();
             }
         });
 

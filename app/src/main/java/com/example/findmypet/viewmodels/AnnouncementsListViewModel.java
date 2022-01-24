@@ -26,4 +26,10 @@ public class AnnouncementsListViewModel extends ViewModel {
 
     public LiveData<List<Announcement>> getAnnouncements(){ return mAnnouncements; }
 
+    public void setAnnouncement(Announcement announcement) {
+        mAnnouncementRepository.setAnnouncement(announcement);
+    }
+
+
+
 }

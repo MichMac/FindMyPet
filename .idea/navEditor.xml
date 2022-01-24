@@ -132,13 +132,25 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="NFCReadFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-317" />
+                            <option name="y" value="-704" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="addFoundAnnouncementContact">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="1103" />
-                            <option name="y" value="-259" />
+                            <option name="x" value="1119" />
+                            <option name="y" value="-191" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -205,8 +217,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="751" />
-                            <option name="y" value="152" />
+                            <option name="x" value="729" />
+                            <option name="y" value="116" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -277,6 +289,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_nav_missing_found_to_announcementFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_nav_missing_lost_to_addAnnouncementLocation">
                               <value>
                                 <LayoutPositions />
@@ -292,8 +309,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="145" />
-                            <option name="y" value="215" />
+                            <option name="x" value="124" />
+                            <option name="y" value="227" />
                           </Point>
                         </option>
                         <option name="myPositions">
