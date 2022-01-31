@@ -4,15 +4,13 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.findmypet.models.Announcement;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.example.findmypet.utils.EventWrapper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -41,8 +39,9 @@ public class AnnouncementRepository {
     private MutableLiveData<List<Announcement>> mAnnouncements = new MutableLiveData<>();
     private MutableLiveData<Boolean> isUserLoggedInAnnouncement = new MutableLiveData<>();
     private MutableLiveData<Boolean> isLoading = new MutableLiveData<>();
-    private MutableLiveData<Boolean> isAdded= new MutableLiveData<>();
-    private MutableLiveData<Boolean> isAnnouncementFound = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isAnnouncementQueryDone = new MutableLiveData<>();
+    private MutableLiveData<EventWrapper<Boolean>> isAdded= new MutableLiveData<com.example.findmypet.utils.EventWrapper<Boolean>>();
+    private MutableLiveData<EventWrapper<Boolean>> isAnnouncementFound = new MutableLiveData<com.example.findmypet.utils.EventWrapper<Boolean>>();
 
     public static AnnouncementRepository getInstance(){
         if(instance == null){
@@ -59,7 +58,9 @@ public class AnnouncementRepository {
         return mAnnouncement;
     }
 
-    public MutableLiveData<Boolean> isAnnouncementFound() { return isAnnouncementFound; }
+    public MutableLiveData<EventWrapper<Boolean>> isAnnouncementFound() { return isAnnouncementFound; }
+
+    public MutableLiveData<Boolean> isAnnouncementQueryDone() { return isAnnouncementQueryDone; }
 
     public MutableLiveData<Boolean> getIsLoading(){
         return isLoading;
@@ -67,7 +68,7 @@ public class AnnouncementRepository {
 
     public MutableLiveData<Boolean> getIsUserLoggedInAnnouncement() {return isUserLoggedInAnnouncement;}
 
-    public MutableLiveData<Boolean> isAnnouncementAdded(){
+    public MutableLiveData<EventWrapper<Boolean>>  isAnnouncementAdded(){
         return isAdded;
     }
 
@@ -78,7 +79,7 @@ public class AnnouncementRepository {
 
     public void addLostPetAnnouncement(Announcement announcement){
         isLoading.setValue(true);
-        isAdded.setValue(false);
+        isAdded.setValue(new EventWrapper<>(false));
         String userID = mFirebaseAuth.getUid();
         announcement.setUserID(userID);
         mFirestoreDB.collection("announcements")
@@ -88,7 +89,7 @@ public class AnnouncementRepository {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Announcement has been added");
                         isLoading.setValue(false);
-                        isAdded.setValue(true);
+                        isAdded.setValue(new EventWrapper<>(true));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -99,6 +100,8 @@ public class AnnouncementRepository {
     }
 
     public void addFoundPetAnnouncement(Announcement announcement){
+        isLoading.setValue(true);
+        isAdded.setValue(new EventWrapper<>(false));
         String userID = mFirebaseAuth.getUid();
         announcement.setUserID(userID);
         mFirestoreDB.collection("announcements")
@@ -107,6 +110,8 @@ public class AnnouncementRepository {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Announcement has been added");
+                        isLoading.setValue(false);
+                        isAdded.setValue(new EventWrapper<>(true));
                         String documentReferenceID = documentReference.getId();
                         addPetPicture(Uri.parse(announcement.getPetImageUrl()),documentReferenceID);
                     }
@@ -120,7 +125,7 @@ public class AnnouncementRepository {
 
     private void addPetPicture(Uri PetProfilePicURL, String AnnouncementID){
         isLoading.setValue(true);
-        isAdded.setValue(false);
+        //isAdded.setValue(false);
         petPicRef = storageRef.child(mFirebaseAuth.getUid() + "/" + AnnouncementID +".jpg");
         petPicRef.putFile(PetProfilePicURL).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -134,7 +139,7 @@ public class AnnouncementRepository {
                             public void onSuccess(Void aVoid) {
                                 Log.i(TAG,"Pet picture url successfully added to firestore");
                                 isLoading.setValue(false);
-                                isAdded.setValue(true);
+                                //isAdded.setValue(true);
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -149,6 +154,8 @@ public class AnnouncementRepository {
     }
     private void loadAnnouncements(){
         isLoading.setValue(true);
+//        announcementsDataSet.clear();
+//        mAnnouncements.setValue(announcementsDataSet);
         mFirestoreDB.collection("announcements").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -182,11 +189,15 @@ public class AnnouncementRepository {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        List<DocumentSnapshot> list =  queryDocumentSnapshots.getDocuments();
-                        if(list.isEmpty())
-                            isAnnouncementFound.setValue(false);
+
+                        if(queryDocumentSnapshots.getDocuments().isEmpty())
+                            isAnnouncementFound.setValue(new EventWrapper<>(false));
                         else
-                            isAnnouncementFound.setValue(true);
+                            isAnnouncementFound.setValue(new EventWrapper<>(true));
+
+
+                        List<DocumentSnapshot> list =  queryDocumentSnapshots.getDocuments();
+
                         for (DocumentSnapshot documentSnapshot: list){
                             setAnnouncement(documentSnapshot.toObject(Announcement.class));
                         }
@@ -195,10 +206,11 @@ public class AnnouncementRepository {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Log.d(TAG, "Error getting documents: ", e);
-                //isAnnouncementFound.postValue(false);
+                isAnnouncementFound.setValue(new EventWrapper<>(false));
             }
         });
-        isAnnouncementFound.setValue(false);
+//        isAnnouncementFound.setValue(false);
+//        isLoading.setValue(false);
     }
 }
 

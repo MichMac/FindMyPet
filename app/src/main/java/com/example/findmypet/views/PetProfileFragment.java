@@ -3,7 +3,6 @@ package com.example.findmypet.views;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,10 +24,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.findmypet.R;
 import com.example.findmypet.models.PetProfile;
-import com.example.findmypet.repositories.NFC;
+import com.example.findmypet.utils.NFC;
 import com.example.findmypet.viewmodels.PetProfileViewModel;
-
-import java.util.Observable;
 
 public class PetProfileFragment extends Fragment {
 

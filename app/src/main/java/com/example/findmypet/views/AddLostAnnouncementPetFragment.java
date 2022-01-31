@@ -106,6 +106,8 @@ public class AddLostAnnouncementPetFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(dataValidation()){
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("isFoundAnn", false);
                     Announcement announcement = sharedViewModel.getAnnouncementInfo().getValue();
                     announcement.setStatus("Zaginiony");
                     announcement.setPetImageUrl(selectedImageUri);
@@ -117,7 +119,7 @@ public class AddLostAnnouncementPetFragment extends Fragment {
                     announcement.setPetDescription(etDescription.getText().toString());
                     announcement.setPetProfileID(petProfileID);
                     sharedViewModel.setAnnouncementInfo(announcement);
-                    Navigation.findNavController(getView()).navigate(R.id.action_addLostAnnouncementPet_to_addFoundAnnouncementContact);
+                    Navigation.findNavController(getView()).navigate(R.id.action_addLostAnnouncementPet_to_addAnnouncementContact,bundle);
                 }
             }
         });

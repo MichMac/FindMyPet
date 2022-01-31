@@ -4,6 +4,7 @@ import com.example.findmypet.models.Announcement;
 import com.example.findmypet.models.PetProfile;
 import com.example.findmypet.repositories.AnnouncementRepository;
 import com.example.findmypet.repositories.PetProfileRepository;
+import com.example.findmypet.utils.EventWrapper;
 
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class AddAnnouncementSharedViewModel extends ViewModel {
 
     private AnnouncementRepository mAnnouncementRepository;
     private PetProfileRepository mPetProfileRepository;
+    private MutableLiveData<Boolean> mIsLoading;
+    public MutableLiveData<EventWrapper<Boolean>> mIsAnnouncementAdded;
+    private MutableLiveData<Announcement> mAnnouncement = new MutableLiveData<>();
 
     private LiveData<List<PetProfile>> mPetProfiles;
 
@@ -24,34 +28,36 @@ public class AddAnnouncementSharedViewModel extends ViewModel {
         }
         mAnnouncementRepository=AnnouncementRepository.getInstance();
         mPetProfileRepository= PetProfileRepository.getInstance();
+        mPetProfiles = mPetProfileRepository.getPetProfiles();
+        mIsLoading = mAnnouncementRepository.getIsLoading();
+        mIsAnnouncementAdded = mAnnouncementRepository.isAnnouncementAdded();
     }
 
     public LiveData<List<PetProfile>> getPetProfiles(){
-        mPetProfiles = mPetProfileRepository.getPetProfiles();
         return mPetProfiles;
     }
 
     public void setAnnouncementInfo(Announcement announcement) {
-        mAnnouncementRepository.setAnnouncement(announcement);
+        mAnnouncement.setValue(announcement);
     }
 
     public void addLostAnnouncementToFirestore(Announcement announcement){
         mAnnouncementRepository.addLostPetAnnouncement(announcement);
     }
 
-    public void addAnnouncementToFirestore(Announcement announcement) {
+    public void addFoundAnnouncementToFirestore(Announcement announcement) {
         mAnnouncementRepository.addFoundPetAnnouncement(announcement);
     }
 
     public LiveData<Announcement> getAnnouncementInfo() {
-       return  mAnnouncementRepository.getAnnouncement();
+       return  mAnnouncement;
     }
 
     public LiveData<Boolean> getIsLoading(){
-        return mAnnouncementRepository.getIsLoading();
+        return mIsLoading;
     }
 
-    public LiveData<Boolean> isAnnouncementAdded() {
-        return mAnnouncementRepository.isAnnouncementAdded();
+    public MutableLiveData<EventWrapper<Boolean>> isAnnouncementAdded() {
+        return mIsAnnouncementAdded;
     }
 }

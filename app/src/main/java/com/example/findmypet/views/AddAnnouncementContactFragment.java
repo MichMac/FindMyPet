@@ -16,6 +16,7 @@ import android.widget.ProgressBar;
 
 import com.example.findmypet.R;
 import com.example.findmypet.models.Announcement;
+import com.example.findmypet.utils.EventWrapper;
 import com.example.findmypet.viewmodels.AddAnnouncementSharedViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -51,28 +52,34 @@ public class AddAnnouncementContactFragment extends Fragment {
         mProgressBar = root.findViewById(R.id.progress_bar_adding_announcement);
 
 
-        sharedViewModel.isAnnouncementAdded().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if(aBoolean)
-                    Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementContact_to_nav_missing_found);
-            }
-        });
+        sharedViewModel.isAnnouncementAdded().observe(getViewLifecycleOwner(), new Observer<EventWrapper<Boolean>>() {
+                    @Override
+                    public void onChanged(EventWrapper<Boolean> booleanEventWrapper) {
+                        if (booleanEventWrapper != null){
+                            final Boolean shouldGetNewValue = booleanEventWrapper.getContentIfNotHandled();
+                            if (shouldGetNewValue != null && shouldGetNewValue) {
+                                Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementContact_to_nav_missing_found);
+                            }
+                        }
+                    }
+                });
 
-        btnDone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(etPhoneNumber.length() < 15){
-                    showNumberError();
-                }
-                else
-                {
-                    Announcement announcement = sharedViewModel.getAnnouncementInfo().getValue();
-                    announcement.setPhoneNumber(etPhoneNumber.getText().toString());
-                    sharedViewModel.addLostAnnouncementToFirestore(announcement);
-                }
-            }
-        });
+                btnDone.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (etPhoneNumber.length() < 15) {
+                            showNumberError();
+                        } else {
+                            Boolean isFoundAnn = getArguments().getBoolean("isFoundAnn");
+                            Announcement announcement = sharedViewModel.getAnnouncementInfo().getValue();
+                            announcement.setPhoneNumber(etPhoneNumber.getText().toString());
+                            if (isFoundAnn)
+                                sharedViewModel.addFoundAnnouncementToFirestore(announcement);
+                            else
+                                sharedViewModel.addLostAnnouncementToFirestore(announcement);
+                        }
+                    }
+                });
 
         sharedViewModel.getIsLoading().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override

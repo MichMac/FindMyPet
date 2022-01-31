@@ -63,7 +63,7 @@ public class AddFoundAnnouncementPetFragment extends Fragment {
         View root = inflater.inflate(R.layout.add_found_announcement_pet_fragment, container, false);
 
         sharedViewModel = new ViewModelProvider(requireActivity()).get(AddAnnouncementSharedViewModel.class);
-        sharedViewModel.init();
+        //sharedViewModel.init();
 
         btnNext = root.findViewById(R.id.next_button_add_ann_found_pet);
         btnAddPhoto = root.findViewById(R.id.add_ann_found_pet_photo_button);
@@ -91,6 +91,8 @@ public class AddFoundAnnouncementPetFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(dataValidation()){
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("isFoundAnn", true);
                     Announcement announcement = sharedViewModel.getAnnouncementInfo().getValue();
                     announcement.setStatus("Zaginiony");
                     announcement.setPetImageUrl(selectedImageUri.toString());
@@ -105,7 +107,7 @@ public class AddFoundAnnouncementPetFragment extends Fragment {
                     }
                     announcement.setPetDescription(etDescription.getText().toString());
                     sharedViewModel.setAnnouncementInfo(announcement);
-                    Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementPet_to_addAnnouncementContact);
+                    Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementPet_to_addAnnouncementContact,bundle);
                 }
             }
         });

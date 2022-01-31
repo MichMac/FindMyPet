@@ -24,12 +24,12 @@ public class AnnouncementsListViewModel extends ViewModel {
         mAnnouncements = mAnnouncementRepository.getAnnouncements();
     }
 
-    public LiveData<List<Announcement>> getAnnouncements(){ return mAnnouncements; }
+    public LiveData<List<Announcement>> getAnnouncements(){
+        return mAnnouncements;
+    }
 
     public void setAnnouncement(Announcement announcement) {
         mAnnouncementRepository.setAnnouncement(announcement);
     }
-
-
 
 }

@@ -32,7 +32,7 @@ import java.util.List;
 public class AnnouncementsListFragment extends Fragment implements OnAnnouncementListener {
 
     private AnnouncementsListViewModel mAnnouncementsListViewModel;
-    private static final String TAG = "AnnouncementsListFragme";
+    private static final String TAG = "AnnouncementsListFrag";
 
     FloatingActionButton mAddAnnFab, mAddLostPetAnnFab, mAddFoundPetAnnFab;
     TextView addLostPetAnnText, addFoundPetAnnText;
@@ -48,7 +48,6 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
 
         mAnnouncementsListViewModel = new ViewModelProvider(this).get(AnnouncementsListViewModel.class);
         mAnnouncementsListViewModel.init();
-
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerview_announcements);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

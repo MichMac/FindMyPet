@@ -68,7 +68,7 @@ public class AddAnnouncementLocationFragment extends Fragment {
                     if(isFoundAnn)
                         Navigation.findNavController(getView()).navigate(R.id.action_addAnnouncementLocation_to_addFoundAnnouncementPet);
                     else
-                        Navigation.findNavController(getView()).navigate(R.id.action_addFoundAnnouncementLocation_to_addLostAnnouncementPet);
+                        Navigation.findNavController(getView()).navigate(R.id.action_addAnnouncementLocation_to_addLostAnnouncementPet);
                 }
             }
         });

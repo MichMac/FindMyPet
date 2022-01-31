@@ -20,7 +20,7 @@
         tools:layout="@layout/announcements_list_fragment" >
         <action
             android:id="@+id/action_nav_missing_lost_to_addAnnouncementLocation"
-            app:destination="@id/addFoundAnnouncementLocation" />
+            app:destination="@id/addAnnouncementLocation" />
         <argument
             android:name="isFoundAnn"
             app:argType="boolean" />
@@ -72,7 +72,7 @@
         android:id="@+id/navigate_to_auth"
         app:destination="@id/auth_nav_graph" />
     <fragment
-        android:id="@+id/addFoundAnnouncementLocation"
+        android:id="@+id/addAnnouncementLocation"
         android:name="com.example.findmypet.views.AddAnnouncementLocationFragment"
         android:label="Last Pet Location"
         tools:layout="@layout/add_announcement_location_fragment" >
@@ -80,7 +80,7 @@
             android:id="@+id/action_addAnnouncementLocation_to_addFoundAnnouncementPet"
             app:destination="@id/addFoundAnnouncementPet" />
         <action
-            android:id="@+id/action_addFoundAnnouncementLocation_to_addLostAnnouncementPet"
+            android:id="@+id/action_addAnnouncementLocation_to_addLostAnnouncementPet"
             app:destination="@id/addLostAnnouncementPet" />
     </fragment>
     <fragment
@@ -91,6 +91,8 @@
         <action
             android:id="@+id/action_addFoundAnnouncementPet_to_addAnnouncementContact"
             app:destination="@id/addFoundAnnouncementContact" />
+        <argument android:name="isFoundAnn"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/addFoundAnnouncementContact"
@@ -103,10 +105,13 @@
     <fragment
         android:id="@+id/addLostAnnouncementPet"
         android:name="com.example.findmypet.views.AddLostAnnouncementPetFragment"
-        android:label="AddLostAnnouncementPet" >
+        android:label="AddLostAnnouncementPet">
         <action
-            android:id="@+id/action_addLostAnnouncementPet_to_addFoundAnnouncementContact"
+            android:id="@+id/action_addLostAnnouncementPet_to_addAnnouncementContact"
             app:destination="@id/addFoundAnnouncementContact" />
+        <argument
+            android:name="isFoundAnn"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/announcementFragment"

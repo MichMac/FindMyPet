@@ -8,7 +8,6 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -18,9 +17,9 @@ import android.widget.TextView;
 
 import com.example.findmypet.R;
 import com.example.findmypet.adapters.NfcDialogListener;
-import com.example.findmypet.repositories.NFC;
-import com.example.findmypet.viewmodels.AddAnnouncementSharedViewModel;
-import com.example.findmypet.viewmodels.MainActivityViewModel;
+import com.example.findmypet.utils.NFC;
+import com.example.findmypet.utils.EventWrapper;
+import com.example.findmypet.viewmodels.NFCReadFragmentViewModel;
 
 
 public class NFCReadFragment extends DialogFragment {
@@ -34,21 +33,16 @@ public class NFCReadFragment extends DialogFragment {
 
     private TextView mTvMessage;
     private NfcDialogListener mNfcDialogListener;
-    private MainActivityViewModel mMainActivityViewModel;
-    private boolean isAnnouncementFound;
+    private NFCReadFragmentViewModel mNFCReadFragmentViewModel;
+    private Boolean isAnnouncementFound;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_nfc_read,container,false);
         initViews(view);
-        mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);
-        mMainActivityViewModel.isAnnouncementFound().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                isAnnouncementFound = aBoolean;
-            }
-        });
+        mNFCReadFragmentViewModel = new ViewModelProvider(getActivity()).get(NFCReadFragmentViewModel.class);
+        mNFCReadFragmentViewModel.init();
 
         return view;
     }
@@ -75,21 +69,68 @@ public class NFCReadFragment extends DialogFragment {
         //Bundle bundle = new Bundle();
         String petProfileID = nfc.getNFCMessage(intent);
         NavController navcontroller = NavHostFragment.findNavController(this);
-        mMainActivityViewModel.findAnnouncementByPetProfileID(petProfileID);
-        //navController.popBackStack();
-        mMainActivityViewModel.isAnnouncementFound().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        mNFCReadFragmentViewModel.findAnnouncementByPetProfileID(petProfileID);
+        //LiveData<Boolean> isAnnouncementFound = mMainActivityViewModel.isAnnouncementsFound();
+
+//        isAnnouncementFound.observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//                if (aBoolean){
+//                    mMainActivityViewModel.isAnnouncementsFound().removeObserver(this);
+//                    mTvMessage.setText(getString(R.string.message_read_success));
+//                    navcontroller.navigate(R.id.action_NFCReadFragment_to_announcementFragment);
+//                    dismiss();
+//            }
+//                else {
+//                    mTvMessage.setText(getString(R.string.message_read_error));
+//                }
+//            }
+//        });
+
+        mNFCReadFragmentViewModel.isAnnouncementFound().observe(getViewLifecycleOwner(), new Observer<EventWrapper<Boolean>>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                isAnnouncementFound = aBoolean;
-                if (aBoolean){
-                    navcontroller.navigate(R.id.action_NFCReadFragment_to_announcementFragment);
-                    //mTvMessage.setText(getString(R.string.message_read_success));
-                    dismiss();
+            public void onChanged(EventWrapper<Boolean> booleanEventWrapper) {
+                if (booleanEventWrapper != null){
+                    final Boolean shouldGetNewValue = booleanEventWrapper.getContentIfNotHandled();
+
+                    if (shouldGetNewValue != null && shouldGetNewValue) {
+                        mTvMessage.setText(getString(R.string.message_read_success));
+                        navcontroller.navigate(R.id.action_NFCReadFragment_to_announcementFragment);
+                        dismiss();
+                    }
+                    else if (shouldGetNewValue != null) {
+                        mTvMessage.setText(getString(R.string.message_read_error));
+                    }
+                }
             }
-                else
-                    mTvMessage.setText(getString(R.string.message_read_error));
-        }
         });
+
+
+
+        //navController.popBackStack();
+
+//        mMainActivityViewModel.isAnnouncementFound().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//                //mMainActivityViewModel.isAnnouncementFound().removeObserver(this);
+//                if (aBoolean){
+//                    navcontroller.navigate(R.id.action_NFCReadFragment_to_announcementFragment);
+//                    //mTvMessage.setText(getString(R.string.message_read_success));
+//
+//                    dismiss();
+//            }
+//                else {
+//                    mTvMessage.setText(getString(R.string.message_read_error));
+//                }
+//
+//        }
+//        });
+
+
+//        if(isAnnouncementFound){
+//            navcontroller.navigate(R.id.action_NFCReadFragment_to_announcementFragment);
+//        }else
+//            mTvMessage.setText(getString(R.string.message_read_error));
     }
 
 
