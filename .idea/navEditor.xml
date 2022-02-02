@@ -51,25 +51,13 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="addAnnouncementLocation">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-19" />
-                            <option name="y" value="132" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="authFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-477" />
-                            <option name="y" value="-77" />
+                            <option name="x" value="-572" />
+                            <option name="y" value="-69" />
                           </Point>
                         </option>
                         <option name="myPositions">
@@ -137,6 +125,32 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="addAnnouncementLocation">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="310" />
+                            <option name="y" value="-417" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_addAnnouncementLocation_to_addFoundAnnouncementPet">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_addAnnouncementLocation_to_addLostAnnouncementPet">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="addFoundAnnouncementContact">
                     <value>
                       <LayoutPositions>
@@ -149,32 +163,6 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_addFoundAnnouncementContact_to_nav_missing_found">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                          </map>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
-                  <entry key="addFoundAnnouncementLocation">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="386" />
-                            <option name="y" value="-458" />
-                          </Point>
-                        </option>
-                        <option name="myPositions">
-                          <map>
-                            <entry key="action_addAnnouncementLocation_to_addFoundAnnouncementPet">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_addFoundAnnouncementLocation_to_addLostAnnouncementPet">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -216,7 +204,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_addLostAnnouncementPet_to_addFoundAnnouncementContact">
+                            <entry key="action_addLostAnnouncementPet_to_addAnnouncementContact">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -264,8 +252,20 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-324" />
-                            <option name="y" value="-192" />
+                            <option name="x" value="-536" />
+                            <option name="y" value="-209" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="mapFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="299" />
+                            <option name="y" value="-858" />
                           </Point>
                         </option>
                       </LayoutPositions>
@@ -276,8 +276,8 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-46" />
-                            <option name="y" value="-270" />
+                            <option name="x" value="-148" />
+                            <option name="y" value="-389" />
                           </Point>
                         </option>
                         <option name="myPositions">

@@ -11,7 +11,6 @@
     <string name="enter_your_email_placeholder">Enter your email</string>
     <string name="signin_button">SignIn</string>
     <string name="signup_button">SignUp</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="enter_your_name">Enter your full name</string>
@@ -63,7 +62,10 @@
     <string name="message_write_error">Error Writing Tag !</string>
     <string name="message_read_tag">Read from NFC tag</string>
     <string name="reading_nfc_tag">Reading NFC Tag</string>
+    <string name="add_lost_pet_announcement">Add Lost Pet Announcement</string>
+    <string name="add_found_pet_announcement">Add Found Pet Announcement</string>
 
+    <string name="title_activity_maps">MapsActivity</string>
     <string-array name="gender_array">
         <item>Male</item>
         <item>Female</item>

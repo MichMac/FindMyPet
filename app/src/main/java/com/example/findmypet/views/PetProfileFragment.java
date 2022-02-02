@@ -56,7 +56,7 @@ public class PetProfileFragment extends Fragment {
 
         ivPetPic = root.findViewById(R.id.image_petprofile);
         tvPetName = root.findViewById(R.id.name_textview_petprofile);
-        tvPetAge = root.findViewById(R.id.phone_number_edittext_add_ann);
+        tvPetAge = root.findViewById(R.id.date_datetext_add_ann);
         spGender = root.findViewById(R.id.gender_edittext_add_ann_found_pet);
         genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

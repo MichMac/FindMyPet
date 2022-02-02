@@ -39,7 +39,7 @@ public class NFCReadFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_nfc_read,container,false);
+        View view = inflater.inflate(R.layout.nfc_read_fragment,container,false);
         initViews(view);
         mNFCReadFragmentViewModel = new ViewModelProvider(getActivity()).get(NFCReadFragmentViewModel.class);
         mNFCReadFragmentViewModel.init();

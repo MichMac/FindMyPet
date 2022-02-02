@@ -1,5 +1,7 @@
 package com.example.findmypet.models;
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.io.Serializable;
 
 public class Announcement implements Serializable {
@@ -12,6 +14,7 @@ public class Announcement implements Serializable {
     private String province;
     private String city;
     private String street;
+    private GeoPoint LatLng;
     private String petProfileID;
     private String petImageUrl;
     private String petName;
@@ -140,6 +143,14 @@ public class Announcement implements Serializable {
     public String getPetBreed() { return petBreed;}
 
     public void setPetBreed(String petBreed) { this.petBreed = petBreed;}
+
+    public GeoPoint getLatLng() {
+        return LatLng;
+    }
+
+    public void setLatLng(GeoPoint latLng) {
+        LatLng = latLng;
+    }
 
 
 }

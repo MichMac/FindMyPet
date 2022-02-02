@@ -6,13 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".views.AnnouncementsListFragment">
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerview_announcements"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button2"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button3"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/button2"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_announcements"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         tools:listitem="@layout/announcement_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -26,7 +74,8 @@
         android:src="@android:drawable/ic_input_add"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="ContentDescription" />
 
     <!--Floating action button for add alarm-->
     <!--Make sure that you are constraining this
@@ -41,7 +90,8 @@
         app:layout_constraintBottom_toTopOf="@+id/add_ann_fab"
         app:layout_constraintEnd_toEndOf="@+id/add_ann_fab"
         app:layout_constraintStart_toStartOf="@+id/add_ann_fab"
-        app:srcCompat="@drawable/ic_baseline_announcement_24" />
+        app:srcCompat="@drawable/ic_baseline_announcement_24"
+        tools:ignore="ContentDescription" />
 
     <!--Action name text for the add alarm button-->
     <!--Make sure that you are constraining this Text to
@@ -52,7 +102,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="#FFFFFF"
-        android:text="Add Found Pet Announcement"
+        android:text="@string/add_found_pet_announcement"
         app:layout_constraintBottom_toBottomOf="@+id/add_found_pet_ann_fab"
         app:layout_constraintEnd_toStartOf="@+id/add_found_pet_ann_fab"
         app:layout_constraintTop_toTopOf="@+id/add_found_pet_ann_fab"/>
@@ -70,7 +120,8 @@
         app:layout_constraintBottom_toTopOf="@+id/add_found_pet_ann_fab"
         app:layout_constraintEnd_toEndOf="@+id/add_found_pet_ann_fab"
         app:layout_constraintStart_toStartOf="@+id/add_found_pet_ann_fab"
-        app:srcCompat="@drawable/ic_baseline_announcement_24" />
+        app:srcCompat="@drawable/ic_baseline_announcement_24"
+        tools:ignore="ContentDescription" />
 
     <!--Action name text for the add person button-->
     <!--Make sure that you are constraining this Text
@@ -81,9 +132,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:background="#FFFFFF"
-        android:text="Add Lost Pet Announcement"
+        android:text="@string/add_lost_pet_announcement"
         app:layout_constraintBottom_toBottomOf="@+id/add_lost_pet_ann_fab"
         app:layout_constraintEnd_toStartOf="@+id/add_lost_pet_ann_fab"
         app:layout_constraintTop_toTopOf="@+id/add_lost_pet_ann_fab" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

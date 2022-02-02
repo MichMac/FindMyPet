@@ -17,7 +17,6 @@ import com.example.findmypet.adapters.NfcDialogListener;
 import com.example.findmypet.models.PetProfile;
 import com.example.findmypet.utils.NFC;
 import com.example.findmypet.viewmodels.MainActivityViewModel;
-import com.example.findmypet.viewmodels.NFCWriteFragmentViewModel;
 
 import android.content.Context;
 import android.widget.ProgressBar;
@@ -41,7 +40,7 @@ public class NFCWriteFragment extends DialogFragment{
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nfc_write,container,false);
+        View view = inflater.inflate(R.layout.nfc_write_fragment,container,false);
         initViews(view);
 
         mMainActivityViewModel = new ViewModelProvider(getActivity()).get(MainActivityViewModel.class);

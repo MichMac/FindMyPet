@@ -116,8 +116,17 @@
     <fragment
         android:id="@+id/announcementFragment"
         android:name="com.example.findmypet.views.AnnouncementFragment"
-        android:label="AnnouncementFragment" />
-<!--    <dialog-->
+        android:label="AnnouncementFragment" >
+        <action
+            android:id="@+id/action_announcementFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.findmypet.views.MapFragment"
+        android:label="MapFragment"
+        tools:layout="@layout/map_fragment" />
+    <!--    <dialog-->
 <!--        android:id="@+id/NFCReadFragment"-->
 <!--        android:name="com.example.findmypet.views.NFCReadFragment"-->
 <!--        android:label="NFCReadFragment" >-->

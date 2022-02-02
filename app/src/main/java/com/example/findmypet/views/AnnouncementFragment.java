@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +24,6 @@ import com.google.android.material.textview.MaterialTextView;
 
 public class AnnouncementFragment extends Fragment {
 
-    private Announcement mAnnouncement;
     private AnnouncementViewModel mAnnouncementViewModel;
 
     private ImageView ivPetPic;
@@ -74,6 +74,13 @@ public class AnnouncementFragment extends Fragment {
             @Override
             public void onChanged(Announcement announcement) {
                 setAnnouncementInfo(announcement);
+            }
+        });
+
+        btnShowOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(getView()).navigate(R.id.action_announcementFragment_to_mapFragment);
             }
         });
 

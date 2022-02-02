@@ -18,7 +18,6 @@ import com.example.findmypet.R;
 import com.example.findmypet.models.Announcement;
 import com.example.findmypet.utils.EventWrapper;
 import com.example.findmypet.viewmodels.AddAnnouncementSharedViewModel;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class AddAnnouncementContactFragment extends Fragment {
 
@@ -48,7 +47,7 @@ public class AddAnnouncementContactFragment extends Fragment {
         sharedViewModel.init();
 
         btnDone = root.findViewById(R.id.next_button_location_ann);
-        etPhoneNumber = root.findViewById(R.id.phone_number_edittext_add_ann);
+        etPhoneNumber = root.findViewById(R.id.date_datetext_add_ann);
         mProgressBar = root.findViewById(R.id.progress_bar_adding_announcement);
 
 

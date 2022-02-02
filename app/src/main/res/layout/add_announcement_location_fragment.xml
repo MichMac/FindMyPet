@@ -23,8 +23,8 @@
             app:layout_constraintTop_toBottomOf="@+id/street_edittext_add_ann_pet" />
 
 
-        <EditText
-            android:id="@+id/phone_number_edittext_add_ann"
+        <com.msa.dateedittext.DateEditText
+            android:id="@+id/date_datetext_add_ann"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginLeft="16dp"
@@ -34,10 +34,16 @@
             android:lines="1"
             android:maxLines="1"
             android:singleLine="true"
+            android:inputType="date"
+            android:hint="dd/MM/YYYY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.042"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contact_add_ann" />
+            app:layout_constraintTop_toBottomOf="@+id/contact_add_ann"
+            app:dateFormat="ddMMyyyy"
+            app:autoCorrect="false"
+            app:helperTextEnabled="true"
+            app:dividerCharacter="slash"/>
 
         <EditText
             android:id="@+id/country_edittext_loc_ann"

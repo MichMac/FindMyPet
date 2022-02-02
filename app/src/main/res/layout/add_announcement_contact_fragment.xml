@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone_number_edittext_add_ann" />
+            app:layout_constraintTop_toBottomOf="@+id/date_datetext_add_ann" />
 
         <ProgressBar
             android:id="@+id/progress_bar_adding_announcement"
@@ -57,7 +57,7 @@
             app:layout_constraintTop_toBottomOf="@+id/info_contact_ann" />
 
         <br.com.sapereaude.maskedEditText.MaskedEditText
-            android:id="@+id/phone_number_edittext_add_ann"
+            android:id="@+id/date_datetext_add_ann"
             android:layout_width="match_parent"
             android:layout_height="25dp"
             android:layout_marginLeft="16dp"

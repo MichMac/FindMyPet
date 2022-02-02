@@ -73,7 +73,7 @@ public class AddPetProfileFragment extends Fragment {
         ivPhoto = view.findViewById(R.id.add_ann_found_pet_imageview);
         btnAddPhoto = view.findViewById(R.id.add_ann_found_pet_photo_button);
         etPetName = view.findViewById(R.id.petname_editname_add_ann_found_pet);
-        etPetAge = view.findViewById(R.id.phone_number_edittext_add_ann);
+        etPetAge = view.findViewById(R.id.date_datetext_add_ann);
         etMnNumber = view.findViewById(R.id.street_edittext_add_ann_pet);
         etDescription = view.findViewById(R.id.description_edittext_add_ann_found_pet);
         etSpecie = view.findViewById(R.id.specie_edittext_add_ann_found_pet);

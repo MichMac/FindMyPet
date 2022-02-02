@@ -11,20 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.findmypet.R;
 import com.example.findmypet.models.Announcement;
 import com.example.findmypet.viewmodels.AddAnnouncementSharedViewModel;
+import com.google.firebase.firestore.GeoPoint;
+import com.msa.dateedittext.DateEditText;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class AddAnnouncementLocationFragment extends Fragment {
 
     private Button btnNext;
-    private EditText etDate;
     private EditText etCountry;
     private EditText etProvince;
     private EditText etCity;
     private EditText etStreet;
     private Boolean isFoundAnn;
+    private DateEditText etDate;
+    private GeoPoint latLng;
 
     private AddAnnouncementSharedViewModel sharedViewModel;
 
@@ -46,17 +55,21 @@ public class AddAnnouncementLocationFragment extends Fragment {
         sharedViewModel.init();
 
         btnNext = root.findViewById(R.id.next_button_location_ann);
-        etDate = root.findViewById(R.id.phone_number_edittext_add_ann);
+        etDate = root.findViewById(R.id.date_datetext_add_ann);
         etCountry =  root.findViewById(R.id.country_edittext_loc_ann);
         etProvince = root.findViewById(R.id.province_edittext_loc_ann);
         etCity = root.findViewById(R.id.city_edittext_add_ann_pet);
         etStreet = root.findViewById(R.id.street_edittext_add_ann_pet);
 
+        Date currentTime = Calendar.getInstance().getTime();
+        etDate.listen();
+        etDate.setMaxDate(currentTime);
+
         //&& dataValidation()
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(getArguments() != null ){
+                if(getArguments() != null && dataValidation() ){
                     isFoundAnn = getArguments().getBoolean("isFoundAnn");
                     Announcement announcement = new Announcement();
                     announcement.setDate(etDate.getText().toString());
@@ -64,6 +77,7 @@ public class AddAnnouncementLocationFragment extends Fragment {
                     announcement.setProvince(etProvince.getText().toString());
                     announcement.setCity(etCity.getText().toString());
                     announcement.setStreet(etStreet.getText().toString());
+                    announcement.setLatLng(latLng);
                     sharedViewModel.setAnnouncementInfo(announcement);
                     if(isFoundAnn)
                         Navigation.findNavController(getView()).navigate(R.id.action_addAnnouncementLocation_to_addFoundAnnouncementPet);
@@ -91,14 +105,29 @@ public class AddAnnouncementLocationFragment extends Fragment {
             return false;
         }
         if (etCity.length() == 0) {
-            etProvince.setError("This field is required");
+            etCity.setError("This field is required");
             return false;
         }
         if (etStreet.length() == 0) {
-            etProvince.setError("This field is required");
+            etStreet.setError("This field is required");
             return false;
         }
-        return true;
+
+        try {
+            String location = etCountry.getText() + "," + etProvince.getText() + "," + etCity.getText() + "," + etStreet.getText();
+            latLng = sharedViewModel.getGeopoint(location,getContext(), Locale.getDefault());
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Getting location error",Toast.LENGTH_LONG).show();
+            return false;
+        } catch (IndexOutOfBoundsException e) {
+            e.printStackTrace();
+            Toast.makeText(getContext(),"Given location is not valid!",Toast.LENGTH_LONG).show();
+            return false;
+        }
+
+        //return true;
     }
 
 }

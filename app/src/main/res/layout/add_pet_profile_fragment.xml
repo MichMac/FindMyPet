@@ -119,11 +119,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/age"
-            app:layout_constraintBottom_toTopOf="@+id/phone_number_edittext_add_ann"
+            app:layout_constraintBottom_toTopOf="@+id/date_datetext_add_ann"
             app:layout_constraintStart_toStartOf="parent" />
 
         <EditText
-            android:id="@+id/phone_number_edittext_add_ann"
+            android:id="@+id/date_datetext_add_ann"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -186,7 +186,7 @@
             android:singleLine="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/phone_number_edittext_add_ann" />
+            app:layout_constraintTop_toBottomOf="@+id/date_datetext_add_ann" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/description_textview_add_ann_found_pet"
