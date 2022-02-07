@@ -152,6 +152,7 @@ public class AnnouncementRepository {
             }
         });
     }
+
     private void loadAnnouncements(){
         isLoading.setValue(true);
 //        announcementsDataSet.clear();

@@ -177,7 +177,12 @@ public class MainActivity extends AppCompatActivity implements NfcDialogListener
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.save_action);
+        MenuItem sorting = menu.findItem(R.id.sorting_date);
+        MenuItem sortAsc = menu.findItem(R.id.sorting_ascending_date);
+        MenuItem sortDesc = menu.findItem(R.id.sorting_descending_date);
+
         item.setVisible(false);
+        sorting.setVisible(false);
         return true;
 
     }

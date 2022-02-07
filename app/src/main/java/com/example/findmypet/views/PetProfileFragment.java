@@ -76,22 +76,6 @@ public class PetProfileFragment extends Fragment {
             }
         });
 
-
-        //setPetProfileData(mPetProfile);
-//        mNFC = new NFC(getContext());
-//        Intent intent = getActivity().getIntent();
-//        String msg = mNFC.getNFCMessage(intent);
-//        Toast.makeText(getContext(),msg,Toast.LENGTH_LONG).show();
-
-
-        // null object referenceeeee
-//        mPetProfileViewModel.getPetProfile().observe(getViewLifecycleOwner(), new Observer<PetProfile>() {
-//            @Override
-//            public void onChanged(PetProfile petProfile) {
-//                setPetProfileData(petProfile);
-//            }
-//        });
-
         return root;
     }
 

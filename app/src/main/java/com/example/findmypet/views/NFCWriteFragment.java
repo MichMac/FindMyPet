@@ -94,6 +94,5 @@ public class NFCWriteFragment extends DialogFragment{
             mTvMessage.setText(getString(R.string.message_write_error));
 
         mProgress.setVisibility(View.GONE);
-
     }
 }

@@ -66,6 +66,9 @@
     <string name="add_found_pet_announcement">Add Found Pet Announcement</string>
 
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="sorting_by_date">Sorting by date</string>
+    <string name="sorting_descending_by_date">Sorting descending by date</string>
+    <string name="sorting_ascending_by_date">Sorting ascending by date</string>
     <string-array name="gender_array">
         <item>Male</item>
         <item>Female</item>

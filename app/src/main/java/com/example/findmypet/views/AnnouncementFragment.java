@@ -17,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.findmypet.R;
 import com.example.findmypet.models.Announcement;
 import com.example.findmypet.viewmodels.AnnouncementViewModel;
-import com.example.findmypet.viewmodels.AnnouncementsListViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 

@@ -12,4 +12,29 @@
         android:title="@string/save_button"
         app:showAsAction="never"
         />
+<!--    <group-->
+<!--        android:id="@+id/sorting_group"-->
+<!--        android:-->
+<!--        />-->
+
+    <item
+        android:id="@+id/sorting_date"
+        android:icon="@drawable/ic_baseline_sort_24"
+        android:title="@string/sorting_by_date"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/sorting_descending_date"
+                android:title="@string/sorting_descending_by_date"
+                app:showAsAction="never"
+            />
+            <item
+                android:id="@+id/sorting_ascending_date"
+                android:title="@string/sorting_ascending_by_date"
+                app:showAsAction="never"
+                />
+        </menu>
+    </item>
+
+
 </menu>

@@ -1,14 +1,14 @@
 package com.example.findmypet.views;
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -22,20 +22,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.findmypet.R;
 import com.example.findmypet.adapters.AnnouncementsListAdapter;
 import com.example.findmypet.adapters.OnAnnouncementListener;
-import com.example.findmypet.adapters.PetProfileListAdapter;
 import com.example.findmypet.models.Announcement;
-import com.example.findmypet.models.PetProfile;
-import com.example.findmypet.viewmodels.AnnouncementsListViewModel;
+import com.example.findmypet.viewmodels.AnnouncementsListSharedViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.IOException;
-import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Locale;
 
 public class AnnouncementsListFragment extends Fragment implements OnAnnouncementListener {
 
-    private AnnouncementsListViewModel mAnnouncementsListViewModel;
+    private AnnouncementsListSharedViewModel mAnnouncementsListSharedViewModel;
     private static final String TAG = "AnnouncementsListFrag";
 
     FloatingActionButton mAddAnnFab, mAddLostPetAnnFab, mAddFoundPetAnnFab;
@@ -43,6 +40,7 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
     Boolean isAllFabsVisible;
     Boolean isFoundAnn;
     AnnouncementsListAdapter adapter;
+    Boolean isSorting;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -50,8 +48,9 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
 
         View root = inflater.inflate(R.layout.announcements_list_fragment, container, false);
 
-        mAnnouncementsListViewModel = new ViewModelProvider(this).get(AnnouncementsListViewModel.class);
-        mAnnouncementsListViewModel.init();
+        mAnnouncementsListSharedViewModel = new ViewModelProvider(this).get(AnnouncementsListSharedViewModel.class);
+        mAnnouncementsListSharedViewModel.init();
+        setHasOptionsMenu(true);
 
         RecyclerView recyclerView = root.findViewById(R.id.recyclerview_announcements);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -133,11 +132,18 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
             }
         });
 
-        mAnnouncementsListViewModel.getAnnouncements().observe(getViewLifecycleOwner(), new Observer<List<Announcement>>() {
+        mAnnouncementsListSharedViewModel.getAnnouncements().observe(getViewLifecycleOwner(), new Observer<List<Announcement>>() {
             @Override
             public void onChanged(List<Announcement> announcements) {
                 if(announcements.size() != 0){
+//                    Collections.sort(announcements, new Comparator<Announcement>() {
+//                        public int compare(Announcement o1, Announcement o2) {
+//                            return o1.getDate().compareTo(o2.getDate());
+//                        }
+//                    });
                     adapter.setAnnouncements(announcements);
+                    //if(isSorting)
+
                 }
                 else{
                     Log.d(TAG,"Live data of announcements is null!");
@@ -152,7 +158,7 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
     public void OnAnnouncementClick(int position) {
 
         Announcement announcementInfo = adapter.getSelectedAnnouncement(position);
-        mAnnouncementsListViewModel.setAnnouncement(announcementInfo);
+        mAnnouncementsListSharedViewModel.setAnnouncement(announcementInfo);
         Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_found_to_announcementFragment);
     }
 
@@ -167,4 +173,37 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
 
         }
     };
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        MenuItem itemSorting = menu.findItem(R.id.sorting_date);
+        MenuItem itemSortAsc= menu.findItem(R.id.sorting_ascending_date);
+        MenuItem itemSortDesc= menu.findItem(R.id.sorting_descending_date);
+
+        itemSorting.setVisible(true);
+        itemSorting.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        itemSortDesc.setVisible(true);
+        itemSortAsc.setVisible(true);
+
+        itemSortAsc.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                Toast.makeText(getContext(),"Sorting ascending",Toast.LENGTH_LONG).show();
+                //isSorting = true;
+                mAnnouncementsListSharedViewModel.sortAscending();
+                return true;
+            }
+        });
+
+        itemSortDesc.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                mAnnouncementsListSharedViewModel.sortDescending();
+                return true;
+            }
+        });
+
+    }
 }
