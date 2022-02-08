@@ -69,6 +69,9 @@
     <string name="sorting_by_date">Sorting by date</string>
     <string name="sorting_descending_by_date">Sorting descending by date</string>
     <string name="sorting_ascending_by_date">Sorting ascending by date</string>
+    <string name="lost_fab">Lost</string>
+    <string name="found_fab">Found</string>
+    <string name="announcement_fab">Announcement</string>
     <string-array name="gender_array">
         <item>Male</item>
         <item>Female</item>

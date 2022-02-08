@@ -24,6 +24,7 @@ import com.example.findmypet.adapters.AnnouncementsListAdapter;
 import com.example.findmypet.adapters.OnAnnouncementListener;
 import com.example.findmypet.models.Announcement;
 import com.example.findmypet.viewmodels.AnnouncementsListSharedViewModel;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Collections;
@@ -35,13 +36,11 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
     private AnnouncementsListSharedViewModel mAnnouncementsListSharedViewModel;
     private static final String TAG = "AnnouncementsListFrag";
 
-    FloatingActionButton mAddAnnFab, mAddLostPetAnnFab, mAddFoundPetAnnFab;
-    TextView addLostPetAnnText, addFoundPetAnnText;
+    ExtendedFloatingActionButton mAddAnnFab, mAddLostPetAnnFab, mAddFoundPetAnnFab;
     Boolean isAllFabsVisible;
     Boolean isFoundAnn;
     AnnouncementsListAdapter adapter;
     Boolean isSorting;
-
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -64,13 +63,8 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
         mAddFoundPetAnnFab = root.findViewById(R.id.add_found_pet_ann_fab);
         mAddLostPetAnnFab = root.findViewById(R.id.add_lost_pet_ann_fab);
 
-        addFoundPetAnnText = root.findViewById(R.id.add_found_pet_ann_text);
-        addLostPetAnnText = root.findViewById(R.id.add_lost_pet_ann_text);
-
         mAddFoundPetAnnFab.setVisibility(View.GONE);
         mAddLostPetAnnFab.setVisibility(View.GONE);
-        addFoundPetAnnText.setVisibility(View.GONE);
-        addLostPetAnnText.setVisibility(View.GONE);
 
         isAllFabsVisible = false;
 
@@ -86,9 +80,6 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
                             root.findViewById(R.id.recyclerview_announcements).setAlpha((float)0.20);
                             mAddFoundPetAnnFab.show();
                             mAddLostPetAnnFab.show();
-                            addFoundPetAnnText.setVisibility(View.VISIBLE);
-                            addLostPetAnnText.setVisibility(View.VISIBLE);
-
                             // make the boolean variable true as
                             // we have set the sub FABs
                             // visibility to GONE
@@ -101,9 +92,6 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
                             root.findViewById(R.id.recyclerview_announcements).setAlpha(1);
                             mAddFoundPetAnnFab.hide();
                             mAddLostPetAnnFab.hide();
-                            addFoundPetAnnText.setVisibility(View.GONE);
-                            addLostPetAnnText.setVisibility(View.GONE);
-
                             // make the boolean variable false
                             // as we have set the sub FABs
                             // visibility to GONE

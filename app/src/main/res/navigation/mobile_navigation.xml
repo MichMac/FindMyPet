@@ -26,10 +26,11 @@
             app:argType="boolean" />
         <action
             android:id="@+id/action_nav_missing_found_to_announcementFragment"
-            app:destination="@id/announcementFragment" />
-        <action
-            android:id="@+id/action_NFCReadFragment_to_announcementFragment"
-            app:destination="@id/announcementFragment" />
+            app:destination="@id/announcementFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
 
     <fragment
@@ -39,13 +40,25 @@
         tools:layout="@layout/pet_profile_list_fragment" >
         <action
             android:id="@+id/action_nav_pet_profile_to_addPetProfileFragment"
-            app:destination="@id/addPetProfileFragment" />
+            app:destination="@id/addPetProfileFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
         <action
             android:id="@+id/action_nav_pet_profile_to_nav_missing_found"
-            app:destination="@id/nav_missing_found" />
+            app:destination="@id/nav_missing_found"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/petProfileFragmentAction"
-            app:destination="@id/petProfileFragment" />
+            app:destination="@id/petProfileFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_open_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"/>
     </fragment>
 
     <fragment
@@ -119,7 +132,9 @@
         android:label="AnnouncementFragment" >
         <action
             android:id="@+id/action_announcementFragment_to_mapFragment"
-            app:destination="@id/mapFragment" />
+            app:destination="@id/mapFragment"
+            app:enterAnim="@anim/fragment_close_enter"
+            app:exitAnim="@anim/fragment_close_exit" />
     </fragment>
     <fragment
         android:id="@+id/mapFragment"

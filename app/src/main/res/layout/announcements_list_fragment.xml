@@ -48,79 +48,52 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         tools:listitem="@layout/announcement_item" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_ann_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#673AB7"
-        android:src="@android:drawable/ic_input_add"
+        android:text="@string/announcement_fab"
         app:fabSize="normal"
+        app:icon="@android:drawable/ic_input_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="ContentDescription" />
 
-    <!--Floating action button for add alarm-->
-    <!--Make sure that you are constraining this
-        button to the parent button-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_found_pet_ann_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:backgroundTint="#673AB7"
+        android:text="@string/found_fab"
         app:fabSize="normal"
+        app:icon="@drawable/ic_baseline_announcement_24"
         app:layout_constraintBottom_toTopOf="@+id/add_ann_fab"
         app:layout_constraintEnd_toEndOf="@+id/add_ann_fab"
         app:layout_constraintStart_toStartOf="@+id/add_ann_fab"
-        app:srcCompat="@drawable/ic_baseline_announcement_24"
         tools:ignore="ContentDescription" />
 
-    <!--Action name text for the add alarm button-->
-    <!--Make sure that you are constraining this Text to
-        the add Alarm FAB button-->
-    <TextView
-        android:id="@+id/add_found_pet_ann_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="#FFFFFF"
-        android:text="@string/add_found_pet_announcement"
-        app:layout_constraintBottom_toBottomOf="@+id/add_found_pet_ann_fab"
-        app:layout_constraintEnd_toStartOf="@+id/add_found_pet_ann_fab"
-        app:layout_constraintTop_toTopOf="@+id/add_found_pet_ann_fab"/>
-
-    <!--Floating action button for add person-->
-    <!--Make sure that you are constraining this
-        button to the add Alarm FAB button-->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/add_lost_pet_ann_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:backgroundTint="#673AB7"
+        android:text="@string/lost_fab"
         app:fabSize="normal"
         app:layout_constraintBottom_toTopOf="@+id/add_found_pet_ann_fab"
         app:layout_constraintEnd_toEndOf="@+id/add_found_pet_ann_fab"
         app:layout_constraintStart_toStartOf="@+id/add_found_pet_ann_fab"
-        app:srcCompat="@drawable/ic_baseline_announcement_24"
+        app:icon="@drawable/ic_baseline_announcement_24"
         tools:ignore="ContentDescription" />
 
     <!--Action name text for the add person button-->
     <!--Make sure that you are constraining this Text
         to the add Person FAB button-->
-    <TextView
-        android:id="@+id/add_lost_pet_ann_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="#FFFFFF"
-        android:text="@string/add_lost_pet_announcement"
-        app:layout_constraintBottom_toBottomOf="@+id/add_lost_pet_ann_fab"
-        app:layout_constraintEnd_toStartOf="@+id/add_lost_pet_ann_fab"
-        app:layout_constraintTop_toTopOf="@+id/add_lost_pet_ann_fab" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

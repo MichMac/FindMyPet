@@ -178,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements NfcDialogListener
         getMenuInflater().inflate(R.menu.main, menu);
         MenuItem item = menu.findItem(R.id.save_action);
         MenuItem sorting = menu.findItem(R.id.sorting_date);
-        MenuItem sortAsc = menu.findItem(R.id.sorting_ascending_date);
-        MenuItem sortDesc = menu.findItem(R.id.sorting_descending_date);
+//        MenuItem sortAsc = menu.findItem(R.id.sorting_ascending_date);
+//        MenuItem sortDesc = menu.findItem(R.id.sorting_descending_date);
 
         item.setVisible(false);
         sorting.setVisible(false);
