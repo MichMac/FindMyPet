@@ -72,13 +72,14 @@ public class AddAnnouncementSharedViewModel extends ViewModel {
         return mIsAnnouncementAdded;
     }
 
-    public GeoPoint getGeopoint(String location, Context context, Locale locale) throws IOException, IndexOutOfBoundsException {
-        Geocoder geocoder = new Geocoder(context,locale);
-        List<Address> result;
-
-        result = geocoder.getFromLocationName(location,1);
-        mLatLng= new GeoPoint(result.get(0).getLatitude(), result.get(0).getLongitude());
-
-        return mLatLng;
-    }
+    //geocoder zastąpiony places api
+//    public GeoPoint getGeopoint(String location, Context context, Locale locale) throws IOException, IndexOutOfBoundsException {
+//        Geocoder geocoder = new Geocoder(context,locale);
+//        List<Address> result;
+//
+//        result = geocoder.getFromLocationName(location,1);
+//        mLatLng= new GeoPoint(result.get(0).getLatitude(), result.get(0).getLongitude());
+//
+//        return mLatLng;
+//    }
 }

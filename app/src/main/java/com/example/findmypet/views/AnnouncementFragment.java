@@ -59,9 +59,9 @@ public class AnnouncementFragment extends Fragment {
 
         ivPetPic = root.findViewById(R.id.image_pet_item_announcement);
         btnShowOnMap = root.findViewById(R.id.show_on_map_announcement_info);
-        tvCountryCity = root.findViewById(R.id.country_city_announcement_info_textview);
-        tvProvince = root.findViewById(R.id.province_announcement_info_textview);
-        tvStreet = root.findViewById(R.id.street_announcement_info_textview);
+        tvCountryCity = root.findViewById(R.id.location_announcement_info_textview);
+//        tvProvince = root.findViewById(R.id.province_announcement_info_textview);
+//        tvStreet = root.findViewById(R.id.street_announcement_info_textview);
         tvDescription = root.findViewById(R.id.pet_description_announcement_info_textview);
         tvSpecies = root.findViewById(R.id.species_announcement_info_textview);
         tvGender = root.findViewById(R.id.gender_announcement_info_textview);
@@ -96,9 +96,10 @@ public class AnnouncementFragment extends Fragment {
                     .load(announcement.getPetImageUrl())
                     .into(ivPetPic);
 
-            tvCountryCity.setText(announcement.getCountry() + "," + announcement.getCity());
-            tvProvince.setText(announcement.getProvince());
-            tvStreet.setText(announcement.getStreet());
+            //tvCountryCity.setText(announcement.getCountry() + "," + announcement.getCity());
+            tvCountryCity.setText(announcement.getLocation());
+//            tvProvince.setText(announcement.getProvince());
+//            tvStreet.setText(announcement.getStreet());
             tvDescription.setText(announcement.getPetDescription());
             tvSpecies.setText(announcement.getPetSpecie());
             tvGender.setText(announcement.getPetGender());

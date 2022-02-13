@@ -72,6 +72,8 @@
     <string name="lost_fab">Lost</string>
     <string name="found_fab">Found</string>
     <string name="announcement_fab">Announcement</string>
+    <string name="click_to_enter_the_date">Click to enter the date</string>
+    <string name="click_to_enter_a_location">Click to enter the location</string>
     <string-array name="gender_array">
         <item>Male</item>
         <item>Female</item>

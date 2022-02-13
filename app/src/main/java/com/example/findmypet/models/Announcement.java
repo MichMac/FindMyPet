@@ -14,6 +14,7 @@ public class Announcement implements Serializable {
     private String province;
     private String city;
     private String street;
+    private String location;
     private GeoPoint LatLng;
     private String petProfileID;
     private String petImageUrl;
@@ -23,7 +24,6 @@ public class Announcement implements Serializable {
     private String petGender;
     private Long petMicrochipNumber;
     private String petDescription;
-
 
     public Announcement(){}
 
@@ -152,5 +152,11 @@ public class Announcement implements Serializable {
         LatLng = latLng;
     }
 
+    public String getLocation() {
+        return location;
+    }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

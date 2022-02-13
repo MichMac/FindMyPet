@@ -27,18 +27,6 @@
             card_view:layout_constraintVertical_bias="0.089"
             card_view:srcCompat="@drawable/test" />
 
-        <ImageView
-            android:id="@+id/location_announcement_imageview"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/image_pet_item_announcement"
-            card_view:layout_constraintTop_toBottomOf="@+id/breed_pet_announcement_textview"
-            card_view:layout_constraintVertical_bias="0.261"
-            card_view:srcCompat="@drawable/ic_baseline_location_on_24" />
-
         <TextView
             android:id="@+id/specie_pet_announcement_textview"
             android:layout_width="wrap_content"
@@ -58,6 +46,7 @@
             android:layout_marginTop="8dp"
             android:text="Zaginiony"
             android:textAllCaps="true"
+            android:textColor="#1E3212"
             android:textSize="6pt"
             card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintHorizontal_bias="0.859"
@@ -88,40 +77,17 @@
             card_view:layout_constraintStart_toEndOf="@+id/image_pet_item_announcement"
             card_view:layout_constraintTop_toBottomOf="@+id/specie_pet_announcement_textview" />
 
-        <TextView
-            android:id="@+id/province_announcement_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="Dolnośląskie"
-            android:textSize="4pt"
-            card_view:layout_constraintBottom_toTopOf="@+id/street_announcement_textview"
-            card_view:layout_constraintStart_toEndOf="@+id/location_announcement_imageview"
-            card_view:layout_constraintTop_toBottomOf="@+id/country_city_announcement_textview" />
-
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/country_city_announcement_textview"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginTop="24dp"
+            android:drawableLeft="@drawable/ic_baseline_location_on_24"
             android:text="Polska,Wrocław"
             android:textSize="4pt"
-            card_view:layout_constraintBottom_toTopOf="@+id/province_announcement_textview"
-            card_view:layout_constraintStart_toEndOf="@+id/location_announcement_imageview"
-            card_view:layout_constraintTop_toTopOf="parent"
-            card_view:layout_constraintVertical_chainStyle="packed" />
-
-        <TextView
-            android:id="@+id/street_announcement_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="Świętego Antoniego"
-            android:textSize="4pt"
-            card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintStart_toEndOf="@+id/location_announcement_imageview"
-            card_view:layout_constraintTop_toBottomOf="@+id/province_announcement_textview" />
+            android:drawablePadding="2dp"
+            card_view:layout_constraintStart_toEndOf="@+id/image_pet_item_announcement"
+            card_view:layout_constraintTop_toBottomOf="@+id/breed_pet_announcement_textview" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
