@@ -94,7 +94,7 @@ public class AddFoundAnnouncementPetFragment extends Fragment {
                     Bundle bundle = new Bundle();
                     bundle.putBoolean("isFoundAnn", true);
                     Announcement announcement = sharedViewModel.getAnnouncementInfo().getValue();
-                    announcement.setStatus("Zaginiony");
+                    announcement.setStatus("Znaleziony");
                     announcement.setPetImageUrl(selectedImageUri.toString());
                     announcement.setPetGender(spGender.getSelectedItem().toString());
                     announcement.setPetSpecie(etSpecie.getText().toString());

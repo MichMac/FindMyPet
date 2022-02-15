@@ -15,95 +15,13 @@
             android:id="@+id/next_button_location_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="24dp"
             android:text="Next"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/street_edittext_add_ann_pet" />
+            app:layout_constraintTop_toBottomOf="@+id/locationLayout_location_ann" />
 
-
-        <com.msa.dateedittext.DateEditText
-            android:id="@+id/date_datetext_add_ann"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/edittext_bottom_line"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:inputType="date"
-            android:hint="dd/MM/YYYY"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.042"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contact_add_ann"
-            app:dateFormat="ddMMyyyy"
-            app:autoCorrect="false"
-            app:helperTextEnabled="true"
-            app:dividerCharacter="slash"/>
-
-        <EditText
-            android:id="@+id/country_edittext_loc_ann"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/edittext_bottom_line"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/country_loc_ann" />
-
-        <EditText
-            android:id="@+id/province_edittext_loc_ann"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/edittext_bottom_line"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/province_loc_ann" />
-
-        <EditText
-            android:id="@+id/city_edittext_add_ann_pet"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/edittext_bottom_line"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/city_loc_ann" />
-
-        <EditText
-            android:id="@+id/street_edittext_add_ann_pet"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/edittext_bottom_line"
-            android:lines="1"
-            android:maxLines="1"
-            android:singleLine="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/street_loc_ann" />
 
         <TextView
             android:id="@+id/info_loc_ann"
@@ -111,61 +29,56 @@
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:text="@string/enter_the_last_location_of_the_pet"
-            android:textSize="20sp"
             android:textAlignment="center"
+            android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/contact_add_ann"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/locationLayout_location_ann"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="64dp"
-            android:text="Date"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/click_to_enter_a_location"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/info_loc_ann" />
+            app:layout_constraintTop_toBottomOf="@+id/dateLayout_location_ann"
+            app:startIconDrawable="@drawable/ic_baseline_location_on_24">
 
-        <TextView
-            android:id="@+id/country_loc_ann"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
-            android:text="Country"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contact_add_ann" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/location_edittext_loc_ann"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="false" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/province_loc_ann"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dateLayout_location_ann"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
-            android:text="Province"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/click_to_enter_the_date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/country_loc_ann" />
+            app:layout_constraintTop_toBottomOf="@+id/info_loc_ann"
+            app:startIconDrawable="@drawable/ic_baseline_calendar_today_24"
+            app:endIconMode="clear_text">
 
-        <TextView
-            android:id="@+id/city_loc_ann"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
-            android:text="City"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/province_loc_ann" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/date_edittext_loc_ann"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:focusable="false" />
 
-        <TextView
-            android:id="@+id/street_loc_ann"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
-            android:text="Street"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/city_loc_ann" />
+        </com.google.android.material.textfield.TextInputLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,9 +47,9 @@ public class AnnouncementsListAdapter extends RecyclerView.Adapter<Announcements
         holder.tvDate.setText(currentAnnouncement.getDate());
         holder.tvSpecie.setText(currentAnnouncement.getPetSpecie());
         holder.tvBreed.setText(currentAnnouncement.getPetBreed());
-        holder.tvCountryCity.setText(currentAnnouncement.getCountry() + "," + currentAnnouncement.getCity());
-        holder.tvProvince.setText(currentAnnouncement.getProvince());
-        holder.tvStreet.setText(currentAnnouncement.getStreet());
+        holder.tvCountryCity.setText(currentAnnouncement.getLocation());
+//        holder.tvProvince.setText(currentAnnouncement.getProvince());
+   //     holder.tvStreet.setText(currentAnnouncement.getStreet());
     }
 
     @Override
@@ -71,8 +71,8 @@ public class AnnouncementsListAdapter extends RecyclerView.Adapter<Announcements
             tvSpecie = itemView.findViewById(R.id.specie_pet_announcement_textview);
             tvBreed = itemView.findViewById(R.id.breed_pet_announcement_textview);
             tvCountryCity = itemView.findViewById(R.id.country_city_announcement_textview);
-            tvProvince = itemView.findViewById(R.id.province_announcement_textview);
-            tvStreet = itemView.findViewById(R.id.street_announcement_textview);
+//            tvProvince = itemView.findViewById(R.id.province_announcement_textview);
+//            tvStreet = itemView.findViewById(R.id.street_announcement_textview);
             tvStatus = itemView.findViewById(R.id.status_announcement_textview);
             tvDate = itemView.findViewById(R.id.date_announcement_textview);
 

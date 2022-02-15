@@ -40,7 +40,6 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
     Boolean isAllFabsVisible;
     Boolean isFoundAnn;
     AnnouncementsListAdapter adapter;
-    Boolean isSorting;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -178,8 +177,6 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
         itemSortAsc.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                Toast.makeText(getContext(),"Sorting ascending",Toast.LENGTH_LONG).show();
-                //isSorting = true;
                 mAnnouncementsListSharedViewModel.sortAscending();
                 return true;
             }
