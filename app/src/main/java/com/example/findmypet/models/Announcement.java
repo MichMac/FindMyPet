@@ -10,10 +10,7 @@ public class Announcement implements Serializable {
     private String userID;
     private String date;
     private String phoneNumber;
-    private String country;
-    private String province;
     private String city;
-    private String street;
     private String location;
     private GeoPoint LatLng;
     private String petProfileID;
@@ -39,36 +36,12 @@ public class Announcement implements Serializable {
 
     public void setUserID(String userID) { this.userID = userID;}
 
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
     public String getCity() {
         return city;
     }
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
     }
 
     public String getDate() {
@@ -124,17 +97,13 @@ public class Announcement implements Serializable {
         return petMicrochipNumber;
     }
 
-    public void setPetMicrochipNumber(long petMicrochipNumber) {
-        this.petMicrochipNumber = petMicrochipNumber;
-    }
+    public void setPetMicrochipNumber(long petMicrochipNumber) { this.petMicrochipNumber = petMicrochipNumber; }
 
     public String getPetProfileID() {return petProfileID; }
 
     public void setPetProfileID(String petProfileID) { this.petProfileID = petProfileID; }
     
-    public String getPetDescription() {
-        return petDescription;
-    }
+    public String getPetDescription() { return petDescription; }
 
     public void setPetDescription(String petDescription) {
         this.petDescription = petDescription;
