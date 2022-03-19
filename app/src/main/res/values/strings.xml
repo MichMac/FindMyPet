@@ -76,6 +76,12 @@
     <string name="click_to_enter_a_location">Click to enter the location</string>
     <string name="cancel">Cancel</string>
     <string name="search">Search</string>
+    <string name="filters">Filters</string>
+    <string name="search_for_ann_in_region">Szukaj ogłoszenia w okolicach</string>
+    <string name="numer_mikroczipa">Numer mikroczipa</string>
+    <string name="gatunek">Gatunek</string>
+    <string name="data_dodania_ogloszenia">Data dodania ogłoszenia</string>
+    <string name="plec">Płeć</string>
     <string-array name="gender_array">
         <item>Male</item>
         <item>Female</item>

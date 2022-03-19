@@ -7,10 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -39,6 +41,7 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
     ExtendedFloatingActionButton mAddAnnFab, mAddLostPetAnnFab, mAddFoundPetAnnFab;
     Boolean isAllFabsVisible;
     Boolean isFoundAnn;
+    Button mFilterBtn;
     AnnouncementsListAdapter adapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -57,6 +60,8 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
         adapter = new AnnouncementsListAdapter(this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
+
+        mFilterBtn = root.findViewById(R.id.filter_btn_announcements);
 
         mAddAnnFab = root.findViewById(R.id.add_ann_fab);
         mAddFoundPetAnnFab = root.findViewById(R.id.add_found_pet_ann_fab);
@@ -116,6 +121,15 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
                 Bundle bundle = new Bundle();
                 bundle.putBoolean("isFoundAnn", isFoundAnn);
                 Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_lost_to_addAnnouncementLocation, bundle);
+            }
+        });
+
+        mFilterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Navigation.findNavController(getView()).navigate(R.id.action_nav_missing_found_to_announcementsFilterFragment);
+                DialogFragment filterDialog = new AnnouncementsFilterFragment();
+                filterDialog.show(getChildFragmentManager(),TAG);
             }
         });
 
