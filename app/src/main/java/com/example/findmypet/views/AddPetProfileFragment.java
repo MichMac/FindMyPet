@@ -83,7 +83,7 @@ public class AddPetProfileFragment extends Fragment {
         btnConfirm = view.findViewById(R.id.confirm_button_addpetprofile);
         btnNfc = view.findViewById(R.id.nfc_button_addpetprofile);
         
-        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_array, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_filter_array, android.R.layout.simple_spinner_item);
         genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spGender.setAdapter(genderAdapter);
 

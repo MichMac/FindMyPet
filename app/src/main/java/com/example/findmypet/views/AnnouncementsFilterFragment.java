@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import com.example.findmypet.R;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -31,6 +34,10 @@ public class AnnouncementsFilterFragment extends DialogFragment {
     MaterialTextView mSpeciesLabel;
     MaterialTextView mGenderLabel;
     MaterialTextView mMicrochipNrLabel;
+    MaterialButton mSearchBtn,mCancelBtn;
+
+    ArrayAdapter<CharSequence> mGenderAdapter;
+    ArrayAdapter<CharSequence> mTypeAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,6 +52,17 @@ public class AnnouncementsFilterFragment extends DialogFragment {
         mGender = view.findViewById(R.id.gender_menu);
         mMicrochipNr = view.findViewById(R.id.microchip_number_edittext_layout);
 
+        //Set adapters for spinners
+        mGenderAdapter = ArrayAdapter.createFromResource(getContext(), R.array.gender_filter_array, android.R.layout.simple_spinner_item);
+        mGenderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ((MaterialAutoCompleteTextView) mGender.getEditText()).setAdapter(mGenderAdapter);
+        ((MaterialAutoCompleteTextView) mGender.getEditText()).setText(mGenderAdapter.getItem(0),false);
+
+        mTypeAdapter = ArrayAdapter.createFromResource(getContext(), R.array.announcement_filter_type, android.R.layout.simple_spinner_item);
+        mTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ((MaterialAutoCompleteTextView) mType.getEditText()).setAdapter(mTypeAdapter);
+        ((MaterialAutoCompleteTextView) mType.getEditText()).setText(mTypeAdapter.getItem(0),false);
+
         //TextViews
         mCityLabel = view.findViewById(R.id.city_label);
         mTypeLabel = view.findViewById(R.id.type_label);
@@ -53,6 +71,9 @@ public class AnnouncementsFilterFragment extends DialogFragment {
         mGenderLabel = view.findViewById(R.id.gender_label);
         mMicrochipNrLabel = view.findViewById(R.id.microchip_number_label);
 
+        //Buttons
+        mSearchBtn = view.findViewById(R.id.search_button_filter_ann);
+        mCancelBtn = view.findViewById(R.id.cancel_button_filter_ann);
 
         mCity.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -117,6 +138,13 @@ public class AnnouncementsFilterFragment extends DialogFragment {
                 }
                 else
                     mMicrochipNrLabel.setTextColor(ContextCompat.getColor(getContext(),R.color.secondary_text_default_material_light));
+            }
+        });
+
+        mCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
             }
         });
 
