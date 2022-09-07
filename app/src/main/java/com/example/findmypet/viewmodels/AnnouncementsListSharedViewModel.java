@@ -39,6 +39,7 @@ public class AnnouncementsListSharedViewModel extends ViewModel {
         mAnnouncementRepository.setAnnouncement(announcement);
     }
 
+
     public void sortAscending(){
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Collections.sort(mAnnouncements.getValue(), new Comparator<Announcement>() {
