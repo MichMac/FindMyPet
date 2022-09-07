@@ -96,4 +96,11 @@
         <item>Znalezione</item>
         <item>Zaginione</item>
     </string-array>
+    <string-array name="announcement_filter_date">
+        <item>Wszystkie</item>
+        <item>Ost. 7 dni</item>
+        <item>Ost. 30 dni</item>
+        <item>Ost. 3 miesiące</item>
+        <item>Ost. 6 miesiący</item>
+    </string-array>
 </resources>

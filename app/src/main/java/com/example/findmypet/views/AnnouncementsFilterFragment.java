@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.example.findmypet.R;
+import com.example.findmypet.viewmodels.AnnouncementsListSharedViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
@@ -17,10 +18,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 public class AnnouncementsFilterFragment extends DialogFragment {
 
     public static final String TAG = AnnouncementsFilterFragment.class.getSimpleName();
+
+    AnnouncementsListSharedViewModel mAnnouncementsListSharedViewModel;
 
     TextInputLayout mCity;
     TextInputLayout mType;
@@ -38,11 +42,15 @@ public class AnnouncementsFilterFragment extends DialogFragment {
 
     ArrayAdapter<CharSequence> mGenderAdapter;
     ArrayAdapter<CharSequence> mTypeAdapter;
+    ArrayAdapter<CharSequence> mDateAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.announcements_filter_fragment,container,false);
+
+        mAnnouncementsListSharedViewModel = new ViewModelProvider(this).get(AnnouncementsListSharedViewModel.class);
+        mAnnouncementsListSharedViewModel.init();
 
         //TextInputLayouts
         mCity = view.findViewById(R.id.city_edittext_layout);
@@ -62,6 +70,12 @@ public class AnnouncementsFilterFragment extends DialogFragment {
         mTypeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         ((MaterialAutoCompleteTextView) mType.getEditText()).setAdapter(mTypeAdapter);
         ((MaterialAutoCompleteTextView) mType.getEditText()).setText(mTypeAdapter.getItem(0),false);
+
+         mDateAdapter = ArrayAdapter.createFromResource(getContext(), R.array.announcement_filter_date, android.R.layout.simple_spinner_item);
+         mDateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ((MaterialAutoCompleteTextView) mDate.getEditText()).setAdapter(mDateAdapter);
+        ((MaterialAutoCompleteTextView) mDate.getEditText()).setText(mDateAdapter.getItem(0), false);
+
 
         //TextViews
         mCityLabel = view.findViewById(R.id.city_label);
@@ -138,6 +152,13 @@ public class AnnouncementsFilterFragment extends DialogFragment {
                 }
                 else
                     mMicrochipNrLabel.setTextColor(ContextCompat.getColor(getContext(),R.color.secondary_text_default_material_light));
+            }
+        });
+
+        mSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
