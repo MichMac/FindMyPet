@@ -21,6 +21,7 @@ public class Announcement implements Serializable {
     private String petGender;
     private Long petMicrochipNumber;
     private String petDescription;
+    private String announcementID;
 
     public Announcement(){}
 
@@ -127,5 +128,13 @@ public class Announcement implements Serializable {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getAnnouncementID() {
+        return announcementID;
+    }
+
+    public void setAnnouncementID(String announcementID) {
+        this.announcementID = announcementID;
     }
 }

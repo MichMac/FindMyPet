@@ -72,6 +72,8 @@ public class AddAnnouncementSharedViewModel extends ViewModel {
         return mIsAnnouncementAdded;
     }
 
+
+
     //geocoder zastąpiony places api
 //    public GeoPoint getGeopoint(String location, Context context, Locale locale) throws IOException, IndexOutOfBoundsException {
 //        Geocoder geocoder = new Geocoder(context,locale);
