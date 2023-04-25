@@ -89,7 +89,9 @@ public class AnnouncementRepository {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Announcement has been added");
                         isLoading.setValue(false);
+                        announcement.setAnnouncementID(documentReference.getId());
                         isAdded.setValue(new EventWrapper<>(true));
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -113,6 +115,7 @@ public class AnnouncementRepository {
                         isLoading.setValue(false);
                         isAdded.setValue(new EventWrapper<>(true));
                         String documentReferenceID = documentReference.getId();
+                        announcement.setAnnouncementID(documentReferenceID);
                         addPetPicture(Uri.parse(announcement.getPetImageUrl()),documentReferenceID);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -212,6 +215,24 @@ public class AnnouncementRepository {
         });
 //        isAnnouncementFound.setValue(false);
 //        isLoading.setValue(false);
+    }
+
+    public void deleteAnnouncement(String announcementID){
+        mFirestoreDB.collection("announcements").document(announcementID)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(@NonNull Void unused) {
+                        Log.d(TAG, "Document successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d(TAG, "Error deleting document: ", e);
+                    }
+                });
+
     }
 }
 

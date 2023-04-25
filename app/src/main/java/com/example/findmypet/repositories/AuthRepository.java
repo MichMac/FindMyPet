@@ -27,7 +27,6 @@ public class AuthRepository {
     //private static AuthRepository instance;
 
     private Application application;
-
     private FirebaseAuth mFirebaseAuth;
     private FirebaseFirestore mFirestore;
     private CollectionReference mUserRef;

@@ -13,17 +13,22 @@
         android:layout_height="match_parent"
         tools:context=".views.PetProfileFragment">
 
-        <ImageView
+        <androidx.cardview.widget.CardView
             android:id="@+id/image_petprofile"
             android:layout_width="match_parent"
             android:layout_height="250dp"
-            android:contentDescription="PetProfilePic"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            app:cardCornerRadius="120dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/test" />
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="PetProfilePic"
+                tools:src="@drawable/test" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
             android:id="@+id/name_textview_petprofile"
@@ -69,15 +74,14 @@
             android:id="@+id/date_datetext_add_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:background="@null"
+            android:hint="@string/enter_pet_age"
+            android:inputType="number"
             android:lines="1"
             android:maxLines="1"
             android:text="@string/age"
-            android:inputType="number"
-            android:hint="@string/enter_pet_age"
-            android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/contact_add_ann"
-            app:layout_constraintTop_toBottomOf="@+id/information" />
+            app:layout_constraintTop_toBottomOf="@+id/information"
+            tools:layout_editor_absoluteX="52dp" />
 
         <TextView
             android:id="@+id/country_loc_ann"
