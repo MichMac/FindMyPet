@@ -1,23 +1,32 @@
 package com.example.findmypet.repositories;
 
 import android.net.Uri;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.findmypet.models.Announcement;
 import com.example.findmypet.utils.EventWrapper;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -90,7 +99,16 @@ public class AnnouncementRepository {
                         Log.d(TAG, "Announcement has been added");
                         isLoading.setValue(false);
                         announcement.setAnnouncementID(documentReference.getId());
+                        documentReference.set(announcement).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(@NonNull Void unused) {
+
+                            }
+                        }).addOnFailureListener(e -> {
+                            Log.d(TAG,"Announcement ID hasn't been added: " + e.getMessage());
+                        });
                         isAdded.setValue(new EventWrapper<>(true));
+
 
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -113,10 +131,19 @@ public class AnnouncementRepository {
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "Announcement has been added");
                         isLoading.setValue(false);
-                        isAdded.setValue(new EventWrapper<>(true));
                         String documentReferenceID = documentReference.getId();
                         announcement.setAnnouncementID(documentReferenceID);
-                        addPetPicture(Uri.parse(announcement.getPetImageUrl()),documentReferenceID);
+
+                        documentReference.set(announcement).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(@NonNull Void unused) {
+                                addPetPicture(Uri.parse(announcement.getPetImageUrl()),documentReferenceID);
+                                isAdded.setValue(new EventWrapper<>(true));
+                            }
+                        }).addOnFailureListener(e -> {
+                            Log.d(TAG,"Announcement ID hasn't been added: " + e.getMessage());
+                        });
+                        isAdded.setValue(new EventWrapper<>(true));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -186,35 +213,36 @@ public class AnnouncementRepository {
     }
 
     public void findAnnouncementByPetProfileID(String petProfileID){
-        mFirestoreDB.collection("announcements")
-                .whereEqualTo("petProfileID", petProfileID)
-                .limit(1)
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+        if (!TextUtils.isEmpty(petProfileID)) {
+            mFirestoreDB.collection("announcements")
+                    .whereEqualTo("petProfileID", petProfileID)
+                    .limit(1)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 
-                        if(queryDocumentSnapshots.getDocuments().isEmpty())
-                            isAnnouncementFound.setValue(new EventWrapper<>(false));
-                        else
-                            isAnnouncementFound.setValue(new EventWrapper<>(true));
+                            if (queryDocumentSnapshots.getDocuments().isEmpty())
+                                isAnnouncementFound.setValue(new EventWrapper<>(false));
+                            else
+                                isAnnouncementFound.setValue(new EventWrapper<>(true));
 
 
-                        List<DocumentSnapshot> list =  queryDocumentSnapshots.getDocuments();
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
 
-                        for (DocumentSnapshot documentSnapshot: list){
-                            setAnnouncement(documentSnapshot.toObject(Announcement.class));
+                            for (DocumentSnapshot documentSnapshot : list) {
+                                setAnnouncement(documentSnapshot.toObject(Announcement.class));
+                            }
                         }
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d(TAG, "Error getting documents: ", e);
-                isAnnouncementFound.setValue(new EventWrapper<>(false));
-            }
-        });
-//        isAnnouncementFound.setValue(false);
-//        isLoading.setValue(false);
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d(TAG, "Error getting documents: ", e);
+                            isAnnouncementFound.setValue(new EventWrapper<>(false));
+                        }
+                    });
+        } else
+            isAnnouncementFound.setValue(new EventWrapper<>(false));
     }
 
     public void deleteAnnouncement(String announcementID){
@@ -234,6 +262,60 @@ public class AnnouncementRepository {
                 });
 
     }
+
+    public void filterAnnouncements(Map<String,String> filters){
+
+        Query query = mFirestoreDB.collection("announcements");
+
+        Calendar cal = Calendar.getInstance();
+        Date today = cal.getTime();
+        Date dateAfterSubtract;
+
+
+        for (Map.Entry<String, String> entry : filters.entrySet()) {
+            if(entry.getKey().equals("date") && entry.getValue().contains("dni")) {
+                int userChoiceDate = -(Integer.parseInt((entry.getValue().replaceAll("\\D+",""))));
+                cal.add(Calendar.DAY_OF_MONTH, userChoiceDate);
+                dateAfterSubtract = cal.getTime();
+                Log.d(TAG,"Today's day: " + today  + " Day after substraction: " + dateAfterSubtract);
+                query = query.whereGreaterThanOrEqualTo("date", dateAfterSubtract).whereLessThanOrEqualTo("date", today);
+            }
+            else if(entry.getKey().equals("date") && entry.getValue().contains("miesiące")){
+                int userChoiceDate = -(Integer.parseInt((entry.getValue().replaceAll("\\D+",""))));
+                cal.add(Calendar.MONTH, userChoiceDate);
+                dateAfterSubtract = cal.getTime();
+                Log.d(TAG,"Today's day: " + today  + " Day after substraction: " + dateAfterSubtract);
+                query = query.whereGreaterThanOrEqualTo("date", dateAfterSubtract).whereLessThanOrEqualTo("date", today);
+            }
+            else
+                query = query.whereEqualTo(entry.getKey(), entry.getValue());
+        }
+
+        query.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(@NonNull QuerySnapshot queryDocumentSnapshots) {
+
+                List<DocumentSnapshot> list =  queryDocumentSnapshots.getDocuments();
+                announcementsDataSet.clear();
+                if(!queryDocumentSnapshots.isEmpty()) {
+                    for (DocumentSnapshot documentSnapshot : list) {
+                        announcementsDataSet.add(documentSnapshot.toObject(Announcement.class));
+                        mAnnouncements.setValue(announcementsDataSet);
+                    }
+                }
+                else {
+                    mAnnouncements.setValue(announcementsDataSet);
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d(TAG, "Error getting documents: ", e);
+            }
+        });
+    }
+
 }
 
 

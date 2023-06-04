@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -22,6 +23,7 @@ public class AnnouncementsListSharedViewModel extends ViewModel {
     private static final String TAG = "AnnouncementsListShared";
     private AnnouncementRepository mAnnouncementRepository;
     private MutableLiveData<List<Announcement>> mAnnouncements;
+    private MutableLiveData<Boolean> isAnnoucementFilterSuccess;
 
     public void init(){
         if(mAnnouncements != null){
@@ -44,7 +46,7 @@ public class AnnouncementsListSharedViewModel extends ViewModel {
         Collections.sort(mAnnouncements.getValue(), new Comparator<Announcement>() {
             public int compare(Announcement o1, Announcement o2) {
                 try {
-                    return dateFormat.parse(o1.getDate()).compareTo(dateFormat.parse(o2.getDate()));
+                    return dateFormat.parse(o1.getFormatedDate()).compareTo(dateFormat.parse(o2.getFormatedDate()));
                 } catch (ParseException e) {
                     Log.d(TAG,"Error parsing the date: " + e.getMessage());
                 }
@@ -59,7 +61,7 @@ public class AnnouncementsListSharedViewModel extends ViewModel {
         Collections.sort(mAnnouncements.getValue(), new Comparator<Announcement>() {
             public int compare(Announcement o1, Announcement o2) {
                 try {
-                    return dateFormat.parse(o2.getDate()).compareTo(dateFormat.parse(o1.getDate()));
+                    return dateFormat.parse(o2.getFormatedDate()).compareTo(dateFormat.parse(o1.getFormatedDate()));
                 } catch (ParseException e) {
                     Log.d(TAG,"Error parsing the date: " + e.getMessage());
                 }
@@ -69,6 +71,8 @@ public class AnnouncementsListSharedViewModel extends ViewModel {
         mAnnouncements.postValue(mAnnouncements.getValue());
     }
 
-
+    public void filterAnnouncements(Map<String,String> filters){
+        mAnnouncementRepository.filterAnnouncements(filters);
+    }
 
 }

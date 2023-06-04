@@ -44,7 +44,7 @@ public class AnnouncementsListAdapter extends RecyclerView.Adapter<Announcements
                 .apply(RequestOptions.circleCropTransform())
                 .into(holder.ivPetPic);
         holder.tvStatus.setText(currentAnnouncement.getStatus());
-        holder.tvDate.setText(currentAnnouncement.getDate());
+        holder.tvDate.setText(currentAnnouncement.getFormatedDate());
         holder.tvSpecie.setText(currentAnnouncement.getPetSpecie());
         holder.tvBreed.setText(currentAnnouncement.getPetBreed());
         holder.tvCountryCity.setText(currentAnnouncement.getLocation());

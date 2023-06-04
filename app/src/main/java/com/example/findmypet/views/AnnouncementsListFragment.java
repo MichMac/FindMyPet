@@ -39,6 +39,7 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
     private static final String TAG = "AnnouncementsListFrag";
 
     ExtendedFloatingActionButton mAddAnnFab, mAddLostPetAnnFab, mAddFoundPetAnnFab;
+    TextView tvEmptyView;
     Boolean isAllFabsVisible;
     Boolean isFoundAnn;
     Button mFilterBtn;
@@ -60,6 +61,8 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
         adapter = new AnnouncementsListAdapter(this);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
         recyclerView.setAdapter(adapter);
+
+        tvEmptyView = root.findViewById(R.id.empty_view);
 
         mFilterBtn = root.findViewById(R.id.filter_btn_announcements);
 
@@ -137,16 +140,14 @@ public class AnnouncementsListFragment extends Fragment implements OnAnnouncemen
             @Override
             public void onChanged(List<Announcement> announcements) {
                 if(announcements.size() != 0){
-//                    Collections.sort(announcements, new Comparator<Announcement>() {
-//                        public int compare(Announcement o1, Announcement o2) {
-//                            return o1.getDate().compareTo(o2.getDate());
-//                        }
-//                    });
+                    recyclerView.setVisibility(View.VISIBLE);
+                    tvEmptyView.setVisibility(View.GONE);
                     adapter.setAnnouncements(announcements);
-                    //if(isSorting)
-
                 }
                 else{
+                    adapter.notifyDataSetChanged();
+                    recyclerView.setVisibility(View.GONE);
+                    tvEmptyView.setVisibility(View.VISIBLE);
                     Log.d(TAG,"Live data of announcements is null!");
                 }
             }

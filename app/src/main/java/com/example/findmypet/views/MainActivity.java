@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity implements NfcDialogListener
         setIntent(intent);
 
         String msg = mNFC.getNFCMessage(intent);
-        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
 
               if (isDialogDisplayed) {
 
@@ -144,10 +144,12 @@ public class MainActivity extends AppCompatActivity implements NfcDialogListener
                   }
 
             }
-              else
-              if(msg != null || !msg.equals("")){
-                  showReadFragment();
-              }
+//              else
+//                  if(msg != null || !msg.equals("")){
+//                      showReadFragment();
+//                  }
+            else
+                showReadFragment();
 
     }
 

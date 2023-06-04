@@ -104,6 +104,7 @@ public class AddLostAnnouncementPetFragment extends Fragment {
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
                 if(dataValidation()){
                     Bundle bundle = new Bundle();
