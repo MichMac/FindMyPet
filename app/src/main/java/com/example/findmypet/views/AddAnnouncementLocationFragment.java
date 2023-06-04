@@ -38,6 +38,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -112,12 +114,10 @@ public class AddAnnouncementLocationFragment extends Fragment {
         etDate = root.findViewById(R.id.date_edittext_loc_ann);
         etLocation = root.findViewById(R.id.location_edittext_loc_ann);
         //etCountry =  root.findViewById(R.id.country_edittext_loc_ann);
-        etProvince = root.findViewById(R.id.province_edittext_loc_ann);
-        etCity = root.findViewById(R.id.city_edittext_add_ann_pet);
-        etStreet = root.findViewById(R.id.street_edittext_add_ann_pet);
-
         layLocation = root.findViewById(R.id.locationLayout_location_ann);
         layDate = root.findViewById(R.id.dateLayout_location_ann);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         long currentTime = Calendar.getInstance().getTimeInMillis();
 //        etDate.listen();
@@ -216,7 +216,11 @@ public class AddAnnouncementLocationFragment extends Fragment {
 //                    announcement.setCountry(etCountry.getText().toString());
 //                    announcement.setProvince(etProvince.getText().toString());
 //                    announcement.setStreet(etStreet.getText().toString());
-                    announcement.setDate(etDate.getText().toString());
+                    try {
+                        announcement.setDate(formatter.parse(etDate.getText().toString()));
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                     announcement.setCity(city);
                     announcement.setLocation(etLocation.getText().toString());
                     announcement.setLatLng(new GeoPoint(latLng.latitude,latLng.longitude));

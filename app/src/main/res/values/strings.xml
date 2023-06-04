@@ -82,6 +82,7 @@
     <string name="gatunek">Gatunek</string>
     <string name="data_dodania_ogloszenia">Data dodania ogłoszenia</string>
     <string name="plec">Płeć</string>
+    <string name="no_data_available">\We couldn\'t find any announcements\</string>
     <string-array name="gender_array">
         <item>Samiec</item>
         <item>Samica</item>
@@ -93,14 +94,14 @@
     </string-array>
     <string-array name="announcement_filter_type">
         <item>Wszystkie</item>
-        <item>Znalezione</item>
-        <item>Zaginione</item>
+        <item>Znaleziony</item>
+        <item>Zaginiony</item>
     </string-array>
     <string-array name="announcement_filter_date">
         <item>Wszystkie</item>
         <item>Ost. 7 dni</item>
         <item>Ost. 30 dni</item>
         <item>Ost. 3 miesiące</item>
-        <item>Ost. 6 miesiący</item>
+        <item>Ost. 6 miesiące</item>
     </string-array>
 </resources>

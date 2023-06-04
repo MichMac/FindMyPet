@@ -65,6 +65,9 @@ public class NFC {
                 e.printStackTrace();
             }
         }
+        else{
+            nfcMsg = null;
+        }
         return nfcMsg;
     }
 

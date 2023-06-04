@@ -3,12 +3,15 @@ package com.example.findmypet.models;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Announcement implements Serializable {
 
     private String status;
     private String userID;
-    private String date;
+    private Date date;
     private String phoneNumber;
     private String city;
     private String location;
@@ -22,6 +25,8 @@ public class Announcement implements Serializable {
     private Long petMicrochipNumber;
     private String petDescription;
     private String announcementID;
+
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
     public Announcement(){}
 
@@ -45,11 +50,11 @@ public class Announcement implements Serializable {
         this.city = city;
     }
 
-    public String getDate() {
-        return date;
-    }
+    public Date getDate() {return date;}
 
-    public void setDate(String date) {
+    public String getFormatedDate() {return formatter.format(date);}
+
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -60,7 +65,6 @@ public class Announcement implements Serializable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
 
     public String getPetImageUrl() {
         return petImageUrl;

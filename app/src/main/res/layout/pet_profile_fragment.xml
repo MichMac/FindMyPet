@@ -13,49 +13,116 @@
         android:layout_height="match_parent"
         tools:context=".views.PetProfileFragment">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/image_petprofile"
+        <EditText
+            android:id="@+id/date_datetext_add_ann"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@null"
+            android:hint="@string/enter_pet_age"
+            android:inputType="number"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="@string/age"
+            app:layout_constraintStart_toEndOf="@+id/contact_add_ann"
+            app:layout_constraintTop_toBottomOf="@+id/information" />
+
+        <EditText
+            android:id="@+id/province_edittext_loc_ann"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@null"
+            android:hint="@string/enter_pet_species"
+            android:text="@string/species"
+            app:layout_constraintStart_toEndOf="@+id/province_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/gender_edittext_add_ann_found_pet" />
+
+        <EditText
+            android:id="@+id/city_edittext_add_ann_pet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:background="@null"
+            android:hint="@string/enter_pet_breed"
+            android:text="@string/breed"
+            app:layout_constraintStart_toEndOf="@+id/city_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/province_edittext_loc_ann" />
+
+        <EditText
+            android:id="@+id/street_edittext_add_ann_pet"
+            android:layout_width="250dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:background="@null"
+            android:hint="@string/enter_pet_microchip_number"
+            android:inputType="number"
+            android:text="Brak"
+            app:layout_constraintStart_toEndOf="@+id/street_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/city_edittext_add_ann_pet" />
+
+        <EditText
+            android:id="@+id/description_edittext_add_ann_found_pet"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="100dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:cardCornerRadius="120dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/enter_pet_description"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="PetProfilePic"
-                tools:src="@drawable/test" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toBottomOf="@+id/description_defaulttextview_petprofile"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Spinner
+            android:id="@+id/gender_edittext_add_ann_found_pet"
+            android:layout_width="100dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="24dp"
+            android:background="@null"
+            android:hint="@string/enter_pet_gender"
+            android:text="@string/gender"
+            app:layout_constraintStart_toEndOf="@+id/country_loc_ann"
+            app:layout_constraintTop_toBottomOf="@+id/date_datetext_add_ann" />
 
         <TextView
             android:id="@+id/name_textview_petprofile"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:layout_marginTop="16dp"
-            android:text="Pet Name"
+            android:background="@null"
             android:hint="@string/enter_pet_name"
+            android:lines="1"
+            android:maxLines="1"
+            android:text="Pet Name"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textSize="30sp"
-            android:maxLines="1"
-            android:lines="1"
-            android:background="@null"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_petprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/cardview_petprofile" />
 
         <TextView
             android:id="@+id/information"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="Information"
-            android:textSize="25sp"
-            android:textAlignment="center"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:text="Information"
+            android:textAlignment="center"
+            android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.026"
             app:layout_constraintStart_toStartOf="parent"
@@ -64,113 +131,52 @@
         <TextView
             android:id="@+id/contact_add_ann"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="Age:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/information" />
 
-        <EditText
-            android:id="@+id/date_datetext_add_ann"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@null"
-            android:hint="@string/enter_pet_age"
-            android:inputType="number"
-            android:lines="1"
-            android:maxLines="1"
-            android:text="@string/age"
-            app:layout_constraintTop_toBottomOf="@+id/information"
-            tools:layout_editor_absoluteX="52dp" />
-
         <TextView
             android:id="@+id/country_loc_ann"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
             android:text="Gender:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/contact_add_ann" />
 
-        <Spinner
-            android:id="@+id/gender_edittext_add_ann_found_pet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
-            android:background="@null"
-            android:hint="@string/enter_pet_gender"
-            android:text="@string/gender"
-            app:layout_constraintStart_toEndOf="@+id/country_loc_ann"
-            app:layout_constraintTop_toBottomOf="@+id/date_datetext_add_ann" />
-
         <TextView
             android:id="@+id/province_loc_ann"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:text="Species:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/country_loc_ann" />
-
-        <EditText
-            android:id="@+id/province_edittext_loc_ann"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
-            android:text="@string/species"
-            android:hint="@string/enter_pet_species"
-            android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/province_loc_ann"
-            app:layout_constraintTop_toBottomOf="@+id/gender_edittext_add_ann_found_pet" />
 
         <TextView
             android:id="@+id/city_loc_ann"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="28dp"
             android:text="Breed:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/province_loc_ann" />
 
-        <EditText
-            android:id="@+id/city_edittext_add_ann_pet"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
-            android:text="@string/breed"
-            android:hint="@string/enter_pet_breed"
-            android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/city_loc_ann"
-            app:layout_constraintTop_toBottomOf="@+id/province_edittext_loc_ann" />
-
         <TextView
             android:id="@+id/street_loc_ann"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:text="Microchip nr:"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/city_loc_ann" />
-
-        <EditText
-            android:id="@+id/street_edittext_add_ann_pet"
-            android:layout_width="250dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="18dp"
-            android:text="Brak"
-            android:inputType="number"
-            android:hint="@string/enter_pet_microchip_number"
-            android:background="@null"
-            app:layout_constraintStart_toEndOf="@+id/street_loc_ann"
-            app:layout_constraintTop_toBottomOf="@+id/city_edittext_add_ann_pet" />
 
         <TextView
             android:id="@+id/description_defaulttextview_petprofile"
@@ -182,24 +188,25 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/street_loc_ann" />
 
-        <EditText
-            android:id="@+id/description_edittext_add_ann_found_pet"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardview_petprofile"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="250dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="4dp"
-            android:ems="10"
-            android:scrollbars="vertical"
-            android:inputType="textMultiLine"
-            android:background="@null"
-            android:hint="@string/enter_pet_description"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:cardCornerRadius="360dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_defaulttextview_petprofile"
-            app:layout_constraintVertical_bias="0.52" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/image_petprofile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="PetProfilePic"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/test" />
+        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

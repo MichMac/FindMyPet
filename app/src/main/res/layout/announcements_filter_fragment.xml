@@ -42,6 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:hint="Miejscowość"
+            android:tag="city"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/city_label">
@@ -49,6 +50,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
                 android:background="@color/white"
                 android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -59,6 +61,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:tag="status"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/type_label">
@@ -77,6 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:tag="date"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/type_menu"
@@ -97,6 +101,7 @@
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_marginTop="8dp"
+            android:tag="petSpecie"
             android:background="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/species_label">
@@ -104,6 +109,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textCapSentences"
                 android:background="@color/white"
                 android:singleLine="true" />
 
@@ -116,6 +122,7 @@
             android:layout_height="60dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            android:tag="petGender"
             app:boxBackgroundColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/species_edittext_layout"
@@ -134,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@color/white"
+            android:tag="petMicrochipNumber"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/microchip_number_label">
@@ -160,7 +168,6 @@
             android:id="@+id/city_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="@string/search_for_ann_in_region"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

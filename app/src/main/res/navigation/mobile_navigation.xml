@@ -126,7 +126,7 @@
     <fragment
         android:id="@+id/announcementFragment"
         android:name="com.example.findmypet.views.AnnouncementFragment"
-        android:label="AnnouncementFragment" >
+        android:label="Announcement">
         <action
             android:id="@+id/action_announcementFragment_to_mapFragment"
             app:destination="@id/mapFragment"
@@ -136,7 +136,7 @@
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.example.findmypet.views.MapFragment"
-        android:label="MapFragment"
+        android:label="Last Pet Location"
         tools:layout="@layout/map_fragment" />
     <!--    <dialog-->
 <!--        android:id="@+id/NFCReadFragment"-->

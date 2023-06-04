@@ -2,10 +2,13 @@ package com.example.findmypet.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.findmypet.R;
 import com.example.findmypet.viewmodels.AnnouncementsListSharedViewModel;
@@ -14,10 +17,16 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 public class AnnouncementsFilterFragment extends DialogFragment {
@@ -51,6 +60,9 @@ public class AnnouncementsFilterFragment extends DialogFragment {
 
         mAnnouncementsListSharedViewModel = new ViewModelProvider(this).get(AnnouncementsListSharedViewModel.class);
         mAnnouncementsListSharedViewModel.init();
+
+        //Przechowywanie informacji na temat pól które zostały uzupełnione
+        Map<String,String> nonEmptyFields = new HashMap<String, String>();
 
         //TextInputLayouts
         mCity = view.findViewById(R.id.city_edittext_layout);
@@ -88,6 +100,7 @@ public class AnnouncementsFilterFragment extends DialogFragment {
         //Buttons
         mSearchBtn = view.findViewById(R.id.search_button_filter_ann);
         mCancelBtn = view.findViewById(R.id.cancel_button_filter_ann);
+
 
         mCity.getEditText().setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -158,7 +171,21 @@ public class AnnouncementsFilterFragment extends DialogFragment {
         mSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for (TextInputLayout textInputLayout : new TextInputLayout[] {mCity, mType, mSpecies, mGender, mDate, mMicrochipNr}) {
+                    EditText editText = textInputLayout.getEditText();
+                    String fieldName = textInputLayout.getTag().toString().trim(); // pobranie nazwy pola
+                    String fieldValue = editText.getText().toString().trim(); // pobranie wartości z pola
+                    if (!TextUtils.isEmpty(fieldValue) && !fieldValue.equals("Wszystkie")) {
+                        if(fieldName.equals("date"))
+                            fieldValue = fieldValue.replace("Ost.","");
 
+                        nonEmptyFields.put(fieldName,fieldValue); //dodajemy wartość pola
+                    }
+                }
+                if (!nonEmptyFields.isEmpty()){
+                    mAnnouncementsListSharedViewModel.filterAnnouncements(nonEmptyFields);
+                }
+                dismiss();
             }
         });
 
